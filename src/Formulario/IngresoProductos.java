@@ -5,9 +5,12 @@
  * @author Miguel
  */
 package Formulario;
+
 import de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel;
 import Clases.GenerarCodigos;
 import Clases.conectar;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.util.logging.*;
 import javax.swing.JOptionPane;
@@ -20,147 +23,143 @@ import javax.swing.table.DefaultTableModel;
 public class IngresoProductos extends javax.swing.JInternalFrame {
 
     DefaultTableModel model;
-    /** Creates new form IngresoProductos */
+
+    /**
+     * Creates new form IngresoProductos
+     */
     public IngresoProductos() {
-       
+
         initComponents();
-         this.setLocation(150,15 );
-         bloquear();
-         cargar("");
+        this.setLocation(150, 15);
+        bloquear();
+        cargar("");
     }
-     void bloquear(){
-    txtcod.setEnabled(false);
-    txtdes.setEnabled(false);
-    txtprecom.setEnabled(false);
-    txtstock.setEnabled(false);
-    btnguardar.setEnabled(false);
-    btnnuevo.setEnabled(true);
-    btncancelar.setEnabled(false);
-    btnactualizar.setEnabled(false);
-    txtdmarca.setEnabled(false);
-    txtprevent.setEnabled(false);
-    
+
+    void bloquear() {
+        txtcod.setEnabled(false);
+        txtdes.setEnabled(false);
+        txtprecom.setEnabled(false);
+        txtstock.setEnabled(false);
+        btnguardar.setEnabled(false);
+        btnnuevo.setEnabled(true);
+        btncancelar.setEnabled(false);
+        btnactualizar.setEnabled(false);
+        txtdmarca.setEnabled(false);
+        txtprevent.setEnabled(false);
+
     }
-    void limpiar(){
-    txtcod.setText("");
-    txtdes.setText("");
-    txtprecom.setText("");
-    txtstock.setText("");
+
+    void limpiar() {
+        txtcod.setText("");
+        txtdes.setText("");
+        txtprecom.setText("");
+        txtstock.setText("");
     }
-    void desbloquear(){
-    txtcod.setEnabled(true);
-    txtdes.setEnabled(true);
-    txtprecom.setEnabled(true);
-    txtstock.setEnabled(true);
-    btnguardar.setEnabled(true);
-    btnnuevo.setEnabled(false);
-    btncancelar.setEnabled(true);
-    txtdmarca.setEnabled(true);
-    txtprevent.setEnabled(true);
+
+    void desbloquear() {
+        txtcod.setEnabled(true);
+        txtdes.setEnabled(true);
+        txtprecom.setEnabled(true);
+        txtstock.setEnabled(true);
+        btnguardar.setEnabled(true);
+        btnnuevo.setEnabled(false);
+        btncancelar.setEnabled(true);
+        txtdmarca.setEnabled(true);
+        txtprevent.setEnabled(true);
     }
+
     void cargar(String valor) {
-        try{
-            String [] titulos={"Codigo","Descripcion","Precio","Stock"};
-            String [] registros= new String[4];
-            model=new DefaultTableModel(null,titulos);
-            
-            String cons="select * from producto WHERE CONCAT (descripcion,'',precio) LIKE '%"+valor+"%'";
-            Statement st= cn.createStatement();
+        try {
+            String[] titulos = {"Codigo", "Descripcion", "Precio", "Stock"};
+            String[] registros = new String[4];
+            model = new DefaultTableModel(null, titulos);
+
+            String cons = "select * from producto WHERE CONCAT (descripcion,'',precio) LIKE '%" + valor + "%'";
+            Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(cons);
-            while(rs.next()){
-                registros[0]=rs.getString(1);
-                registros[1]=rs.getString(2);
-                registros[2]=rs.getString(3);
-                registros[3]=rs.getString(4);
-                
-                model.addRow(registros);      
-                }
+            while (rs.next()) {
+                registros[0] = rs.getString(1);
+                registros[1] = rs.getString(2);
+                registros[2] = rs.getString(3);
+                registros[3] = rs.getString(4);
+
+                model.addRow(registros);
+            }
             tbproductos.setModel(model);
             tbproductos.getColumnModel().getColumn(0).setPreferredWidth(150);
             tbproductos.getColumnModel().getColumn(1).setPreferredWidth(300);
             tbproductos.getColumnModel().getColumn(2).setPreferredWidth(100);
-            }catch(Exception e){
-                System.out.println(e.getMessage());
-                 }
-     
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
-        void BuscarProductoEditar(String cod) {
-        
-        try{
-           
-            String codi="",desc="",prec="",stock="";
-            String cons="select * from producto WHERE cod_pro='"+cod+"'";
+
+    void BuscarProductoEditar(String cod) {
+
+        try {
+
+            String codi = "", desc = "", prec = "", stock = "";
+            String cons = "select * from producto WHERE cod_pro='" + cod + "'";
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(cons);
-            while(rs.next())
-            {
-                codi=rs.getString(1);
-                desc=rs.getString(2);
-                prec=rs.getString(3);
-                stock=rs.getString(4);
-           
+            while (rs.next()) {
+                codi = rs.getString(1);
+                desc = rs.getString(2);
+                prec = rs.getString(3);
+                stock = rs.getString(4);
+
             }
             txtcod.setText(codi);
             txtdes.setText(desc);
             txtprecom.setText(prec);
             txtstock.setText(stock);
-            
-            }catch(Exception e)
-            {
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-            }
-     
+        }
+
     }
-        void codigos(){
-           
+
+    void codigos() {
+
         int j;
-        int cont=1;
-        String num="";
-        String c="";
-         String SQL="select max(cod_pro) from producto";
-       // String SQL="select count(*) from factura";
+        int cont = 1;
+        String num = "";
+        String c = "";
+        String SQL = "select max(cod_pro) from producto";
+        // String SQL="select count(*) from factura";
         //String SQL="SELECT MAX(cod_emp) AS cod_emp FROM empleado";
         //String SQL="SELECT @@identity AS ID";
         try {
             Statement st = cn.createStatement();
-            ResultSet rs=st.executeQuery(SQL);
-            if(rs.next())
-            {              
-                 c=rs.getString(1);
+            ResultSet rs = st.executeQuery(SQL);
+            if (rs.next()) {
+                c = rs.getString(1);
             }
-            
-           
-            if(c==null){
+
+            if (c == null) {
                 txtcod.setText("CP0001");
+            } else {
+                char r1 = c.charAt(2);
+                char r2 = c.charAt(3);
+                char r3 = c.charAt(4);
+                char r4 = c.charAt(5);
+                String r = "";
+                r = "" + r1 + r2 + r3 + r4;
+                j = Integer.parseInt(r);
+                GenerarCodigos gen = new GenerarCodigos();
+                gen.generar(j);
+                txtcod.setText("CP" + gen.serie());
+
             }
-            else{
-                char r1=c.charAt(2);
-            char r2=c.charAt(3);
-            char r3=c.charAt(4);
-            char r4=c.charAt(5);
-            String r="";
-            r=""+r1+r2+r3+r4;
-                 j=Integer.parseInt(r);
-                 GenerarCodigos gen= new GenerarCodigos();
-                 gen.generar(j);
-                 txtcod.setText("CP"+gen.serie());
-                
-            
-            }
-       
-          
-                  
-           
-           
-         
+
         } catch (SQLException ex) {
-           Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    
-    
+            Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-   
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -258,6 +257,11 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
         txtprecom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtprecomActionPerformed(evt);
+            }
+        });
+        txtprecom.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtprecomKeyReleased(evt);
             }
         });
 
@@ -515,7 +519,7 @@ private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     desbloquear();
     limpiar();
     txtcod.requestFocus();
-   codigos();
+    codigos();
 }//GEN-LAST:event_btnnuevoActionPerformed
 
 private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
@@ -530,6 +534,7 @@ private void txtdesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
 private void txtprecomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtprecomActionPerformed
 // TODO add your handling code here:
+
     txtprecom.transferFocus();
 }//GEN-LAST:event_txtprecomActionPerformed
 
@@ -545,74 +550,65 @@ private void txtbuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
 
 private void mneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mneliminarActionPerformed
 // TODO add your handling code here:
-       int filasel= tbproductos.getSelectedRow();
-       try {
-           if(filasel==-1)
-           {
+    int filasel = tbproductos.getSelectedRow();
+    try {
+        if (filasel == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione algun dato");
-           }
-           else
-           {
-             String  cod=(String)tbproductos.getValueAt(filasel, 0);
-             String eliminarSQL="DELETE FROM producto WHERE cod_pro = '"+cod+"'";
-             try {
-             PreparedStatement pst  = cn.prepareStatement(eliminarSQL);
-          pst.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Borrado");
-            cargar("");
-            } 
-            catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+        } else {
+            String cod = (String) tbproductos.getValueAt(filasel, 0);
+            String eliminarSQL = "DELETE FROM producto WHERE cod_pro = '" + cod + "'";
+            try {
+                PreparedStatement pst = cn.prepareStatement(eliminarSQL);
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Borrado");
+                cargar("");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
             }
-           }
-           } 
-       catch (Exception e)
-       {
-       }
+        }
+    } catch (Exception e) {
+    }
 }//GEN-LAST:event_mneliminarActionPerformed
 
 private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
 // TODO add your handling code here:
-    String cod,des,pre,stock;
-            String sql="";
-            cod=txtcod.getText();
-            des=txtdes.getText();
-            pre=txtprecom.getText();
-            stock=txtstock.getText();
-            sql="INSERT INTO producto (cod_pro,descripcion,precio,Stock) VALUES (?,?,?,?)";
-        try {
-            PreparedStatement pst  = cn.prepareStatement(sql);
-            pst.setString(1, cod);
-            pst.setString(2, des);
-            pst.setString(3, pre);
-            pst.setString(4, stock);
-            int n=pst.executeUpdate();
-            if(n>0){
+    String cod, des, pre, stock;
+    String sql = "";
+    cod = txtcod.getText();
+    des = txtdes.getText();
+    pre = txtprecom.getText();
+    stock = txtstock.getText();
+    sql = "INSERT INTO producto (cod_pro,descripcion,precio,Stock) VALUES (?,?,?,?)";
+    try {
+        PreparedStatement pst = cn.prepareStatement(sql);
+        pst.setString(1, cod);
+        pst.setString(2, des);
+        pst.setString(3, pre);
+        pst.setString(4, stock);
+        int n = pst.executeUpdate();
+        if (n > 0) {
             JOptionPane.showMessageDialog(null, "Registro Guardado con Exito");
             bloquear();
-            }
-            cargar("");
-        } catch (SQLException ex) {
-            Logger.getLogger(IngresoProductos.class.getName()).log(Level.SEVERE, null, ex);
         }
+        cargar("");
+    } catch (SQLException ex) {
+        Logger.getLogger(IngresoProductos.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }//GEN-LAST:event_btnguardarActionPerformed
 
 private void mnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnactualizarActionPerformed
 // TODO add your handling code here:
-    
+
     try {
-        int filaMod=tbproductos.getSelectedRow();
-        if(filaMod==-1)
-        {
-        JOptionPane.showMessageDialog(null, "Seleccione alguna fila");
-        }
-        else
-        {
-        
-        btnactualizar.setEnabled(true);
-        String cod=(String)tbproductos.getValueAt(filaMod, 0);
-        desbloquear();
-        BuscarProductoEditar(cod);
+        int filaMod = tbproductos.getSelectedRow();
+        if (filaMod == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione alguna fila");
+        } else {
+
+            btnactualizar.setEnabled(true);
+            String cod = (String) tbproductos.getValueAt(filaMod, 0);
+            desbloquear();
+            BuscarProductoEditar(cod);
         }
     } catch (Exception e) {
     }
@@ -620,16 +616,16 @@ private void mnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
 private void btnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnactualizarActionPerformed
 // TODO add your handling code here:
-     String sql="UPDATE producto SET precio = '"+txtprecom.getText()+"',descripcion ='"+txtdes.getText()+"',Stock = '"+txtstock.getText()+"' WHERE cod_pro = '"+txtcod.getText()+"'"; 
+    String sql = "UPDATE producto SET precio = '" + txtprecom.getText() + "',descripcion ='" + txtdes.getText() + "',Stock = '" + txtstock.getText() + "' WHERE cod_pro = '" + txtcod.getText() + "'";
     try {
         PreparedStatement pst = cn.prepareStatement(sql);
         pst.executeUpdate();
-       JOptionPane.showMessageDialog(null, "Actualizado");
-       cargar("");
-       bloquear();
-       limpiar();
+        JOptionPane.showMessageDialog(null, "Actualizado");
+        cargar("");
+        bloquear();
+        limpiar();
     } catch (Exception e) {
-         JOptionPane.showMessageDialog(null, e);
+        JOptionPane.showMessageDialog(null, e);
     }
 }//GEN-LAST:event_btnactualizarActionPerformed
 
@@ -644,6 +640,12 @@ private void txtstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private void txtdmarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdmarcaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtdmarcaActionPerformed
+
+    private void txtprecomKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecomKeyReleased
+
+        txtprevent.setText(txtprecom.getText());
+
+    }//GEN-LAST:event_txtprecomKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -681,6 +683,6 @@ private void txtstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JTextField txtprevent;
     private javax.swing.JTextField txtstock;
     // End of variables declaration//GEN-END:variables
-   conectar cc= new conectar();
-   Connection cn=cc.conexion();
+   conectar cc = new conectar();
+    Connection cn = cc.conexion();
 }
