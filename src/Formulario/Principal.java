@@ -42,12 +42,13 @@ public class Principal extends javax.swing.JFrame {
 
         jdpescritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        MenuArchivo = new javax.swing.JMenu();
+        CerrarSesion = new javax.swing.JMenuItem();
+        Salir = new javax.swing.JMenuItem();
+        MenuRegistrar = new javax.swing.JMenu();
+        Productos = new javax.swing.JMenuItem();
+        Cientes = new javax.swing.JMenuItem();
+        Provedores = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
@@ -67,59 +68,67 @@ public class Principal extends javax.swing.JFrame {
 
         jdpescritorio.setBackground(java.awt.SystemColor.controlShadow);
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-archivos.png"))); // NOI18N
-        jMenu1.setText("Archivo");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+        MenuArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-archivos.png"))); // NOI18N
+        MenuArchivo.setText("Archivo");
+        MenuArchivo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        MenuArchivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
+                MenuArchivoActionPerformed(evt);
             }
         });
 
-        jMenuItem1.setText("Cerrar Sesion");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        CerrarSesion.setText("Cerrar Sesion");
+        CerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                CerrarSesionActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        MenuArchivo.add(CerrarSesion);
 
-        jMenuItem2.setText("Salir");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        Salir.setText("Salir");
+        Salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                SalirActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        MenuArchivo.add(Salir);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(MenuArchivo);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-edit_form.png"))); // NOI18N
-        jMenu2.setText("Registrar");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+        MenuRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-edit_form.png"))); // NOI18N
+        MenuRegistrar.setText("Registrar");
+        MenuRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        MenuRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu2ActionPerformed(evt);
+                MenuRegistrarActionPerformed(evt);
             }
         });
 
-        jMenuItem3.setText("Productos");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        Productos.setText("Productos");
+        Productos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                ProductosActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        MenuRegistrar.add(Productos);
 
-        jMenuItem4.setText("Clientes");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        Cientes.setText("Clientes");
+        Cientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                CientesActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem4);
+        MenuRegistrar.add(Cientes);
 
-        jMenuBar1.add(jMenu2);
+        Provedores.setText("Provedores");
+        Provedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProvedoresActionPerformed(evt);
+            }
+        });
+        MenuRegistrar.add(Provedores);
+
+        jMenuBar1.add(MenuRegistrar);
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-caja.png"))); // NOI18N
         jMenu3.setText("Venta");
@@ -247,43 +256,43 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+private void MenuArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuArchivoActionPerformed
 // TODO add your handling code here:
     
-}//GEN-LAST:event_jMenu1ActionPerformed
+}//GEN-LAST:event_MenuArchivoActionPerformed
 
-private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+private void CerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSesionActionPerformed
 // TODO add your handling code here:
     Login principal= new Login();
     principal.setVisible(true);
     principal.pack();
     principal.setLocationRelativeTo(null);
     this.setVisible(false);
-}//GEN-LAST:event_jMenuItem1ActionPerformed
+}//GEN-LAST:event_CerrarSesionActionPerformed
 
-private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
 // TODO add your handling code here:
     System.exit(0);
-}//GEN-LAST:event_jMenuItem2ActionPerformed
+}//GEN-LAST:event_SalirActionPerformed
 
-private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+private void ProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductosActionPerformed
 // TODO add your handling code here:
      IngresoProductos ip= new IngresoProductos();
     jdpescritorio.add(ip);
     ip.show();
-}//GEN-LAST:event_jMenuItem3ActionPerformed
+}//GEN-LAST:event_ProductosActionPerformed
 
-private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+private void MenuRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuRegistrarActionPerformed
 // TODO add your handling code here:
     
-}//GEN-LAST:event_jMenu2ActionPerformed
+}//GEN-LAST:event_MenuRegistrarActionPerformed
 
-private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+private void CientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CientesActionPerformed
 // TODO add your handling code here:
     IngresoCliente cli= new IngresoCliente();
     jdpescritorio.add(cli);
     cli.show();
-}//GEN-LAST:event_jMenuItem4ActionPerformed
+}//GEN-LAST:event_CientesActionPerformed
 
 private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
 // TODO add your handling code here:
@@ -398,6 +407,12 @@ private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         }
 }//GEN-LAST:event_jMenuItem14ActionPerformed
 
+    private void ProvedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvedoresActionPerformed
+    IngresoProvedor pro= new IngresoProvedor();
+    jdpescritorio.add(pro);
+    pro.show();        // TODO add your handling code here:
+    }//GEN-LAST:event_ProvedoresActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -447,21 +462,22 @@ catch (Exception e)
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem CerrarSesion;
+    private javax.swing.JMenuItem Cientes;
+    private javax.swing.JMenu MenuArchivo;
+    private javax.swing.JMenu MenuRegistrar;
+    private javax.swing.JMenuItem Productos;
+    private javax.swing.JMenuItem Provedores;
+    private javax.swing.JMenuItem Salir;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;

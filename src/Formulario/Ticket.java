@@ -250,8 +250,7 @@ public static String fechaact(){
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        setBackground(java.awt.SystemColor.activeCaptionBorder);
-        setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder()));
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);

@@ -30,7 +30,7 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
     }
      void bloquear(){
     txtcod.setEnabled(false);
-    txtdes.setEnabled(false);
+    txtprod.setEnabled(false);
     txtprecom.setEnabled(false);
     txtstock.setEnabled(false);
     btnguardar.setEnabled(false);
@@ -39,17 +39,24 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
     btnactualizar.setEnabled(false);
     txtdmarca.setEnabled(false);
     txtprevent.setEnabled(false);
+    ComboEstante.setEnabled(false);
+    ComboRepisa.setEnabled(false);
     
     }
     void limpiar(){
     txtcod.setText("");
-    txtdes.setText("");
+    txtprod.setText("");
+    txtdmarca.setText("");
     txtprecom.setText("");
+    txtprevent.setText("");
     txtstock.setText("");
+    ComboEstante.setSelectedItem("");
+    ComboRepisa.setSelectedItem("");
+    
     }
     void desbloquear(){
     txtcod.setEnabled(true);
-    txtdes.setEnabled(true);
+    txtprod.setEnabled(true);
     txtprecom.setEnabled(true);
     txtstock.setEnabled(true);
     btnguardar.setEnabled(true);
@@ -57,28 +64,41 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
     btncancelar.setEnabled(true);
     txtdmarca.setEnabled(true);
     txtprevent.setEnabled(true);
+    ComboEstante.setEnabled(true);
+    ComboRepisa.setEnabled(true);
     }
     void cargar(String valor) {
-        try{
-            String [] titulos={"Codigo","Descripcion","Precio","Stock"};
-            String [] registros= new String[4];
+        
+            String [] titulos={"Codigo","Descripcion","Marca","Precio Compra","Precio Venta","Stock","Estante","Repisa"};
+            String [] registros= new String[8];
             model=new DefaultTableModel(null,titulos);
-            
+            try{
             String cons="select * from producto WHERE CONCAT (descripcion,'',precio) LIKE '%"+valor+"%'";
             Statement st= cn.createStatement();
+            
             ResultSet rs = st.executeQuery(cons);
             while(rs.next()){
                 registros[0]=rs.getString(1);
                 registros[1]=rs.getString(2);
                 registros[2]=rs.getString(3);
                 registros[3]=rs.getString(4);
+                registros[4]=rs.getString(5);
+                registros[5]=rs.getString(6);
+                registros[6]=rs.getString(7);
+                registros[7]=rs.getString(8);
                 
                 model.addRow(registros);      
                 }
             tbproductos.setModel(model);
             tbproductos.getColumnModel().getColumn(0).setPreferredWidth(150);
-            tbproductos.getColumnModel().getColumn(1).setPreferredWidth(300);
+            tbproductos.getColumnModel().getColumn(1).setPreferredWidth(200);
             tbproductos.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tbproductos.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tbproductos.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tbproductos.getColumnModel().getColumn(5).setPreferredWidth(100);
+            tbproductos.getColumnModel().getColumn(6).setPreferredWidth(100);
+            tbproductos.getColumnModel().getColumn(7).setPreferredWidth(100);
+
             }catch(Exception e){
                 System.out.println(e.getMessage());
                  }
@@ -88,7 +108,7 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
         
         try{
            
-            String codi="",desc="",prec="",stock="";
+            String codi="",desc="",marca="",prec="",preven="",stock="",estante="",repisa="";
             String cons="select * from producto WHERE cod_pro='"+cod+"'";
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(cons);
@@ -96,14 +116,23 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
             {
                 codi=rs.getString(1);
                 desc=rs.getString(2);
-                prec=rs.getString(3);
-                stock=rs.getString(4);
+                marca=rs.getString(3);
+                prec=rs.getString(4);
+                preven=rs.getString(5);
+                stock=rs.getString(6);
+                estante=rs.getString(7);
+                repisa=rs.getString(8);
+                
            
             }
             txtcod.setText(codi);
-            txtdes.setText(desc);
+            txtprod.setText(desc);
+            txtdmarca.setText(marca);
             txtprecom.setText(prec);
+            txtprevent.setText(preven);
             txtstock.setText(stock);
+            ComboEstante.setSelectedItem(estante);
+            ComboRepisa.setSelectedItem(repisa);
             
             }catch(Exception e)
             {
@@ -174,7 +203,7 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txtcod = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtdes = new javax.swing.JTextField();
+        txtprod = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtprecom = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -184,7 +213,7 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         txtdmarca = new javax.swing.JTextField();
         ComboEstante = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        ComboRepisa = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -247,9 +276,9 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Producto:");
 
-        txtdes.addActionListener(new java.awt.event.ActionListener() {
+        txtprod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtdesActionPerformed(evt);
+                txtprodActionPerformed(evt);
             }
         });
 
@@ -287,7 +316,7 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
 
         ComboEstante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "1", "2", "3", "4", "5", "6", "7", "8" }));
+        ComboRepisa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "1", "2", "3", "4", "5", "6", "7", "8" }));
 
         jLabel8.setText("Estante:");
 
@@ -312,7 +341,7 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
                     .addComponent(txtprevent, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtstock, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtprecom, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtdes, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                    .addComponent(txtprod, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
                     .addComponent(txtcod))
                 .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -321,7 +350,7 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(ComboEstante, 0, 57, Short.MAX_VALUE)
-                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(ComboRepisa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -337,9 +366,9 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtdes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtprod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel9)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ComboRepisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
@@ -523,10 +552,10 @@ private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     bloquear();
 }//GEN-LAST:event_btncancelarActionPerformed
 
-private void txtdesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdesActionPerformed
+private void txtprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtprodActionPerformed
 // TODO add your handling code here:
-    txtdes.transferFocus();
-}//GEN-LAST:event_txtdesActionPerformed
+    txtprod.transferFocus();
+}//GEN-LAST:event_txtprodActionPerformed
 
 private void txtprecomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtprecomActionPerformed
 // TODO add your handling code here:
@@ -573,19 +602,30 @@ private void mneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
 private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
 // TODO add your handling code here:
-    String cod,des,pre,stock;
+    String cod,des,marca,pre,preven,stock,stante,repisa;
             String sql="";
             cod=txtcod.getText();
-            des=txtdes.getText();
+            des=txtprod.getText();
+            marca=txtdmarca.getText();
             pre=txtprecom.getText();
+            preven=txtprevent.getText();
             stock=txtstock.getText();
-            sql="INSERT INTO producto (cod_pro,descripcion,precio,Stock) VALUES (?,?,?,?)";
-        try {
+            stante=ComboEstante.getSelectedItem().toString();
+            repisa=ComboRepisa.getSelectedItem().toString();
+            
+            
+           sql="INSERT INTO producto (cod_pro,descripcion,marca,precio,pecio_venta,Stock,estante,repisa) VALUES (?,?,?,?,?,?,?,?)";
+        
+       try {
             PreparedStatement pst  = cn.prepareStatement(sql);
             pst.setString(1, cod);
             pst.setString(2, des);
-            pst.setString(3, pre);
-            pst.setString(4, stock);
+            pst.setString(3, marca);
+            pst.setString(4, pre);
+            pst.setString(5, preven);
+            pst.setString(6, stock);
+            pst.setString(7, stante);
+            pst.setString(8, repisa);
             int n=pst.executeUpdate();
             if(n>0){
             JOptionPane.showMessageDialog(null, "Registro Guardado con Exito");
@@ -620,7 +660,14 @@ private void mnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
 private void btnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnactualizarActionPerformed
 // TODO add your handling code here:
-     String sql="UPDATE producto SET precio = '"+txtprecom.getText()+"',descripcion ='"+txtdes.getText()+"',Stock = '"+txtstock.getText()+"' WHERE cod_pro = '"+txtcod.getText()+"'"; 
+     String sql="UPDATE producto SET precio = '"+txtprecom.getText()
+             +"',descripcion ='"+txtprod.getText()
+             +"',marca ='"+ txtdmarca.getText()
+             +"',precio_venta ='"+txtprevent.getText()
+             +"',Stock = '"+txtstock.getText()
+             +"',estante='"+ComboEstante.getSelectedItem()
+             +"',repisa='"+ComboRepisa.getSelectedItem()
+             +"' WHERE cod_pro = '"+txtcod.getText()+"'"; 
     try {
         PreparedStatement pst = cn.prepareStatement(sql);
         pst.executeUpdate();
@@ -648,13 +695,13 @@ private void txtstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboEstante;
+    private javax.swing.JComboBox<String> ComboRepisa;
     private javax.swing.JButton btnactualizar;
     private javax.swing.JButton btncancelar;
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnnuevo;
     private javax.swing.JButton btnsalir;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -675,10 +722,10 @@ private void txtstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JTable tbproductos;
     private javax.swing.JTextField txtbuscar;
     private javax.swing.JTextField txtcod;
-    private javax.swing.JTextField txtdes;
     private javax.swing.JTextField txtdmarca;
     private javax.swing.JTextField txtprecom;
     private javax.swing.JTextField txtprevent;
+    private javax.swing.JTextField txtprod;
     private javax.swing.JTextField txtstock;
     // End of variables declaration//GEN-END:variables
    conectar cc= new conectar();
