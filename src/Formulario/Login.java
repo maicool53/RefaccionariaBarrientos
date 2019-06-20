@@ -6,7 +6,15 @@
  */
 package Formulario;
 
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 /**
  *
  * @author Miguel
@@ -17,8 +25,9 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
           this.setSize(380, 200);
-        this.setLocation(350, 300);
+            this.setLocation(350, 300);
         txtusuario.requestFocus();
+        
     }
 
     /** This method is called from within the constructor to
@@ -41,6 +50,7 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Acceso al Sistema");
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(java.awt.SystemColor.activeCaptionBorder);
@@ -48,6 +58,22 @@ public class Login extends javax.swing.JFrame {
         txtusuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtusuarioActionPerformed(evt);
+            }
+        });
+        txtusuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtusuarioKeyPressed(evt);
+            }
+        });
+
+        txtcontra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtcontraActionPerformed(evt);
+            }
+        });
+        txtcontra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtcontraKeyPressed(evt);
             }
         });
 
@@ -82,32 +108,33 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(185, 185, 185)
+                        .addGap(165, 165, 165)
                         .addComponent(jLabel3))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnaceptar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnsalir))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(131, 131, 131)
+                            .addComponent(btnaceptar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnsalir))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(101, 101, 101)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtcontra, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                                .addComponent(txtusuario)))))
-                .addContainerGap(155, Short.MAX_VALUE))
+                                .addComponent(txtcontra)
+                                .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(153, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(106, 106, 106)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -119,16 +146,16 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(txtcontra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(53, 53, 53)
+                .addGap(61, 61, 61)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnsalir)
-                    .addComponent(btnaceptar))
-                .addContainerGap(147, Short.MAX_VALUE))
+                    .addComponent(btnaceptar)
+                    .addComponent(btnsalir))
+                .addGap(140, 140, 140))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 530));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 650));
 
-        setSize(new java.awt.Dimension(469, 582));
+        setSize(new java.awt.Dimension(451, 646));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -139,11 +166,18 @@ private void btnaceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     if(usu.equals("admin") && pas.equals("admin"))
     {
         this.setVisible(false);
-        JOptionPane.showMessageDialog(null, "Bienvenido "+txtusuario.getText());
+        PantallaBienvenido p = new PantallaBienvenido();
+        p.setVisible(true);
+        p.pack();
+        p.setLocationRelativeTo(null);
+        p.setAlwaysOnTop(true);
+        
         Principal i = new Principal();
         i.setVisible(true);
         i.pack();
         i.setLocationRelativeTo(null);
+        i.setExtendedState(i.MAXIMIZED_BOTH);
+//  this.setLocation(200, 50);
         
     }
     else
@@ -151,17 +185,43 @@ private void btnaceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         JOptionPane.showMessageDialog(null, "Los Datos son Incorrectos vuelva a Intentarlo");
         txtusuario.requestFocus();
     }
+          try{
+          Clip Sonido=AudioSystem.getClip();
+          Sonido.open(AudioSystem.getAudioInputStream(new File("src\\Sonidos\\fx 13.wav")));
+          Sonido.start();
+          
+     }catch(Exception ex){
+         
+     System.err.println(ex+" error");
+     
+     }
 
 }//GEN-LAST:event_btnaceptarActionPerformed
 
 private void txtusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtusuarioActionPerformed
-// TODO add your handling code here:
-    txtusuario.requestFocus();
+    evt.setSource((char) KeyEvent.VK_ENTER);
+    txtcontra.requestFocus();// TODO add your handling code here:
+   
 }//GEN-LAST:event_txtusuarioActionPerformed
 
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
 System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_btnsalirActionPerformed
+
+    private void txtcontraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcontraActionPerformed
+    // TODO add your handling code here:
+    }//GEN-LAST:event_txtcontraActionPerformed
+
+    private void txtcontraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcontraKeyPressed
+     char c = evt.getKeyChar();
+        if (c==evt.VK_ENTER){
+        btnaceptar.doClick();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcontraKeyPressed
+
+    private void txtusuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtusuarioKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtusuarioKeyPressed
 
     /**
      * @param args the command line arguments

@@ -12,10 +12,7 @@ import java.util.logging.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Administrador
- */
+
 public class ClientesBusqueda extends javax.swing.JInternalFrame {
 DefaultTableModel modelo;
     /** Creates new form ClientesB */
@@ -25,26 +22,25 @@ DefaultTableModel modelo;
     }
     void mostrarclientes(String valor)
     {
-        String[]titulos={"Codigo","Nombres","Apellidos","Sexo","DNI","Telefono","RUC","Email","Direccion"} ;  
-        String []Registros= new String[9];
+        String[]titulos={"Codigo","Nombres","Apellidos","Sexo","Clase","Telefono","Email","Direccion"} ;  
+        String []Registros= new String[8];
         modelo=new DefaultTableModel(null,titulos);
-        String Sql="SELECT * FROM cliente WHERE CONCAT(cod_cli,nom_cli,ape_cli,dni_cli) LIKE '%"+valor+"%'";
+        String Sql="SELECT * FROM cliente WHERE CONCAT(cod_cli,nom_cli,ape_cli,clas_cli) LIKE '%"+valor+"%'";
        
         try {
              Statement st = cn.createStatement();
              ResultSet rs = st.executeQuery(Sql);
              while(rs.next())
              {
-                 Registros[0]=rs.getString("cod_cli");  
-                 Registros[1]=rs.getString("nom_cli");  
-                 Registros[2]=rs.getString("ape_cli");  
-                 Registros[3]=rs.getString("sexo_cli");  
-                 Registros[4]=rs.getString("dni_cli");  
-                 Registros[5]=rs.getString("tel_cli");  
-                 Registros[6]=rs.getString("ruc_cli");  
-                 Registros[7]=rs.getString("email_cli");  
-                 Registros[8]=rs.getString("dir_cli");  
-                 modelo.addRow(Registros);
+                 Registros[0]= rs.getString("cod_cli");
+                  Registros[1]= rs.getString("nom_cli");
+                  Registros[2]= rs.getString("ape_cli");
+                  Registros[3]= rs.getString("sexo_cli");
+                  Registros[4]= rs.getString("clas_cli");
+                  Registros[5]= rs.getString("tel_cli");
+                  Registros[6]= rs.getString("email_cli");
+                  Registros[7]= rs.getString("dir_cli");
+                  modelo.addRow(Registros);
              } 
              tbclientes.setModel(modelo);
         } catch (SQLException ex) {
@@ -83,7 +79,7 @@ DefaultTableModel modelo;
         });
         jPopupMenu1.add(mnenviar);
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder()));
+        setBorder(null);
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
@@ -179,7 +175,7 @@ DefaultTableModel modelo;
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
@@ -220,7 +216,7 @@ private void BtnregistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
 private void mnenviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnenviarActionPerformed
 // TODO add your handling code here:
-     String cod="",nom="",ape="",dni="",dir="",ruc="";
+     String cod="",nom="",ape="",tipo="",dir="";
     int fila = tbclientes.getSelectedRow();
     try {
         if(fila==-1)
@@ -230,17 +226,16 @@ private void mnenviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
         else
         {
-         cod =  (String)tbclientes.getValueAt(fila, 0);
-         nom =  (String)tbclientes.getValueAt(fila, 1);
-         ape =  (String)tbclientes.getValueAt(fila, 2);
-         dni =  (String)tbclientes.getValueAt(fila, 4);
-         ruc =  (String)tbclientes.getValueAt(fila, 6);
-         dir=  (String)tbclientes.getValueAt(fila, 8);
+         cod = (String)tbclientes.getValueAt(fila, 0);
+         nom = (String)tbclientes.getValueAt(fila, 1);
+         ape = (String)tbclientes.getValueAt(fila, 2);
+         tipo= (String)tbclientes.getValueAt(fila, 4);
+         dir=  (String)tbclientes.getValueAt(fila, 7);
          
          Ticket.txtcod.setText(cod);
-         Ticket.txtnomape.setText(nom+"   "+ape);
+         Ticket.txtnomape.setText(nom+" "+ape);
          Ticket.txtdire.setText(dir);
-         Ticket.txtdni.setText(dni);
+         Ticket.txttipo.setText(tipo);
         
          this.dispose();
          

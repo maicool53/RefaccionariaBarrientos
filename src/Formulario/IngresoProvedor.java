@@ -26,21 +26,18 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
         bloquear();
         cargar("");
     }
-    
-    public void items(){
-         TextAutoCompleter textAutoCompleter = new TextAutoCompleter(txtbuscar);  
-    }
-    
-    
-    
-    
-    
+  
      void bloquear(){
     txtcod.setEnabled(false);
     txtnom.setEnabled(false);
     txtdir.setEnabled(false);
     txtemail.setEnabled(false);
     txttel.setEnabled(false);
+    txtsucursal.setEnabled(false);
+    txtnomcontacto.setEnabled(false);
+    txtapecontacto.setEnabled(false);
+    txttelcontacto.setEnabled(false);
+    txtemailcontacto.setEnabled(false);
     btnguardar.setEnabled(false);
     btnnuevo.setEnabled(true);
     btncancelar.setEnabled(false);
@@ -53,6 +50,11 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
     txtdir.setText("");
     txtemail.setText("");
     txttel.setText("");
+    txtsucursal.setText("");
+    txtnomcontacto.setText("");
+    txtapecontacto.setText("");
+    txttelcontacto.setText("");
+    txtemailcontacto.setText("");
 
     
     }
@@ -62,6 +64,11 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
     txtdir.setEnabled(true);
     txtemail.setEnabled(true);
     txttel.setEnabled(true);
+    txtsucursal.setEnabled(true);
+    txtnomcontacto.setEnabled(true);
+    txtapecontacto.setEnabled(true);
+    txttelcontacto.setEnabled(true);
+    txtemailcontacto.setEnabled(true);
     btnguardar.setEnabled(true);
     btnnuevo.setEnabled(false);
     btncancelar.setEnabled(true);
@@ -69,8 +76,8 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
     }
     void cargar(String valor){
     String mostrar="SELECT * FROM provedor WHERE CONCAT(cod_prov,nom_prov) LIKE '%"+valor+"%'";
-    String []titulos={"Codigo","Provedor","Telefono","Email","Direccion"};
-    String []Registros=new String[5];
+    String []titulos={"Codigo","Provedor","Telefono","Email","Direccion","Sucursal","Contacto","Apellido","Telefono","E-mail"};
+    String []Registros=new String[10];
     model= new DefaultTableModel(null,titulos);
   
         try {
@@ -82,7 +89,13 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
                   Registros[1]= rs.getString("nom_prov");
                   Registros[2]= rs.getString("tel_prov");
                   Registros[3]= rs.getString("email_prov");
-                  Registros[4]= rs.getString("dir_prov");        
+                  Registros[4]= rs.getString("dir_prov");  
+                  Registros[5]= rs.getString("sucursal");  
+                  Registros[6]= rs.getString("nombrecontacto");  
+                  Registros[7]= rs.getString("apellidocontacto");  
+                  Registros[8]= rs.getString("telefonocontacto");  
+                  Registros[9]= rs.getString("emailcontacto"); 
+                  
                   model.addRow(Registros);
               }
               tbclientes.setModel(model);
@@ -163,6 +176,17 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         txtdir = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        txtnomcontacto = new javax.swing.JTextField();
+        txttelcontacto = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        txtemailcontacto = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtapecontacto = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtsucursal = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btnnuevo = new javax.swing.JButton();
         btnguardar = new javax.swing.JButton();
@@ -227,6 +251,90 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Direccion:");
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Contacto"));
+
+        jLabel3.setText("Nombres:");
+
+        txtnomcontacto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnomcontactoKeyTyped(evt);
+            }
+        });
+
+        txttelcontacto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txttelcontactoActionPerformed(evt);
+            }
+        });
+        txttelcontacto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txttelcontactoKeyTyped(evt);
+            }
+        });
+
+        jLabel9.setText("Telefono:");
+
+        jLabel11.setText("Email:");
+
+        jLabel4.setText("Apellido:");
+
+        txtapecontacto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtapecontactoKeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtnomcontacto, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtemailcontacto, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(txttelcontacto)
+                                .addGap(32, 32, 32))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtapecontacto, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(171, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtnomcontacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtapecontacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txttelcontacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(txtemailcontacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40))
+        );
+
+        jLabel12.setText("Sucursal:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -238,40 +346,59 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel8)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addGap(34, 34, 34)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel12))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtnom, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtcod, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtdir, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txttel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(txtcod, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txttel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtdir, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(txtnom, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(txtsucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(74, 74, 74))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtcod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtnom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txttel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtdir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtcod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtnom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txttel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(txtdir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(txtsucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -386,29 +513,27 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
                 .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnbuscar)
-                .addContainerGap(396, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 786, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnbuscar)
@@ -431,6 +556,11 @@ private void btnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN
                 +"',tel_prov='"+txttel.getText()
                 +"',email_prov='"+txtemail.getText()
                 +"',dir_prov='"+txtdir.getText()
+                +"',sucursal'"+txtsucursal.getText()
+                +"',nombrecontacto'"+txtnomcontacto.getText()
+                +"',apellidocontacto'"+txtapecontacto.getText()        
+                +"',telefonocontacto'"+txttelcontacto.getText()
+                +"',emailcontacto'"+txtemailcontacto.getText()
                 +"' WHERE cod_prov='"+txtcod.getText()+"'");
         pst.executeUpdate();
         cargar("");
@@ -462,16 +592,21 @@ private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
 private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
 // TODO add your handling code here:
-    String cod,dir,nom,tel,email;
+    String cod,dir,nom,tel,email,sucursal,nomcontact,apecontact,telefonocontac,correocontact;
             String sql="";
             cod=txtcod.getText();
             nom=txtnom.getText();
             dir=txtdir.getText();
             tel=txttel.getText();
             email= txtemail.getText();
+            sucursal=txtsucursal.getText();
+            nomcontact=txtnomcontacto.getText();
+            apecontact=txtapecontacto.getText();
+            telefonocontac=txttelcontacto.getText();
+            correocontact=txtemailcontacto.getText();
             
             
-            sql="INSERT INTO provedor (cod_prov,nom_prov,tel_prov,email_prov,dir_prov) VALUES (?,?,?,?,?)";
+            sql="INSERT INTO provedor (cod_prov,nom_prov,tel_prov,email_prov,dir_prov,sucursal,nombrecontacto,apellidocontacto,telefonocontacto,emailcontacto) VALUES (?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement pst  = cn.prepareStatement(sql);
             pst.setString(1, cod);
@@ -479,7 +614,11 @@ private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             pst.setString(3, tel);
             pst.setString(4, email);
             pst.setString(5, dir);
-           
+            pst.setString(6, sucursal);
+            pst.setString(7, nomcontact);
+            pst.setString(8, apecontact);
+            pst.setString(9, telefonocontac);
+            pst.setString(10, correocontact);
             int n=pst.executeUpdate();
             if(n>0){
             JOptionPane.showMessageDialog(null, "Registro Guardado con Exito");
@@ -551,6 +690,12 @@ private void mnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         txttel.setText(tbclientes.getValueAt(filamodificar, 2).toString());
         txtemail.setText(tbclientes.getValueAt(filamodificar, 3).toString());
         txtdir.setText(tbclientes.getValueAt(filamodificar, 4).toString());
+        txtsucursal.setText(tbclientes.getValueAt(filamodificar, 5).toString());
+        txtnomcontacto.setText(tbclientes.getValueAt(filamodificar, 6).toString());
+        txtapecontacto.setText(tbclientes.getValueAt(filamodificar, 7).toString());
+        txttelcontacto.setText(tbclientes.getValueAt(filamodificar, 8).toString());
+        txtemailcontacto.setText(tbclientes.getValueAt(filamodificar, 9).toString());
+        
       
     }
     else
@@ -567,6 +712,25 @@ private void mnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         // TODO add your handling code here:
     }//GEN-LAST:event_btnbuscarActionPerformed
 
+    private void txtnomcontactoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnomcontactoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnomcontactoKeyTyped
+
+    private void txttelcontactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttelcontactoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttelcontactoActionPerformed
+
+    private void txttelcontactoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttelcontactoKeyTyped
+    char car2 = evt.getKeyChar();
+    if(txttelcontacto.getText().length()>=10) evt.consume();
+    if((car2<'0' || car2>'9')) evt.consume();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttelcontactoKeyTyped
+
+    private void txtapecontactoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapecontactoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtapecontactoKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnactualizar;
@@ -577,23 +741,34 @@ private void mnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JButton btnsalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenuItem mneliminar;
     private javax.swing.JMenuItem mnmodificar;
     private javax.swing.JTable tbclientes;
+    private javax.swing.JTextField txtapecontacto;
     private javax.swing.JTextField txtbuscar;
     private javax.swing.JTextField txtcod;
     private javax.swing.JTextField txtdir;
     private javax.swing.JTextField txtemail;
+    private javax.swing.JTextField txtemailcontacto;
     private javax.swing.JTextField txtnom;
+    private javax.swing.JTextField txtnomcontacto;
+    private javax.swing.JTextField txtsucursal;
     private javax.swing.JTextField txttel;
+    private javax.swing.JTextField txttelcontacto;
     // End of variables declaration//GEN-END:variables
 conectar cc= new conectar();
 Connection cn= cc.conexion();

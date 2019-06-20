@@ -14,10 +14,7 @@ import java.util.logging.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Miguel
- */
+
 public class IngresoCliente extends javax.swing.JInternalFrame {
     DefaultTableModel model;
     /** Creates new form IngresoCliente */

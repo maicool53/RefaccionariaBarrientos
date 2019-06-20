@@ -31,7 +31,7 @@ public class ConsultasFacturas extends javax.swing.JInternalFrame {
     void cargartodasfacturas()
     {
         DefaultTableModel tabla= new DefaultTableModel();
-        String []titulos={"NUMERO","COD. CLIENTE","RUC CLIENTE","SUBTOTAL","IGV","TOTAL","FECHA"};
+        String []titulos={"NUMERO","COD. CLIENTE","SUBTOTAL","IVA","TOTAL","FECHA"};
         tabla.setColumnIdentifiers(titulos);
         this.tbfacturas.setModel(tabla);
         String consulta= "SELECT * FROM factura";
@@ -43,11 +43,10 @@ public class ConsultasFacturas extends javax.swing.JInternalFrame {
             {
                 Datos[0]=rs.getString("num_fac");
                 Datos[1]=rs.getString("cod_cli");
-                Datos[2]=rs.getString("ruc_cli");
-                Datos[3]=rs.getString("subtotal");
-                Datos[4]=rs.getString("igv");
-                Datos[5]=rs.getString("total");
-                Datos[6]=rs.getString("fec_fac");
+                Datos[2]=rs.getString("subtotal");
+                Datos[3]=rs.getString("igv");
+                Datos[4]=rs.getString("total");
+                Datos[5]=rs.getString("fec_fac");
                 
                 tabla.addRow(Datos);
             }
@@ -95,7 +94,7 @@ public class ConsultasFacturas extends javax.swing.JInternalFrame {
         });
         jPopupMenu1.add(mneliminar);
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder()));
+        setBorder(null);
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
@@ -127,6 +126,12 @@ public class ConsultasFacturas extends javax.swing.JInternalFrame {
             }
         });
 
+        txtnumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtnumeroKeyReleased(evt);
+            }
+        });
+
         btnbuscador.setText("BUSCAR");
         btnbuscador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,7 +147,7 @@ public class ConsultasFacturas extends javax.swing.JInternalFrame {
                 .addGap(109, 109, 109)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(rdbnnumero)
                                 .addGap(27, 27, 27)
@@ -150,11 +155,11 @@ public class ConsultasFacturas extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(rdbbnfecha)
                                 .addGap(18, 18, 18)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(26, 26, 26)
                         .addComponent(btnbuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(rdbntodos))
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addContainerGap(176, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,6 +180,7 @@ public class ConsultasFacturas extends javax.swing.JInternalFrame {
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
+        tbfacturas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tbfacturas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -197,7 +203,7 @@ public class ConsultasFacturas extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -229,7 +235,7 @@ private void btnbuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     {
            Date fecha=jDateChooser1.getDate();
    SimpleDateFormat formatofecha= new SimpleDateFormat("dd/MM/YYYY");
-String fec=""+formatofecha.format(fecha);
+    String fec=""+formatofecha.format(fecha);
         consulta= "SELECT * FROM factura WHERE fec_fac='"+fec+"'";
     }
     if(rdbntodos.isSelected()==true)
@@ -237,7 +243,7 @@ String fec=""+formatofecha.format(fecha);
         consulta= "SELECT * FROM factura ";
     }
         DefaultTableModel tabla= new DefaultTableModel();
-        String []titulos={"NUMERO","COD. CLIENTE","RUC CLIENTE","SUBTOTAL","IGV","TOTAL","FECHA"};
+        String []titulos={"NUMERO","COD. CLIENTE","SUBTOTAL","IVA","TOTAL","FECHA"};
         tabla.setColumnIdentifiers(titulos);
         this.tbfacturas.setModel(tabla);
         
@@ -249,11 +255,10 @@ String fec=""+formatofecha.format(fecha);
             {
                 Datos[0]=rs.getString("num_fac");
                 Datos[1]=rs.getString("cod_cli");
-                Datos[2]=rs.getString("ruc_cli");
-                Datos[3]=rs.getString("subtotal");
-                Datos[4]=rs.getString("igv");
-                Datos[5]=rs.getString("total");
-                Datos[6]=rs.getString("fec_fac");
+                Datos[2]=rs.getString("subtotal");
+                Datos[3]=rs.getString("igv");
+                Datos[4]=rs.getString("total");
+                Datos[5]=rs.getString("fec_fac");
                 
                 tabla.addRow(Datos);
             }
@@ -317,16 +322,17 @@ private void mnverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
     Principal.jdpescritorio.add(detalle);
     detalle.toFront();
     detalle.setVisible(true);
-        String numfac=tbfacturas.getValueAt(filasele, 0).toString();
-        String cod=tbfacturas.getValueAt(filasele, 1).toString();
-        String ruc=tbfacturas.getValueAt(filasele, 2).toString();
-        String subtotal=tbfacturas.getValueAt(filasele, 3).toString();
-        String igv=tbfacturas.getValueAt(filasele, 4).toString();
-        String total=tbfacturas.getValueAt(filasele, 5).toString();
-        String fecha=tbfacturas.getValueAt(filasele, 6).toString();
+    
+        String numfac=tbfacturas.getValueAt  (filasele, 0).toString();
+        String cod=tbfacturas.getValueAt     (filasele, 1).toString();
+        String subtotal=tbfacturas.getValueAt(filasele, 2).toString();
+        String igv=tbfacturas.getValueAt     (filasele, 3).toString();
+        String total=tbfacturas.getValueAt   (filasele, 4).toString();
+        String fecha=tbfacturas.getValueAt   (filasele, 5).toString();
+        
+        
         DetalleFactura.txtfac.setText(numfac);
         DetalleFactura.txtcod.setText(cod);
-        DetalleFactura.txtruc.setText(ruc);
         DetalleFactura.txtsub.setText(subtotal);
         DetalleFactura.txtigv.setText(igv);
         DetalleFactura.txttot.setText(total);
@@ -380,6 +386,54 @@ private void mneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         JOptionPane.showMessageDialog(this, "Seleccione alguna fila");
     }
 }//GEN-LAST:event_mneliminarActionPerformed
+
+    private void txtnumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnumeroKeyReleased
+ String num=txtnumero.getText();
+    
+    String consulta="";
+    if(rdbnnumero.isSelected()==true)
+    {
+        consulta= "SELECT * FROM factura WHERE num_fac='"+num+"'";
+    }
+    if(rdbbnfecha.isSelected()==true)
+    {
+           Date fecha=jDateChooser1.getDate();
+   SimpleDateFormat formatofecha= new SimpleDateFormat("dd/MM/YYYY");
+    String fec=""+formatofecha.format(fecha);
+        consulta= "SELECT * FROM factura WHERE fec_fac='"+fec+"'";
+    }
+    if(rdbntodos.isSelected()==true)
+    {
+        consulta= "SELECT * FROM factura ";
+    }
+        DefaultTableModel tabla= new DefaultTableModel();
+        String []titulos={"NUMERO","COD. CLIENTE","SUBTOTAL","IVA","TOTAL","FECHA"};
+        tabla.setColumnIdentifiers(titulos);
+        this.tbfacturas.setModel(tabla);
+        
+        String []Datos= new String [7];
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs= st.executeQuery(consulta);
+            while(rs.next())
+            {
+                Datos[0]=rs.getString("num_fac");
+                Datos[1]=rs.getString("cod_cli");
+                Datos[2]=rs.getString("subtotal");
+                Datos[3]=rs.getString("igv");
+                Datos[4]=rs.getString("total");
+                Datos[5]=rs.getString("fec_fac");
+                
+                tabla.addRow(Datos);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultasProductos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+   
+   
+           // TODO add your handling code here:
+    }//GEN-LAST:event_txtnumeroKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnbuscador;

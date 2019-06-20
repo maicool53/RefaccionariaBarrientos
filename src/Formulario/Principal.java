@@ -7,16 +7,15 @@
 package Formulario;
 
 import Clases.conectar;
-import de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel;
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.UIManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
-
 
 /**
  *
@@ -27,7 +26,12 @@ public class Principal extends javax.swing.JFrame {
     /** Creates new form Principal */
     public Principal() {
         initComponents();
-        this.setLocation(200, 50);
+
+
+                    
+        
+    setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        
         
     }
 
@@ -41,42 +45,54 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jdpescritorio = new javax.swing.JDesktopPane();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        MenuDelSistema = new javax.swing.JMenuBar();
         MenuArchivo = new javax.swing.JMenu();
         CerrarSesion = new javax.swing.JMenuItem();
         Salir = new javax.swing.JMenuItem();
+        MenuVender = new javax.swing.JMenu();
+        VenderPorFactura = new javax.swing.JMenuItem();
+        VenderPorTicket = new javax.swing.JMenuItem();
         MenuRegistrar = new javax.swing.JMenu();
         Productos = new javax.swing.JMenuItem();
         Cientes = new javax.swing.JMenuItem();
         Provedores = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
+        MenuConsultar = new javax.swing.JMenu();
+        ConsultarClientes = new javax.swing.JMenuItem();
+        ConsultarProducto = new javax.swing.JMenuItem();
+        ConsultarFacturas = new javax.swing.JMenuItem();
+        ConsultarTickets = new javax.swing.JMenuItem();
+        MenuReportes = new javax.swing.JMenu();
+        ReporteClientes = new javax.swing.JMenuItem();
+        ReporteProvedores = new javax.swing.JMenuItem();
+        ReporteProductos = new javax.swing.JMenuItem();
+        ReporteTickets = new javax.swing.JMenuItem();
+        ReporteFacturas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Ventas");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jdpescritorio.setBackground(java.awt.SystemColor.controlShadow);
 
         MenuArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-archivos.png"))); // NOI18N
         MenuArchivo.setText("Archivo");
-        MenuArchivo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        MenuArchivo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        MenuArchivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                MenuArchivoMouseEntered(evt);
+            }
+        });
         MenuArchivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuArchivoActionPerformed(evt);
             }
         });
 
+        CerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         CerrarSesion.setText("Cerrar Sesion");
         CerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,6 +101,7 @@ public class Principal extends javax.swing.JFrame {
         });
         MenuArchivo.add(CerrarSesion);
 
+        Salir.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         Salir.setText("Salir");
         Salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,17 +110,57 @@ public class Principal extends javax.swing.JFrame {
         });
         MenuArchivo.add(Salir);
 
-        jMenuBar1.add(MenuArchivo);
+        MenuDelSistema.add(MenuArchivo);
+
+        MenuVender.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-caja.png"))); // NOI18N
+        MenuVender.setText("Vender");
+        MenuVender.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        MenuVender.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                MenuVenderMouseEntered(evt);
+            }
+        });
+        MenuVender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuVenderActionPerformed(evt);
+            }
+        });
+
+        VenderPorFactura.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        VenderPorFactura.setText("Factura");
+        VenderPorFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VenderPorFacturaActionPerformed(evt);
+            }
+        });
+        MenuVender.add(VenderPorFactura);
+
+        VenderPorTicket.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        VenderPorTicket.setText("Ticket");
+        VenderPorTicket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VenderPorTicketActionPerformed(evt);
+            }
+        });
+        MenuVender.add(VenderPorTicket);
+
+        MenuDelSistema.add(MenuVender);
 
         MenuRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-edit_form.png"))); // NOI18N
         MenuRegistrar.setText("Registrar");
-        MenuRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        MenuRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        MenuRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                MenuRegistrarMouseEntered(evt);
+            }
+        });
         MenuRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuRegistrarActionPerformed(evt);
             }
         });
 
+        Productos.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         Productos.setText("Productos");
         Productos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,6 +169,7 @@ public class Principal extends javax.swing.JFrame {
         });
         MenuRegistrar.add(Productos);
 
+        Cientes.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         Cientes.setText("Clientes");
         Cientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,6 +178,7 @@ public class Principal extends javax.swing.JFrame {
         });
         MenuRegistrar.add(Cientes);
 
+        Provedores.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         Provedores.setText("Provedores");
         Provedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,134 +187,135 @@ public class Principal extends javax.swing.JFrame {
         });
         MenuRegistrar.add(Provedores);
 
-        jMenuBar1.add(MenuRegistrar);
+        MenuDelSistema.add(MenuRegistrar);
 
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-caja.png"))); // NOI18N
-        jMenu3.setText("Venta");
-        jMenu3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+        MenuConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-buscar.png"))); // NOI18N
+        MenuConsultar.setText("Consultar");
+        MenuConsultar.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
+        MenuConsultar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                MenuConsultarMouseEntered(evt);
+            }
+        });
+        MenuConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu3ActionPerformed(evt);
+                MenuConsultarActionPerformed(evt);
             }
         });
 
-        jMenuItem5.setText("Factura");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        ConsultarClientes.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        ConsultarClientes.setText("Clientes");
+        ConsultarClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                ConsultarClientesActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem5);
+        MenuConsultar.add(ConsultarClientes);
 
-        jMenuItem10.setText("Ticket");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+        ConsultarProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        ConsultarProducto.setText("Productos");
+        ConsultarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
+                ConsultarProductoActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem10);
+        MenuConsultar.add(ConsultarProducto);
 
-        jMenuBar1.add(jMenu3);
-
-        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-buscar.png"))); // NOI18N
-        jMenu4.setText("Consultas");
-        jMenu4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jMenu4.addActionListener(new java.awt.event.ActionListener() {
+        ConsultarFacturas.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        ConsultarFacturas.setText("Facturas");
+        ConsultarFacturas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu4ActionPerformed(evt);
+                ConsultarFacturasActionPerformed(evt);
+            }
+        });
+        MenuConsultar.add(ConsultarFacturas);
+
+        ConsultarTickets.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        ConsultarTickets.setText("Tickets");
+        ConsultarTickets.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConsultarTicketsActionPerformed(evt);
+            }
+        });
+        MenuConsultar.add(ConsultarTickets);
+
+        MenuDelSistema.add(MenuConsultar);
+
+        MenuReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-reporte.png"))); // NOI18N
+        MenuReportes.setText("Reportes");
+        MenuReportes.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        MenuReportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                MenuReportesMouseEntered(evt);
             }
         });
 
-        jMenuItem7.setText("Clientes");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        ReporteClientes.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        ReporteClientes.setText("Clientes");
+        ReporteClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                ReporteClientesActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem7);
+        MenuReportes.add(ReporteClientes);
 
-        jMenuItem8.setText("Productos");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        ReporteProvedores.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        ReporteProvedores.setText("Provedores");
+        ReporteProvedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                ReporteProvedoresActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem8);
+        MenuReportes.add(ReporteProvedores);
 
-        jMenuItem9.setText("Facturas");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+        ReporteProductos.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        ReporteProductos.setText("Productos");
+        ReporteProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
+                ReporteProductosActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem9);
+        MenuReportes.add(ReporteProductos);
 
-        jMenuItem11.setText("Tickets");
-        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+        ReporteTickets.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        ReporteTickets.setText("Tickets");
+        ReporteTickets.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem11ActionPerformed(evt);
+                ReporteTicketsActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem11);
+        MenuReportes.add(ReporteTickets);
 
-        jMenuBar1.add(jMenu4);
-
-        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-reporte.png"))); // NOI18N
-        jMenu5.setText("Reportes");
-        jMenu5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-
-        jMenuItem6.setText("Clientes");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        ReporteFacturas.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        ReporteFacturas.setText("Facturas");
+        ReporteFacturas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                ReporteFacturasActionPerformed(evt);
             }
         });
-        jMenu5.add(jMenuItem6);
+        MenuReportes.add(ReporteFacturas);
 
-        jMenuItem12.setText("Productos");
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
-            }
-        });
-        jMenu5.add(jMenuItem12);
+        MenuDelSistema.add(MenuReportes);
 
-        jMenuItem13.setText("Facturas");
-        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem13ActionPerformed(evt);
-            }
-        });
-        jMenu5.add(jMenuItem13);
+        setJMenuBar(MenuDelSistema);
 
-        jMenuItem14.setText("Tickets");
-        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem14ActionPerformed(evt);
-            }
-        });
-        jMenu5.add(jMenuItem14);
-
-        jMenuBar1.add(jMenu5);
-
-        setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jdpescritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jdpescritorio, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jdpescritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
-                .addContainerGap())
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jdpescritorio, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+    
 private void MenuArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuArchivoActionPerformed
 // TODO add your handling code here:
     
@@ -263,16 +323,24 @@ private void MenuArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
 private void CerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSesionActionPerformed
 // TODO add your handling code here:
-    Login principal= new Login();
-    principal.setVisible(true);
-    principal.pack();
-    principal.setLocationRelativeTo(null);
+    Login p= new Login();
+    p.setVisible(true);
+    p.pack();
+    p.setLocationRelativeTo(null);
+                try{
+          Clip Sonido=AudioSystem.getClip();
+          Sonido.open(AudioSystem.getAudioInputStream(new File("src\\Sonidos\\sonido_salida.wav")));
+          Sonido.start();
+          
+     }catch(Exception ex){
+     System.err.println(ex+" error");}
+      
     this.setVisible(false);
 }//GEN-LAST:event_CerrarSesionActionPerformed
 
 private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
 // TODO add your handling code here:
-    System.exit(0);
+    close();
 }//GEN-LAST:event_SalirActionPerformed
 
 private void ProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductosActionPerformed
@@ -294,24 +362,24 @@ private void CientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     cli.show();
 }//GEN-LAST:event_CientesActionPerformed
 
-private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+private void MenuVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuVenderActionPerformed
 // TODO add your handling code here:
-}//GEN-LAST:event_jMenu3ActionPerformed
+}//GEN-LAST:event_MenuVenderActionPerformed
 
-private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+private void VenderPorFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VenderPorFacturaActionPerformed
 // TODO add your handling code here:
      Factura fac= new Factura();
     jdpescritorio.add(fac);
     fac.show();
-}//GEN-LAST:event_jMenuItem5ActionPerformed
+}//GEN-LAST:event_VenderPorFacturaActionPerformed
 
-private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+private void ReporteClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteClientesActionPerformed
 // TODO add your handling code here:
     
         try {
             conectar cc= new conectar();
             
-            JasperReport reportes=JasperCompileManager.compileReport("reportesClientes.jrxml");
+            JasperReport reportes=JasperCompileManager.compileReport("src\\Reportes\\reportesClientes.jrxml");
             JasperPrint print=JasperFillManager.fillReport(reportes, null,cc.conexion());
            // JasperViewer.viewReport(print);
             JasperViewer view = new JasperViewer (print, false);
@@ -321,53 +389,53 @@ private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         }
     
     
-}//GEN-LAST:event_jMenuItem6ActionPerformed
+}//GEN-LAST:event_ReporteClientesActionPerformed
 
-private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+private void ConsultarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarClientesActionPerformed
 // TODO add your handling code here:
    ConsultasClientes clientes= new ConsultasClientes();
     jdpescritorio.add(clientes);
     clientes.show();
-}//GEN-LAST:event_jMenuItem7ActionPerformed
+}//GEN-LAST:event_ConsultarClientesActionPerformed
 
-private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+private void ConsultarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarProductoActionPerformed
 // TODO add your handling code here:
     ConsultasProductos productos= new ConsultasProductos();
     jdpescritorio.add(productos);
     productos.show();
-}//GEN-LAST:event_jMenuItem8ActionPerformed
+}//GEN-LAST:event_ConsultarProductoActionPerformed
 
-private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+private void ConsultarFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarFacturasActionPerformed
 // TODO add your handling code here:
     ConsultasFacturas Facturas= new  ConsultasFacturas();
     jdpescritorio.add(Facturas);
     Facturas.show();
-}//GEN-LAST:event_jMenuItem9ActionPerformed
+}//GEN-LAST:event_ConsultarFacturasActionPerformed
 
-private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+private void VenderPorTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VenderPorTicketActionPerformed
 // TODO add your handling code here:
     Ticket bol = new Ticket();
     jdpescritorio.add(bol);
     bol.show();
-}//GEN-LAST:event_jMenuItem10ActionPerformed
+}//GEN-LAST:event_VenderPorTicketActionPerformed
 
-private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
+private void MenuConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuConsultarActionPerformed
 // TODO add your handling code here:
-}//GEN-LAST:event_jMenu4ActionPerformed
+}//GEN-LAST:event_MenuConsultarActionPerformed
 
-private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+private void ConsultarTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarTicketsActionPerformed
 // TODO add your handling code here:
      ConsultasTickets Boletas= new  ConsultasTickets();
     jdpescritorio.add(Boletas);
     Boletas.show();
-}//GEN-LAST:event_jMenuItem11ActionPerformed
+}//GEN-LAST:event_ConsultarTicketsActionPerformed
 
-private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+private void ReporteProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteProductosActionPerformed
 // TODO add your handling code here:
            try {
             conectar cc= new conectar();
             
-            JasperReport reportes=JasperCompileManager.compileReport("reportesProductos.jrxml");
+            JasperReport reportes=JasperCompileManager.compileReport("src\\Reportes\\reportesProductos.jrxml");
             JasperPrint print=JasperFillManager.fillReport(reportes, null,cc.conexion());
             //JasperViewer.viewReport(print);
             JasperViewer view = new JasperViewer (print, false);
@@ -375,14 +443,14 @@ private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         } catch (Exception e) {
             System.out.printf(e.getMessage());
         }
-}//GEN-LAST:event_jMenuItem12ActionPerformed
+}//GEN-LAST:event_ReporteProductosActionPerformed
 
-private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+private void ReporteFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteFacturasActionPerformed
 // TODO add your handling code here:
     try {
             conectar cc= new conectar();
             
-            JasperReport reportes=JasperCompileManager.compileReport("reportesFacturas.jrxml");
+            JasperReport reportes=JasperCompileManager.compileReport("src\\Reportes\\reportesFacturas.jrxml");
             JasperPrint print=JasperFillManager.fillReport(reportes, null,cc.conexion());
             //JasperViewer.viewReport(print);
             JasperViewer view = new JasperViewer (print, false);
@@ -390,14 +458,14 @@ private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         } catch (Exception e) {
             System.out.printf(e.getMessage());
         }
-}//GEN-LAST:event_jMenuItem13ActionPerformed
+}//GEN-LAST:event_ReporteFacturasActionPerformed
 
-private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteTicketsActionPerformed
 // TODO add your handling code here:
       try {
             conectar cc= new conectar();
             
-            JasperReport reportes=JasperCompileManager.compileReport("reportesBoletas.jrxml");
+            JasperReport reportes=JasperCompileManager.compileReport("src\\Reportes\\reportesTickets.jrxml");
             JasperPrint print=JasperFillManager.fillReport(reportes, null,cc.conexion());
             //JasperViewer.viewReport(print);
             JasperViewer view = new JasperViewer (print, false);
@@ -405,7 +473,7 @@ private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         } catch (Exception e) {
             System.out.printf(e.getMessage());
         }
-}//GEN-LAST:event_jMenuItem14ActionPerformed
+}//GEN-LAST:event_ReporteTicketsActionPerformed
 
     private void ProvedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvedoresActionPerformed
     IngresoProvedor pro= new IngresoProvedor();
@@ -413,49 +481,87 @@ private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     pro.show();        // TODO add your handling code here:
     }//GEN-LAST:event_ProvedoresActionPerformed
 
+    private void ReporteProvedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteProvedoresActionPerformed
+    try {
+            conectar cc= new conectar();
+            
+            JasperReport reportes=JasperCompileManager.compileReport("src\\Reportes\\reportesProvedores.jrxml");
+            JasperPrint print=JasperFillManager.fillReport(reportes, null,cc.conexion());
+            //JasperViewer.viewReport(print);
+            JasperViewer view = new JasperViewer (print, false);
+            view.setVisible(true);
+        } catch (Exception e) {
+            System.out.printf(e.getMessage());
+        }      // TODO add your handling code here:
+    }//GEN-LAST:event_ReporteProvedoresActionPerformed
+
+    private void close(){
+        if (JOptionPane.showConfirmDialog(rootPane, "¿Desea realmente salir del sistema?",
+                "Salir del sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)      
+        
+     System.exit(0);   
+    }            
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+      close();  
+    }//GEN-LAST:event_formWindowClosing
+
+    private void MenuArchivoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuArchivoMouseEntered
+    sonidomouse();   // TODO add your handling code here:
+    }//GEN-LAST:event_MenuArchivoMouseEntered
+
+    private void MenuVenderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuVenderMouseEntered
+    sonidomouse();  // TODO add your handling code here:
+    }//GEN-LAST:event_MenuVenderMouseEntered
+
+    private void MenuRegistrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuRegistrarMouseEntered
+    sonidomouse();    // TODO add your handling code here:
+    }//GEN-LAST:event_MenuRegistrarMouseEntered
+
+    private void MenuConsultarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuConsultarMouseEntered
+    sonidomouse();    // TODO add your handling code here:
+    }//GEN-LAST:event_MenuConsultarMouseEntered
+
+    private void MenuReportesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuReportesMouseEntered
+    sonidomouse();    // TODO add your handling code here:
+    }//GEN-LAST:event_MenuReportesMouseEntered
+    
+    private void sonidomouse(){
+        try{
+          Clip Sonido=AudioSystem.getClip();
+          Sonido.open(AudioSystem.getAudioInputStream(new File("src\\Sonidos\\pasar_barra.wav")));
+          Sonido.start();
+          
+     }catch(Exception ex){
+         
+     System.err.println(ex+" error");
+     
+     }
+    }
+    
+    private void sonidoclic(){
+        try{
+          Clip Sonido=AudioSystem.getClip();
+          Sonido.open(AudioSystem.getAudioInputStream(new File("src\\Sonidos\\pasar_barra.wav")));
+          Sonido.start();
+          
+     }catch(Exception ex){
+         
+     System.err.println(ex+" error");
+     
+     }
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                try{    
-                    JFrame.setDefaultLookAndFeelDecorated(true);
-                    JDialog.setDefaultLookAndFeelDecorated(true);
-                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-  //UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-  //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-  //UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-}
-catch (Exception e)
- {
-  e.printStackTrace();
- }
                 new Principal().setVisible(true);
                 
             }
@@ -464,25 +570,26 @@ catch (Exception e)
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem CerrarSesion;
     private javax.swing.JMenuItem Cientes;
+    private javax.swing.JMenuItem ConsultarClientes;
+    private javax.swing.JMenuItem ConsultarFacturas;
+    private javax.swing.JMenuItem ConsultarProducto;
+    private javax.swing.JMenuItem ConsultarTickets;
     private javax.swing.JMenu MenuArchivo;
+    private javax.swing.JMenu MenuConsultar;
+    private javax.swing.JMenuBar MenuDelSistema;
     private javax.swing.JMenu MenuRegistrar;
+    private javax.swing.JMenu MenuReportes;
+    private javax.swing.JMenu MenuVender;
     private javax.swing.JMenuItem Productos;
     private javax.swing.JMenuItem Provedores;
+    private javax.swing.JMenuItem ReporteClientes;
+    private javax.swing.JMenuItem ReporteFacturas;
+    private javax.swing.JMenuItem ReporteProductos;
+    private javax.swing.JMenuItem ReporteProvedores;
+    private javax.swing.JMenuItem ReporteTickets;
     private javax.swing.JMenuItem Salir;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem VenderPorFactura;
+    private javax.swing.JMenuItem VenderPorTicket;
     public static javax.swing.JDesktopPane jdpescritorio;
     // End of variables declaration//GEN-END:variables
 }

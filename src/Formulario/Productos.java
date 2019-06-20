@@ -6,13 +6,10 @@
 package Formulario;
 
 import Clases.conectar;
-import de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel;
-import java.awt.JobAttributes;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,10 +23,6 @@ public class Productos extends javax.swing.JInternalFrame {
     /** Creates new form Productos */
     public Productos() {
         initComponents();
-        try{ 
-                UIManager.setLookAndFeel(new SyntheticaBlackStarLookAndFeel());
-                } catch(Exception e){
-                }
         
       
         cargarlistaproductos("");
@@ -54,9 +47,9 @@ public class Productos extends javax.swing.JInternalFrame {
     }
   
     void cargarlistaproductos(String dato){
-        String [] Titulo = {"Codigo","Descripcion","Precio","Stock"};
+    String [] Titulo={"Codigo","Descripcion","Marca","Precio Compra","Precio Venta","Stock","Estante","Repisa","Familia","Provedor"};
         tabla=new DefaultTableModel(null,Titulo);
-    String []Registro= new String[4];
+    String [] Registro= new String[10];
     String mostrar="SELECT * FROM producto WHERE CONCAT (cod_pro,'',descripcion) LIKE '%"+dato+"%'"; 
     Statement st;
         try {
@@ -64,11 +57,16 @@ public class Productos extends javax.swing.JInternalFrame {
             ResultSet rs =st.executeQuery(mostrar);
             while(rs.next())
             {
-                Registro[0]=rs.getString("cod_pro");
-                Registro[1]=rs.getString("Descripcion");
-                Registro[2]=rs.getString("precio");
-                Registro[3]=rs.getString("Stock");
-                
+                Registro[0]=rs.getString(1);
+                Registro[1]=rs.getString(2);
+                Registro[2]=rs.getString(3);
+                Registro[3]=rs.getString(4);
+                Registro[4]=rs.getString(5);
+                Registro[5]=rs.getString(6);
+                Registro[6]=rs.getString(7);
+                Registro[7]=rs.getString(8);
+                Registro[8]=rs.getString(9);
+                Registro[9]=rs.getString(10);
                 tabla.addRow(Registro);
             }
             tbprod.setModel(tabla);
@@ -121,6 +119,7 @@ public class Productos extends javax.swing.JInternalFrame {
         });
         jPopupMenu1.add(mnenviarpro);
 
+        setBorder(null);
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
@@ -161,18 +160,17 @@ public class Productos extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtprod, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(btnmostrar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(47, 47, 47)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(txtprod, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addComponent(btnmostrar)
+                .addGap(99, 99, 99))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,8 +181,8 @@ public class Productos extends javax.swing.JInternalFrame {
                     .addComponent(btnmostrar)
                     .addComponent(txtprod, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -219,7 +217,7 @@ private void mnenviarproActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
           {
           String codins=tbprod.getValueAt(fila, 0).toString();
           String desins=tbprod.getValueAt(fila, 1).toString();
-          String preins=tbprod.getValueAt(fila, 2).toString();
+          String preins=tbprod.getValueAt(fila, 4).toString();
           int c=0;
           int j=0;
            String  cant=JOptionPane.showInputDialog("ingrese cantidad");

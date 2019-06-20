@@ -7,19 +7,13 @@
 package Formulario;
 
 import Clases.conectar;
-import de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel;
 import java.awt.Color;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Administrador
- */
 public class Clientes extends javax.swing.JInternalFrame {
     DefaultTableModel modelo;
 
@@ -27,33 +21,29 @@ public class Clientes extends javax.swing.JInternalFrame {
     public Clientes() {
         initComponents();
         mostrarclientes("");
-    try{ 
-                UIManager.setLookAndFeel(new SyntheticaBlackStarLookAndFeel());
-                } catch(Exception e){
-                }
+   
     }
    
-    void mostrarclientes(String valor)
-    {
-        String[]titulos={"Codigo","Nombres","Apellidos","Sexo","DNI","Telefono","RUC","Email","Direccion"} ;  
-        String []Registros= new String[9];
+    void mostrarclientes(String valor){
+        
+        String[]titulos={"Codigo","Nombres","Apellidos","Sexo","Clase","Telefono","Email","Direccion"} ;  
+        String []Registros= new String[8];
         modelo=new DefaultTableModel(null,titulos);
-        String Sql="SELECT * FROM cliente WHERE CONCAT(cod_cli,nom_cli,ape_cli,dni_cli) LIKE '%"+valor+"%'";
+        String Sql="SELECT * FROM cliente WHERE CONCAT(cod_cli,nom_cli,ape_cli,clas_cli) LIKE '%"+valor+"%'";
        
         try {
              Statement st = cn.createStatement();
              ResultSet rs = st.executeQuery(Sql);
              while(rs.next())
              {
-                 Registros[0]=rs.getString("cod_cli");  
-                 Registros[1]=rs.getString("nom_cli");  
-                 Registros[2]=rs.getString("ape_cli");  
-                 Registros[3]=rs.getString("sexo_cli");  
-                 Registros[4]=rs.getString("dni_cli");  
-                 Registros[5]=rs.getString("tel_cli");  
-                 Registros[6]=rs.getString("ruc_cli");  
-                 Registros[7]=rs.getString("email_cli");  
-                 Registros[8]=rs.getString("dir_cli");  
+                 Registros[0]= rs.getString("cod_cli");
+                  Registros[1]= rs.getString("nom_cli");
+                  Registros[2]= rs.getString("ape_cli");
+                  Registros[3]= rs.getString("sexo_cli");
+                  Registros[4]= rs.getString("clas_cli");
+                  Registros[5]= rs.getString("tel_cli");
+                  Registros[6]= rs.getString("email_cli");
+                  Registros[7]= rs.getString("dir_cli");   
                  modelo.addRow(Registros);
              } 
              tbclientes.setModel(modelo);
@@ -92,7 +82,7 @@ public class Clientes extends javax.swing.JInternalFrame {
         });
         jPopupMenu1.add(mnenviar);
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder()));
+        setBorder(null);
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
@@ -149,7 +139,7 @@ public class Clientes extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -171,7 +161,7 @@ public class Clientes extends javax.swing.JInternalFrame {
                     .addComponent(Btnregistrar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -211,7 +201,7 @@ private void txtbusKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t
 
 private void mnenviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnenviarActionPerformed
 // TODO add your handling code here:
-    String cod="",nom="",ape="",dni="",dir="",ruc="";
+    String cod="",nom="",ape="",email="",tipocli;
     int fila = tbclientes.getSelectedRow();
     try {
         if(fila==-1)
@@ -221,20 +211,20 @@ private void mnenviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
         else
         {
-         cod =  (String)tbclientes.getValueAt(fila, 0);
-         nom =  (String)tbclientes.getValueAt(fila, 1);
-         ape =  (String)tbclientes.getValueAt(fila, 2);
-         dni =  (String)tbclientes.getValueAt(fila, 4);
-         ruc =  (String)tbclientes.getValueAt(fila, 6);
-         dir=  (String)tbclientes.getValueAt(fila, 8);
+         cod = (String)tbclientes.getValueAt(fila, 0);
+         nom = (String)tbclientes.getValueAt(fila, 1);
+         ape = (String)tbclientes.getValueAt(fila, 2);
+         tipocli= (String)tbclientes.getValueAt(fila, 4);
+         email = (String)tbclientes.getValueAt(fila, 6);
          Factura.txtcod.setDisabledTextColor(Color.blue);
          Factura.txtcod.setText(cod);
          Factura.txtnomape.setDisabledTextColor(Color.blue);
-         Factura.txtnomape.setText(nom+"   "+ape);
-         Factura.txtdir.setDisabledTextColor(Color.blue);
-         Factura.txtdir.setText(dir);
+         Factura.txtnomape.setText(nom+" "+ape);
          Factura.ClaseCliente.setDisabledTextColor(Color.blue);
-         Factura.ClaseCliente.setText(dni);
+         Factura.ClaseCliente.setText(tipocli);
+         Factura.txtemail.setDisabledTextColor(Color.blue);
+         Factura.txtemail.setText(email);
+
          this.dispose();
          
         }

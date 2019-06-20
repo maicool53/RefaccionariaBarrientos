@@ -31,7 +31,7 @@ public class Ticket extends javax.swing.JInternalFrame {
         txtnumbol.setDisabledTextColor(Color.red);
         txtcod.setDisabledTextColor(Color.blue);
         txtdire.setDisabledTextColor(Color.blue);
-        txtdni.setDisabledTextColor(Color.blue);
+        txttipo.setDisabledTextColor(Color.blue);
         txtnomape.setDisabledTextColor(Color.blue);
         
         numeros();
@@ -217,7 +217,7 @@ public static String fechaact(){
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         txtnomape = new javax.swing.JTextField();
-        txtdni = new javax.swing.JTextField();
+        txttipo = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         txtcod = new javax.swing.JTextField();
@@ -250,7 +250,7 @@ public static String fechaact(){
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder()));
+        setBorder(null);
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
@@ -330,15 +330,15 @@ public static String fechaact(){
         txtnomape.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         txtnomape.setEnabled(false);
 
-        txtdni.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        txtdni.setEnabled(false);
-        txtdni.addActionListener(new java.awt.event.ActionListener() {
+        txttipo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txttipo.setEnabled(false);
+        txttipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtdniActionPerformed(evt);
+                txttipoActionPerformed(evt);
             }
         });
 
-        jLabel10.setText("IFE:");
+        jLabel10.setText("Tipo:");
 
         jLabel11.setText("Cod.Cliente");
 
@@ -397,7 +397,7 @@ public static String fechaact(){
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtnomape, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(txtdni, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txttipo, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -430,7 +430,7 @@ public static String fechaact(){
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(txtdni, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txttipo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
                     .addComponent(txtcod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
@@ -552,7 +552,7 @@ public static String fechaact(){
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txttotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         pack();
@@ -566,9 +566,9 @@ private void txtdireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 // TODO add your handling code here:
 }//GEN-LAST:event_txtdireActionPerformed
 
-private void txtdniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdniActionPerformed
+private void txttipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttipoActionPerformed
 // TODO add your handling code here:
-}//GEN-LAST:event_txtdniActionPerformed
+}//GEN-LAST:event_txttipoActionPerformed
 
 private void btncalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncalcularActionPerformed
 // TODO add your handling code here:
@@ -622,7 +622,7 @@ private void btnvenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     txtcod.setText("");
         txtnomape.setText("");
        
-        txtdni.setText("");
+        txttipo.setText("");
         txtdire.setText("");
       
         
@@ -691,10 +691,10 @@ private void btneliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     public static javax.swing.JTable tbdetbol;
     public static javax.swing.JTextField txtcod;
     public static javax.swing.JTextField txtdire;
-    public static javax.swing.JTextField txtdni;
     public static javax.swing.JTextField txtfecha;
     public static javax.swing.JTextField txtnomape;
     private javax.swing.JTextField txtnumbol;
+    public static javax.swing.JTextField txttipo;
     private javax.swing.JTextField txttotal;
     // End of variables declaration//GEN-END:variables
 conectar cc= new conectar();

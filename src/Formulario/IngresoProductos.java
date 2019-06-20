@@ -5,14 +5,16 @@
  * @author Miguel
  */
 package Formulario;
-import de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel;
+
 import Clases.GenerarCodigos;
 import Clases.conectar;
+import static Formulario.Principal.jdpescritorio;
+import com.sun.istack.internal.Pool;
+import java.awt.Dimension;
 import java.sql.*;
 import java.util.logging.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author Miguel
@@ -20,20 +22,27 @@ import javax.swing.table.DefaultTableModel;
 public class IngresoProductos extends javax.swing.JInternalFrame {
 
     DefaultTableModel model;
-    /** Creates new form IngresoProductos */
+
+    /**
+     * Creates new form IngresoProductos
+     */
     public IngresoProductos() {
-       
+
         initComponents();
-         this.setLocation(150,15 );
-         bloquear();
-         cargar("");
+        this.setLocation(150, 15);
+        
+        bloquear();
+        cargar("");
+        llenarcombofamilias();
+        llenarcomboprovedor();
     }
+    
      void bloquear(){
     txtcod.setEnabled(false);
     txtprod.setEnabled(false);
     txtprecom.setEnabled(false);
     txtstock.setEnabled(false);
-    btnguardar.setEnabled(false);
+    botonguardar.setEnabled(false);
     btnnuevo.setEnabled(true);
     btncancelar.setEnabled(false);
     btnactualizar.setEnabled(false);
@@ -41,8 +50,11 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
     txtprevent.setEnabled(false);
     ComboEstante.setEnabled(false);
     ComboRepisa.setEnabled(false);
-    
+    ComboFamilia.setEnabled(false);
+    btngenerarcodbar.setEnabled(false);
+    ComboProvedor.setEnabled(false);
     }
+
     void limpiar(){
     txtcod.setText("");
     txtprod.setText("");
@@ -50,32 +62,35 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
     txtprecom.setText("");
     txtprevent.setText("");
     txtstock.setText("");
-    ComboEstante.setSelectedItem("");
-    ComboRepisa.setSelectedItem("");
-    
-    }
+    ComboFamilia.setSelectedItem("Seleccione una opcion");
+    ComboEstante.setSelectedItem("Seleccione una opcion");
+    ComboRepisa.setSelectedItem("Seleccione una opcion");
+    ComboProvedor.setSelectedItem("Seleccione una opcion");}
+
     void desbloquear(){
     txtcod.setEnabled(true);
     txtprod.setEnabled(true);
     txtprecom.setEnabled(true);
     txtstock.setEnabled(true);
-    btnguardar.setEnabled(true);
+    botonguardar.setEnabled(true);
     btnnuevo.setEnabled(false);
     btncancelar.setEnabled(true);
     txtdmarca.setEnabled(true);
-    txtprevent.setEnabled(true);
     ComboEstante.setEnabled(true);
     ComboRepisa.setEnabled(true);
+    ComboFamilia.setEnabled(true);
+    btngenerarcodbar.setEnabled(true);
+    ComboProvedor.setEnabled(true);
     }
+
     void cargar(String valor) {
-        
-            String [] titulos={"Codigo","Descripcion","Marca","Precio Compra","Precio Venta","Stock","Estante","Repisa"};
-            String [] registros= new String[8];
+        try{
+            String [] titulos={"Codigo","Descripcion","Marca","Precio Compra","Precio Venta","Stock","Estante","Repisa","Familia","Provedor"};
+            String [] registros= new String[10];
             model=new DefaultTableModel(null,titulos);
-            try{
+            
             String cons="select * from producto WHERE CONCAT (descripcion,'',precio) LIKE '%"+valor+"%'";
             Statement st= cn.createStatement();
-            
             ResultSet rs = st.executeQuery(cons);
             while(rs.next()){
                 registros[0]=rs.getString(1);
@@ -86,9 +101,11 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
                 registros[5]=rs.getString(6);
                 registros[6]=rs.getString(7);
                 registros[7]=rs.getString(8);
-                
-                model.addRow(registros);      
-                }
+                registros[8]=rs.getString(9);
+                registros[9]=rs.getString(10);
+                model.addRow(registros);
+            }
+
             tbproductos.setModel(model);
             tbproductos.getColumnModel().getColumn(0).setPreferredWidth(150);
             tbproductos.getColumnModel().getColumn(1).setPreferredWidth(200);
@@ -98,17 +115,20 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
             tbproductos.getColumnModel().getColumn(5).setPreferredWidth(100);
             tbproductos.getColumnModel().getColumn(6).setPreferredWidth(100);
             tbproductos.getColumnModel().getColumn(7).setPreferredWidth(100);
-
-            }catch(Exception e){
+            tbproductos.getColumnModel().getColumn(8).setPreferredWidth(100);
+            tbproductos.getColumnModel().getColumn(9).setPreferredWidth(100);
+            }
+        catch(Exception e){
                 System.out.println(e.getMessage());
                  }
      
-    }
+        }
+
         void BuscarProductoEditar(String cod) {
         
         try{
            
-            String codi="",desc="",marca="",prec="",preven="",stock="",estante="",repisa="";
+            String codi="",desc="",marca="",prec="",preven="",stock="",estante="",repisa="",familia="",provedor="";
             String cons="select * from producto WHERE cod_pro='"+cod+"'";
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(cons);
@@ -122,8 +142,8 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
                 stock=rs.getString(6);
                 estante=rs.getString(7);
                 repisa=rs.getString(8);
-                
-           
+                familia=rs.getString(9);
+                provedor=rs.getString(10);
             }
             txtcod.setText(codi);
             txtprod.setText(desc);
@@ -133,63 +153,89 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
             txtstock.setText(stock);
             ComboEstante.setSelectedItem(estante);
             ComboRepisa.setSelectedItem(repisa);
-            
-            }catch(Exception e)
-            {
+            ComboFamilia.setSelectedItem(familia);
+            ComboProvedor.setSelectedItem(provedor);
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-            }
-     
+        }
+
     }
+
         void codigos(){
-           
+
         int j;
         int cont=1;
         String num="";
         String c="";
-         String SQL="select max(cod_pro) from producto";
-       // String SQL="select count(*) from factura";
+        String SQL="select max(cod_pro) from producto";
+        // String SQL="select count(*) from factura";
         //String SQL="SELECT MAX(cod_emp) AS cod_emp FROM empleado";
         //String SQL="SELECT @@identity AS ID";
         try {
             Statement st = cn.createStatement();
-            ResultSet rs=st.executeQuery(SQL);
-            if(rs.next())
-            {              
-                 c=rs.getString(1);
+            ResultSet rs =st.executeQuery(SQL);
+            if (rs.next()) {
+                c = rs.getString(1);
             }
-            
-           
-            if(c==null){
+
+            if (c == null) {
                 txtcod.setText("CP0001");
-            }
-            else{
-                char r1=c.charAt(2);
-            char r2=c.charAt(3);
-            char r3=c.charAt(4);
-            char r4=c.charAt(5);
-            String r="";
-            r=""+r1+r2+r3+r4;
-                 j=Integer.parseInt(r);
-                 GenerarCodigos gen= new GenerarCodigos();
-                 gen.generar(j);
-                 txtcod.setText("CP"+gen.serie());
-                
-            
-            }
-       
-          
-                  
-           
-           
-         
+            } else {
+                char r1 = c.charAt(2);
+                char r2 = c.charAt(3);
+                char r3 = c.charAt(4);
+                char r4 = c.charAt(5);
+                String r = "";
+                r = "" + r1 + r2 + r3 + r4;
+                j = Integer.parseInt(r);
+                GenerarCodigos gen = new GenerarCodigos();
+                gen.generar(j);
+                txtcod.setText("CP" + gen.serie());
+
+           }
+
         } catch (SQLException ex) {
-           Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    
-    
+            Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-   
+    }
+
+    private void llenarcombofamilias(){
+            
+        try {
+        ComboFamilia.removeAllItems();
+        Statement st=cn.createStatement();
+        ResultSet rs=st.executeQuery("Select * from Familias");
+        ComboFamilia.addItem("Seleccione una opcion");    
+        
+        while(rs.next()){
+            ComboFamilia.addItem(rs.getString("Familia"));}}
+           
+           catch (SQLException ex) {
+            Logger.getLogger(IngresoProductos.class.getName()).log(Level.SEVERE, null, ex);
+            
+            JOptionPane.showMessageDialog(null,ex);
+        }}
+        
+    private void llenarcomboprovedor(){
+            
+        try {
+        ComboProvedor.removeAllItems();
+        Statement st=cn.createStatement();
+        ResultSet rs=st.executeQuery("Select cod_prov from provedor order by cod_prov asc");
+        ComboProvedor.addItem("Seleccione una opcion");    
+        
+        while(rs.next()){
+            ComboProvedor.addItem(rs.getString("cod_prov"));}}
+           
+           catch (SQLException ex) {
+            Logger.getLogger(IngresoProductos.class.getName()).log(Level.SEVERE, null, ex);
+            
+            JOptionPane.showMessageDialog(null,ex);
+        }}
+               
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -216,12 +262,17 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
         ComboRepisa = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        ComboFamilia = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        ComboProvedor = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         btnnuevo = new javax.swing.JButton();
-        btnguardar = new javax.swing.JButton();
+        botonguardar = new javax.swing.JButton();
         btnactualizar = new javax.swing.JButton();
         btncancelar = new javax.swing.JButton();
         btnsalir = new javax.swing.JButton();
+        btngenerarcodbar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbproductos = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
@@ -273,6 +324,11 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
                 txtcodActionPerformed(evt);
             }
         });
+        txtcod.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcodKeyTyped(evt);
+            }
+        });
 
         jLabel2.setText("Producto:");
 
@@ -289,12 +345,25 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
                 txtprecomActionPerformed(evt);
             }
         });
+        txtprecom.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtprecomKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtprecomKeyTyped(evt);
+            }
+        });
 
         jLabel5.setText("Stock:");
 
         txtstock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtstockActionPerformed(evt);
+            }
+        });
+        txtstock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtstockKeyTyped(evt);
             }
         });
 
@@ -322,6 +391,10 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Repisa:");
 
+        jLabel10.setText("Familia:");
+
+        jLabel11.setText("Provedor:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -341,51 +414,75 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
                     .addComponent(txtprevent, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtstock, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtprecom, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtprod, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                    .addComponent(txtprod)
                     .addComponent(txtcod))
-                .addGap(53, 53, 53)
+                .addGap(52, 52, 52)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ComboEstante, 0, 57, Short.MAX_VALUE)
-                    .addComponent(ComboRepisa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ComboEstante, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ComboFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel11)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(ComboProvedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel9)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(ComboRepisa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 4, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtcod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(ComboEstante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtprod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel9)
-                        .addComponent(ComboRepisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(txtdmarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(txtprecom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtprevent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtstock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtcod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(txtprod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(txtdmarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(txtprecom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(41, 41, 41)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtprevent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtstock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ComboFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ComboEstante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(ComboRepisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(ComboProvedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -397,10 +494,10 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
             }
         });
 
-        btnguardar.setText("Grabar");
-        btnguardar.addActionListener(new java.awt.event.ActionListener() {
+        botonguardar.setText("Grabar");
+        botonguardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnguardarActionPerformed(evt);
+                botonguardarActionPerformed(evt);
             }
         });
 
@@ -425,34 +522,44 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
             }
         });
 
+        btngenerarcodbar.setText("Crear Codigo De Barras");
+        btngenerarcodbar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btngenerarcodbarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnactualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnnuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnguardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btncancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnnuevo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btncancelar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnactualizar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonguardar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btngenerarcodbar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnsalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnnuevo)
+                .addComponent(btnnuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnguardar)
+                .addComponent(botonguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addComponent(btnactualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btncancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnactualizar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btncancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnsalir)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addComponent(btngenerarcodbar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         tbproductos.setModel(new javax.swing.table.DefaultTableModel(
@@ -471,6 +578,11 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Buscar:");
 
+        txtbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtbuscarActionPerformed(evt);
+            }
+        });
         txtbuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtbuscarKeyReleased(evt);
@@ -491,36 +603,34 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, 0, 800, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, 0, 800, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(28, 28, 28)
-                                .addComponent(jButton1)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46))))
+                                .addComponent(jButton1))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jButton1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(jButton1)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -544,7 +654,7 @@ private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     desbloquear();
     limpiar();
     txtcod.requestFocus();
-   codigos();
+    codigos();
 }//GEN-LAST:event_btnnuevoActionPerformed
 
 private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
@@ -559,6 +669,7 @@ private void txtprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 
 private void txtprecomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtprecomActionPerformed
 // TODO add your handling code here:
+
     txtprecom.transferFocus();
 }//GEN-LAST:event_txtprecomActionPerformed
 
@@ -574,35 +685,32 @@ private void txtbuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
 
 private void mneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mneliminarActionPerformed
 // TODO add your handling code here:
-       int filasel= tbproductos.getSelectedRow();
-       try {
-           if(filasel==-1)
-           {
+    int filasel = tbproductos.getSelectedRow();
+    int opt=JOptionPane.showConfirmDialog(null, "¿Realmente desea eliminar?", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+   if (opt==0){
+    try {
+        if (filasel == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione algun dato");
-           }
-           else
-           {
-             String  cod=(String)tbproductos.getValueAt(filasel, 0);
-             String eliminarSQL="DELETE FROM producto WHERE cod_pro = '"+cod+"'";
-             try {
-             PreparedStatement pst  = cn.prepareStatement(eliminarSQL);
-          pst.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Borrado");
-            cargar("");
-            } 
-            catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+        } else {
+            String cod = (String) tbproductos.getValueAt(filasel, 0);
+            String eliminarSQL = "DELETE FROM producto WHERE cod_pro = '" + cod + "'";
+            try {
+                PreparedStatement pst = cn.prepareStatement(eliminarSQL);
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Borrado");
+                cargar("");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
             }
-           }
-           } 
-       catch (Exception e)
-       {
-       }
+        }
+    } catch (Exception e) {
+    }}
 }//GEN-LAST:event_mneliminarActionPerformed
 
-private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
+private void botonguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonguardarActionPerformed
 // TODO add your handling code here:
-    String cod,des,marca,pre,preven,stock,stante,repisa;
+
+    String cod,des,marca,pre,preven,stock,stante,repisa,familia,cod_cli;
             String sql="";
             cod=txtcod.getText();
             des=txtprod.getText();
@@ -612,9 +720,10 @@ private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             stock=txtstock.getText();
             stante=ComboEstante.getSelectedItem().toString();
             repisa=ComboRepisa.getSelectedItem().toString();
+            familia=ComboFamilia.getSelectedItem().toString();
+            cod_cli=ComboProvedor.getSelectedItem().toString();
             
-            
-           sql="INSERT INTO producto (cod_pro,descripcion,marca,precio,pecio_venta,Stock,estante,repisa) VALUES (?,?,?,?,?,?,?,?)";
+           sql="INSERT INTO producto (cod_pro,descripcion,marca,precio,precio_venta,Stock,estante,repisa,familia,cod_cli) VALUES (?,?,?,?,?,?,?,?,?,?)";
         
        try {
             PreparedStatement pst  = cn.prepareStatement(sql);
@@ -626,33 +735,34 @@ private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             pst.setString(6, stock);
             pst.setString(7, stante);
             pst.setString(8, repisa);
+            pst.setString(9, familia);
+            pst.setString(10, cod_cli);
             int n=pst.executeUpdate();
             if(n>0){
+
             JOptionPane.showMessageDialog(null, "Registro Guardado con Exito");
             bloquear();
-            }
-            cargar("");
-        } catch (SQLException ex) {
-            Logger.getLogger(IngresoProductos.class.getName()).log(Level.SEVERE, null, ex);
         }
-}//GEN-LAST:event_btnguardarActionPerformed
+        cargar("");
+    } catch (SQLException ex) {
+        Logger.getLogger(IngresoProductos.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_botonguardarActionPerformed
 
 private void mnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnactualizarActionPerformed
 // TODO add your handling code here:
-    
+
     try {
-        int filaMod=tbproductos.getSelectedRow();
-        if(filaMod==-1)
-        {
-        JOptionPane.showMessageDialog(null, "Seleccione alguna fila");
-        }
-        else
-        {
-        
-        btnactualizar.setEnabled(true);
-        String cod=(String)tbproductos.getValueAt(filaMod, 0);
-        desbloquear();
-        BuscarProductoEditar(cod);
+        int filaMod = tbproductos.getSelectedRow();
+        if (filaMod == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione alguna fila");
+        } else {
+
+            btnactualizar.setEnabled(true);
+            botonguardar.setEnabled(false);
+            String cod = (String) tbproductos.getValueAt(filaMod, 0);
+            desbloquear();
+            BuscarProductoEditar(cod);
         }
     } catch (Exception e) {
     }
@@ -667,16 +777,18 @@ private void btnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN
              +"',Stock = '"+txtstock.getText()
              +"',estante='"+ComboEstante.getSelectedItem()
              +"',repisa='"+ComboRepisa.getSelectedItem()
-             +"' WHERE cod_pro = '"+txtcod.getText()+"'"; 
+             +"',familia='"+ComboFamilia.getSelectedItem()
+             +"',cod_prov='"+ComboProvedor.getSelectedItem()
+             +"' WHERE cod_pro = '"+txtcod.getText()+"'";
     try {
         PreparedStatement pst = cn.prepareStatement(sql);
         pst.executeUpdate();
-       JOptionPane.showMessageDialog(null, "Actualizado");
-       cargar("");
-       bloquear();
-       limpiar();
+        JOptionPane.showMessageDialog(null, "Actualizado");
+        cargar("");
+        bloquear();
+        limpiar();
     } catch (Exception e) {
-         JOptionPane.showMessageDialog(null, e);
+        JOptionPane.showMessageDialog(null, e);
     }
 }//GEN-LAST:event_btnactualizarActionPerformed
 
@@ -692,17 +804,66 @@ private void txtstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         // TODO add your handling code here:
     }//GEN-LAST:event_txtdmarcaActionPerformed
 
+    private void txtprecomKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecomKeyReleased
+        double preciocompra = Double.parseDouble(txtprecom.getText());
+        double precioventa =  (preciocompra*2); 
+        String cadena = String.valueOf(precioventa);
+            if(txtprecom.getText().equals("")){
+            txtprevent.setText("");}
+            else {
+                txtprevent.setText(cadena); 
+            }
+        
+    }//GEN-LAST:event_txtprecomKeyReleased
+
+    private void txtbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtbuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtbuscarActionPerformed
+
+    private void txtprecomKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecomKeyTyped
+    char car2 = evt.getKeyChar();
+    if((car2<'0' || car2>'9')) evt.consume();       
+    // TODO add your handling code here:
+    }//GEN-LAST:event_txtprecomKeyTyped
+
+    private void txtstockKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtstockKeyTyped
+ char car = evt.getKeyChar();
+    if((car<'0' || car>'9')) evt.consume();         // TODO add your handling code here:
+    }//GEN-LAST:event_txtstockKeyTyped
+
+    private void btngenerarcodbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngenerarcodbarActionPerformed
+        // TODO add your handling code here:
+        CrearBarras frm = new CrearBarras();        
+        Principal.jdpescritorio.add(frm);
+        frm.toFront();
+        Dimension desktopSize = jdpescritorio.getSize();
+        Dimension FrameSize = frm.getSize();
+        frm.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        frm.show();
+        frm.txtcodigodebarras.setText(txtcod.getText());
+        
+    }//GEN-LAST:event_btngenerarcodbarActionPerformed
+
+    private void txtcodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcodKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcodKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboEstante;
+    private javax.swing.JComboBox<String> ComboFamilia;
+    private javax.swing.JComboBox<String> ComboProvedor;
     private javax.swing.JComboBox<String> ComboRepisa;
+    private javax.swing.JButton botonguardar;
     private javax.swing.JButton btnactualizar;
     private javax.swing.JButton btncancelar;
-    private javax.swing.JButton btnguardar;
+    private javax.swing.JButton btngenerarcodbar;
     private javax.swing.JButton btnnuevo;
     private javax.swing.JButton btnsalir;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -728,6 +889,7 @@ private void txtstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JTextField txtprod;
     private javax.swing.JTextField txtstock;
     // End of variables declaration//GEN-END:variables
-   conectar cc= new conectar();
-   Connection cn=cc.conexion();
+   conectar cc = new conectar();
+   Connection cn = cc.conexion();
+
 }
