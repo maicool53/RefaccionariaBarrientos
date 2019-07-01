@@ -7,7 +7,7 @@
 package Formulario;
 
 import Clases.GenerarNumero;
-import Clases.conectar;
+import Clases.Conexion;
 import java.awt.Color;
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -822,7 +822,7 @@ private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JTextField txttotal;
     // End of variables declaration//GEN-END:variables
 
-   conectar cc=new conectar();
+   Conexion cc=new Conexion();
    Connection cn= cc.conexion();
    
 }

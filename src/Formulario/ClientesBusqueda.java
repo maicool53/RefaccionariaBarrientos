@@ -6,7 +6,7 @@
  */
 package Formulario;
 
-import Clases.conectar;
+import Clases.Conexion;
 import java.sql.*;
 import java.util.logging.*;
 import javax.swing.JOptionPane;
@@ -255,6 +255,6 @@ private void mnenviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JTable tbclientes;
     private javax.swing.JTextField txtbus;
     // End of variables declaration//GEN-END:variables
-conectar cc= new conectar();
+Conexion cc= new Conexion();
     Connection cn = cc.conexion();
 }

@@ -6,7 +6,7 @@
 package Formulario;
 
 import Clases.GenerarCodigos;
-import Clases.conectar;
+import Clases.Conexion;
 
 import java.awt.event.KeyEvent;
 import java.sql.*;
@@ -661,6 +661,6 @@ private void mnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JTextField txtnom;
     private javax.swing.JTextField txttel;
     // End of variables declaration//GEN-END:variables
-conectar cc= new conectar();
+Conexion cc= new Conexion();
 Connection cn= cc.conexion();
 }

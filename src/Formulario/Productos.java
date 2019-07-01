@@ -5,7 +5,7 @@
  */
 package Formulario;
 
-import Clases.conectar;
+import Clases.Conexion;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -287,7 +287,7 @@ private void mnenviarproActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JTable tbprod;
     private javax.swing.JTextField txtprod;
     // End of variables declaration//GEN-END:variables
-conectar cc= new conectar();
+Conexion cc= new Conexion();
 Connection cn = cc.conexion();
 
 }

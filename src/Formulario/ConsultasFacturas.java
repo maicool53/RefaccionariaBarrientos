@@ -6,7 +6,7 @@
  */
 package Formulario;
 
-import Clases.conectar;
+import Clases.Conexion;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.logging.*;
@@ -450,7 +450,7 @@ private void mneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     public static javax.swing.JTable tbfacturas;
     private javax.swing.JTextField txtnumero;
     // End of variables declaration//GEN-END:variables
-conectar cc= new conectar();
+Conexion cc= new Conexion();
 Connection cn= cc.conexion();
 
 }

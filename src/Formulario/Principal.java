@@ -6,14 +6,15 @@
  */
 package Formulario;
 
-import Clases.conectar;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import Clases.Conexion;
+import Login.Loggin;
+import Login.AdministrarCuentas;
+import java.awt.Dimension;
 import java.io.File;
+import java.io.InputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -30,7 +31,7 @@ public class Principal extends javax.swing.JFrame {
 
                     
         
-    setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+   // setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         
         
     }
@@ -67,9 +68,15 @@ public class Principal extends javax.swing.JFrame {
         ReporteProductos = new javax.swing.JMenuItem();
         ReporteTickets = new javax.swing.JMenuItem();
         ReporteFacturas = new javax.swing.JMenuItem();
+        MenuCuentas = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Sistema de Ventas");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Sistema Barrientos");
+        setExtendedState(6);
+        setLocationByPlatform(true);
+        setName("EscritorioAPp"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -297,6 +304,33 @@ public class Principal extends javax.swing.JFrame {
 
         MenuDelSistema.add(MenuReportes);
 
+        MenuCuentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-info_usuario.png"))); // NOI18N
+        MenuCuentas.setText("Configuración");
+        MenuCuentas.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        MenuCuentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                MenuCuentasMouseEntered(evt);
+            }
+        });
+
+        jMenuItem1.setText("Cuentas de usuarios");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        MenuCuentas.add(jMenuItem1);
+
+        jMenuItem2.setText("Apariencia");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        MenuCuentas.add(jMenuItem2);
+
+        MenuDelSistema.add(MenuCuentas);
+
         setJMenuBar(MenuDelSistema);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -323,7 +357,8 @@ private void MenuArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
 private void CerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSesionActionPerformed
 // TODO add your handling code here:
-    Login p= new Login();
+    sonidoclic();
+    Loggin p= new Loggin();
     p.setVisible(true);
     p.pack();
     p.setLocationRelativeTo(null);
@@ -340,11 +375,13 @@ private void CerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
 private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
 // TODO add your handling code here:
-    close();
+        sonidoclic();
+        close();
 }//GEN-LAST:event_SalirActionPerformed
 
 private void ProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductosActionPerformed
 // TODO add your handling code here:
+    sonidoclic();
      IngresoProductos ip= new IngresoProductos();
     jdpescritorio.add(ip);
     ip.show();
@@ -357,6 +394,7 @@ private void MenuRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 
 private void CientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CientesActionPerformed
 // TODO add your handling code here:
+    sonidoclic();
     IngresoCliente cli= new IngresoCliente();
     jdpescritorio.add(cli);
     cli.show();
@@ -367,7 +405,8 @@ private void MenuVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_MenuVenderActionPerformed
 
 private void VenderPorFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VenderPorFacturaActionPerformed
-// TODO add your handling code here:
+
+    sonidoclic(); // TODO add your handling code here:
      Factura fac= new Factura();
     jdpescritorio.add(fac);
     fac.show();
@@ -375,11 +414,13 @@ private void VenderPorFacturaActionPerformed(java.awt.event.ActionEvent evt) {//
 
 private void ReporteClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteClientesActionPerformed
 // TODO add your handling code here:
-    
+    sonidoclic();
         try {
-            conectar cc= new conectar();
+            Conexion cc= new Conexion();
+            InputStream dir;
+            dir = getClass().getResourceAsStream("/Reportes/reportesClientes.jrxml");
             
-            JasperReport reportes=JasperCompileManager.compileReport("src\\Reportes\\reportesClientes.jrxml");
+            JasperReport reportes=JasperCompileManager.compileReport(dir);
             JasperPrint print=JasperFillManager.fillReport(reportes, null,cc.conexion());
            // JasperViewer.viewReport(print);
             JasperViewer view = new JasperViewer (print, false);
@@ -393,6 +434,7 @@ private void ReporteClientesActionPerformed(java.awt.event.ActionEvent evt) {//G
 
 private void ConsultarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarClientesActionPerformed
 // TODO add your handling code here:
+    sonidoclic();
    ConsultasClientes clientes= new ConsultasClientes();
     jdpescritorio.add(clientes);
     clientes.show();
@@ -400,6 +442,7 @@ private void ConsultarClientesActionPerformed(java.awt.event.ActionEvent evt) {/
 
 private void ConsultarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarProductoActionPerformed
 // TODO add your handling code here:
+    sonidoclic();
     ConsultasProductos productos= new ConsultasProductos();
     jdpescritorio.add(productos);
     productos.show();
@@ -407,6 +450,7 @@ private void ConsultarProductoActionPerformed(java.awt.event.ActionEvent evt) {/
 
 private void ConsultarFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarFacturasActionPerformed
 // TODO add your handling code here:
+    sonidoclic();
     ConsultasFacturas Facturas= new  ConsultasFacturas();
     jdpescritorio.add(Facturas);
     Facturas.show();
@@ -414,6 +458,7 @@ private void ConsultarFacturasActionPerformed(java.awt.event.ActionEvent evt) {/
 
 private void VenderPorTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VenderPorTicketActionPerformed
 // TODO add your handling code here:
+    sonidoclic();
     Ticket bol = new Ticket();
     jdpescritorio.add(bol);
     bol.show();
@@ -425,6 +470,7 @@ private void MenuConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 
 private void ConsultarTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarTicketsActionPerformed
 // TODO add your handling code here:
+    sonidoclic();
      ConsultasTickets Boletas= new  ConsultasTickets();
     jdpescritorio.add(Boletas);
     Boletas.show();
@@ -432,10 +478,13 @@ private void ConsultarTicketsActionPerformed(java.awt.event.ActionEvent evt) {//
 
 private void ReporteProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteProductosActionPerformed
 // TODO add your handling code here:
+    sonidoclic();
            try {
-            conectar cc= new conectar();
+            Conexion cc= new Conexion();
+            InputStream dir;
+            dir = getClass().getResourceAsStream("/Reportes/reportesProductos.jrxml");
             
-            JasperReport reportes=JasperCompileManager.compileReport("src\\Reportes\\reportesProductos.jrxml");
+            JasperReport reportes=JasperCompileManager.compileReport(dir);
             JasperPrint print=JasperFillManager.fillReport(reportes, null,cc.conexion());
             //JasperViewer.viewReport(print);
             JasperViewer view = new JasperViewer (print, false);
@@ -447,25 +496,30 @@ private void ReporteProductosActionPerformed(java.awt.event.ActionEvent evt) {//
 
 private void ReporteFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteFacturasActionPerformed
 // TODO add your handling code here:
+    sonidoclic();
     try {
-            conectar cc= new conectar();
-            
-            JasperReport reportes=JasperCompileManager.compileReport("src\\Reportes\\reportesFacturas.jrxml");
+            Conexion cc= new Conexion();
+            InputStream dir;
+            dir = getClass().getResourceAsStream("/Reportes/reportesFacturas.jrxml");
+            JasperReport reportes=JasperCompileManager.compileReport(dir);
             JasperPrint print=JasperFillManager.fillReport(reportes, null,cc.conexion());
             //JasperViewer.viewReport(print);
             JasperViewer view = new JasperViewer (print, false);
             view.setVisible(true);
         } catch (Exception e) {
-            System.out.printf(e.getMessage());
+            JOptionPane.showMessageDialog(null,e);
+            //System.out.printf(e.getMessage());
         }
 }//GEN-LAST:event_ReporteFacturasActionPerformed
 
 private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteTicketsActionPerformed
 // TODO add your handling code here:
+    sonidoclic();
       try {
-            conectar cc= new conectar();
-            
-            JasperReport reportes=JasperCompileManager.compileReport("src\\Reportes\\reportesTickets.jrxml");
+            Conexion cc= new Conexion();
+            InputStream dir;
+            dir = getClass().getResourceAsStream("/Reportes/reportesTickets.jrxml");
+            JasperReport reportes=JasperCompileManager.compileReport(dir);
             JasperPrint print=JasperFillManager.fillReport(reportes, null,cc.conexion());
             //JasperViewer.viewReport(print);
             JasperViewer view = new JasperViewer (print, false);
@@ -477,15 +531,18 @@ private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
     private void ProvedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvedoresActionPerformed
     IngresoProvedor pro= new IngresoProvedor();
+    sonidoclic();
     jdpescritorio.add(pro);
     pro.show();        // TODO add your handling code here:
     }//GEN-LAST:event_ProvedoresActionPerformed
 
     private void ReporteProvedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteProvedoresActionPerformed
-    try {
-            conectar cc= new conectar();
-            
-            JasperReport reportes=JasperCompileManager.compileReport("src\\Reportes\\reportesProvedores.jrxml");
+        sonidoclic();
+        try {
+            Conexion cc= new Conexion();
+            InputStream dir;
+            dir = getClass().getResourceAsStream("/Reportes/reportesProvedores.jrxml");
+            JasperReport reportes=JasperCompileManager.compileReport(dir);
             JasperPrint print=JasperFillManager.fillReport(reportes, null,cc.conexion());
             //JasperViewer.viewReport(print);
             JasperViewer view = new JasperViewer (print, false);
@@ -496,18 +553,35 @@ private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GE
     }//GEN-LAST:event_ReporteProvedoresActionPerformed
 
     private void close(){
-        if (JOptionPane.showConfirmDialog(rootPane, "¿Desea realmente salir del sistema?",
-                "Salir del sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)      
+        Object [] opciones ={"Aceptar","Cancelar"};
+        int eleccion = JOptionPane.showOptionDialog(rootPane,"En realidad desea realizar cerrar la aplicacion","Mensaje de Confirmacion",
+        JOptionPane.YES_NO_OPTION,
+    JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
+        if (eleccion == JOptionPane.YES_OPTION)
+            {
+                sonidoclic();
+                System.exit(0);
+            }else{
+            sonidoclic();}
         
-     System.exit(0);   
-    }            
+        /**if (JOptionPane.showConfirmDialog(rootPane, "¿Desea realmente salir del sistema?",
+                "Salir del sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)      
+            sonidoclic();
+            System.exit(0); **/       
+    }    
+    //Timer timer = new Timer (100, new ActionListener() { 
+    //public void actionPerformed(ActionEvent e){ 
+    //System.exit(0);
+     //timer.stop();}}
+            
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
       close();  
     }//GEN-LAST:event_formWindowClosing
 
     private void MenuArchivoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuArchivoMouseEntered
-    sonidomouse();   // TODO add your handling code here:
+    sonidomouse();
+    // TODO add your handling code here:
     }//GEN-LAST:event_MenuArchivoMouseEntered
 
     private void MenuVenderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuVenderMouseEntered
@@ -523,10 +597,37 @@ private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GE
     }//GEN-LAST:event_MenuConsultarMouseEntered
 
     private void MenuReportesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuReportesMouseEntered
-    sonidomouse();    // TODO add your handling code here:
+    sonidomouse();
+        // TODO add your handling code here:
     }//GEN-LAST:event_MenuReportesMouseEntered
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        sonidoclic();
+        AdministrarCuentas i = new AdministrarCuentas();
+        i.setLocationRelativeTo(null);
+        i.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void MenuCuentasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuCuentasMouseEntered
+        // TODO add your handling code here:
+      sonidomouse();  
+    }//GEN-LAST:event_MenuCuentasMouseEntered
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        sonidoclic();
+        ConfigurarTema F= new  ConfigurarTema();
+        jdpescritorio.add(F);
+        
+        Dimension desktopSize = jdpescritorio.getSize();
+        Dimension FrameSize = F.getSize();
+        F.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        F.show();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
     
-    private void sonidomouse(){
+    public void sonidomouse(){
+        
         try{
           Clip Sonido=AudioSystem.getClip();
           Sonido.open(AudioSystem.getAudioInputStream(new File("src\\Sonidos\\pasar_barra.wav")));
@@ -539,10 +640,10 @@ private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GE
      }
     }
     
-    private void sonidoclic(){
+    public void sonidoclic(){
         try{
           Clip Sonido=AudioSystem.getClip();
-          Sonido.open(AudioSystem.getAudioInputStream(new File("src\\Sonidos\\pasar_barra.wav")));
+          Sonido.open(AudioSystem.getAudioInputStream(new File("src\\Sonidos\\sonido_click.wav")));
           Sonido.start();
           
      }catch(Exception ex){
@@ -551,7 +652,20 @@ private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GE
      
      }
     }
-    
+    public void sonidosalida(){
+        try{
+          Clip Sonido=AudioSystem.getClip();
+          Sonido.open(AudioSystem.getAudioInputStream(new File("src\\Sonidos\\sonido_salida.wav")));
+          Sonido.start();
+          
+          
+     }catch(Exception ex){
+         
+     System.err.println(ex+" error");
+     
+     }
+       
+    }
     
     /**
      * @param args the command line arguments
@@ -576,6 +690,7 @@ private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JMenuItem ConsultarTickets;
     private javax.swing.JMenu MenuArchivo;
     private javax.swing.JMenu MenuConsultar;
+    private javax.swing.JMenu MenuCuentas;
     private javax.swing.JMenuBar MenuDelSistema;
     private javax.swing.JMenu MenuRegistrar;
     private javax.swing.JMenu MenuReportes;
@@ -590,6 +705,8 @@ private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JMenuItem Salir;
     private javax.swing.JMenuItem VenderPorFactura;
     private javax.swing.JMenuItem VenderPorTicket;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     public static javax.swing.JDesktopPane jdpescritorio;
     // End of variables declaration//GEN-END:variables
 }

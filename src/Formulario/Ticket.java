@@ -6,7 +6,7 @@
 package Formulario;
 
 import Clases.GenerarNumero;
-import Clases.conectar;
+import Clases.Conexion;
 
 import java.awt.Color;
 import java.sql.*;
@@ -697,6 +697,6 @@ private void btneliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     public static javax.swing.JTextField txttipo;
     private javax.swing.JTextField txttotal;
     // End of variables declaration//GEN-END:variables
-conectar cc= new conectar();
+Conexion cc= new Conexion();
 Connection cn = cc.conexion();
 }
