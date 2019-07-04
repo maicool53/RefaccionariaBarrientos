@@ -5,11 +5,9 @@
  */
 package Login;
 
-import Alertas.CuentaInexistente;
-import Alertas.CamposVacios;
-import Alertas.AccesDenied;
 import Alertas.ContraseñaIncorrecta;
 import Clases.Conexion;
+import Clases.Sonidos;
 import Formulario.PantallaBienvenido;
 import Formulario.Principal;
 import java.awt.Color;
@@ -21,13 +19,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
 /**
  *
@@ -43,47 +34,12 @@ getMaximumWindowBounds();
         initComponents();
         Usuario.requestFocus();
 
-    }
 
+    }
+    Sonidos S = new Sonidos();
     Conexion cc = new Conexion();
    Connection cn = cc.conexion();
-   
-   
-    public void Click(){
-        
-        InputStream path;
-        path = getClass().getResourceAsStream("/Sonidos/sonido_click.wav");
-        try{
-            Clip sonido = AudioSystem.getClip();
-            sonido.open(AudioSystem.getAudioInputStream(path));
-            sonido.start();
-        }catch(IOException | LineUnavailableException | UnsupportedAudioFileException e){
-            JOptionPane.showMessageDialog(null,e);
-        }
-        
-    }
-    
-    public void IniciarSesion(){
-       InputStream path;
-        path = getClass().getResourceAsStream("/Sonidos/sesion.wav");
-        try{
-            Clip sonido = AudioSystem.getClip();
-            sonido.open(AudioSystem.getAudioInputStream(path));
-            sonido.start();
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null,e);
-            //System.out.println(e);
-        }
-        
-        
-        /**try{Clip Sonido=AudioSystem.getClip();
-        Sonido.open(AudioSystem.getAudioInputStream(new File("src\\Sonidos\\sesion.wav")));
-        Sonido.start();
-        }catch(Exception ex){
-        System.err.println(ex+" error");}**/
-    }
-   
-   
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -309,12 +265,10 @@ getMaximumWindowBounds();
     }// </editor-fold>//GEN-END:initComponents
 
     private void EntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntrarActionPerformed
+        S.Click();
         if ((Usuario.getText().equals("")) || (Contraseña.getText().equals(""))) {
-            CamposVacios x = new CamposVacios();
-            x.setLocationRelativeTo(null);
-            x.setVisible(true);
-            x.setAlwaysOnTop(true);
-            
+            JOptionPane.showMessageDialog(null, "Asegurate de introducir tu usuario y tu contraseña :)", "¡Campos vacios!", JOptionPane.WARNING_MESSAGE);
+
             if (Usuario.getText().equals("")) {
                 jPanel2.setBackground(new Color(135, 0, 0));}
             if (Contraseña.getText().equals("")){
@@ -328,52 +282,38 @@ getMaximumWindowBounds();
                 rs = pps.executeQuery();
 
                 if (rs.next()) {
-
                     if ((Contraseña.getText().equals(rs.getString(3)))) {
                         int x;
                         x = rs.getInt(4);
 
                         if (x == 0) {
-                            AccesDenied ad = new AccesDenied();
-                            ad.setLocationRelativeTo(null);
-                            ad.setVisible(true);
-                            ad.setAlwaysOnTop(true);
+                            JOptionPane.showMessageDialog(null, "Aun no tienes permiso para acceder, ponte en contacto con el administrador :) ", "¡Acceso Denegado!", JOptionPane.ERROR_MESSAGE);
                         } else {
                             if (x == 1) {
                                 Principal i = new Principal();
                                 i.setVisible(true);
                                 i.pack();
-                                
                                 i.setSize(maxBounds.width, maxBounds.height);
                                 i.setLocationRelativeTo(null);
-                                //i.setExtendedState(i.MAXIMIZED_BOTH);
                                
-                                
-                                
                                 PantallaBienvenido b = new PantallaBienvenido();
                                 b.setLocationRelativeTo(null);
                                 b.setVisible(true);
-                                IniciarSesion();
-                        
+                                S.IniciarSesion();
                             }
-                            
-                            
+                                  
                     else {if (x == 2) {
                                 
-                                 
-                        
                                 Principal i = new Principal();
                                 i.setVisible(true);
                                 i.pack();
-                                //i.setLocationRelativeTo(null);
-                                //i.setExtendedState(i.MAXIMIZED_BOTH); 
                                 i.setSize(maxBounds.width, maxBounds.height);
-                               i.setLocationRelativeTo(null);
+                                i.setLocationRelativeTo(null);
                                 PantallaBienvenido b = new PantallaBienvenido();
                                 b.setLocationRelativeTo(null);
                                 b.setVisible(true);
                                 b.setUndecorated(true);
-                                IniciarSesion();}}
+                                S.IniciarSesion();}}
                             this.dispose();
                         }
 
@@ -386,10 +326,9 @@ getMaximumWindowBounds();
                         Contraseña.setText("");
                     }
                 } else {
-                    CuentaInexistente c = new CuentaInexistente();
-                    c.setLocationRelativeTo(null);
-                    c.setVisible(true);
-                    c.setAlwaysOnTop(true);
+                    S.error();
+                    String L = System.getProperty("line.separator");
+                    JOptionPane.showMessageDialog(null, "Oh no esa cuenta no existe, ¿seguro que estas registrado? "+L+"Asegurate de estar registrado o contacta a tu administrador", "¡Cuenta Inexistente!", JOptionPane.ERROR_MESSAGE);
                     Registrarse.setBorderPainted(true);
                 }
 
@@ -401,6 +340,7 @@ getMaximumWindowBounds();
     }//GEN-LAST:event_EntrarActionPerformed
 
     private void RegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarseActionPerformed
+        S.Click();
         SingUp W = new SingUp();
         W.setLocationRelativeTo(null);
         W.setVisible(true);
@@ -426,6 +366,7 @@ getMaximumWindowBounds();
         char c = evt.getKeyChar();
         if (c == evt.VK_ENTER) {
             Entrar.doClick();
+            S.Click();
         }
     }//GEN-LAST:event_ContraseñaKeyTyped
 
@@ -439,6 +380,7 @@ getMaximumWindowBounds();
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
         // TODO add your handling code here:
+        S.Click();
         System.exit(0);
     }//GEN-LAST:event_SalirActionPerformed
 
@@ -452,18 +394,17 @@ getMaximumWindowBounds();
 
     private void EntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EntrarMouseClicked
         // TODO add your handling code here:
-        Click(); 
-        
+        S.Click();     
     }//GEN-LAST:event_EntrarMouseClicked
 
     private void SalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirMouseClicked
         // TODO add your handling code here:
-        Click();
+        S.Click();
     }//GEN-LAST:event_SalirMouseClicked
 
     private void RegistrarseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrarseMouseClicked
         // TODO add your handling code here:
-        Click();
+        S.Click();
     }//GEN-LAST:event_RegistrarseMouseClicked
 
     /**

@@ -123,7 +123,7 @@ public class ConfigurarTema extends javax.swing.JInternalFrame {
                 System.exit(0);
             }else{
             Principal I = new Principal ();
-            I.sonidoclic();}
+            I.Clic();}
     }
     
     private void combo(){

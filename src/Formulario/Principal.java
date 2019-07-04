@@ -10,10 +10,15 @@ import Clases.Conexion;
 import Login.Loggin;
 import Login.AdministrarCuentas;
 import java.awt.Dimension;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
@@ -26,14 +31,7 @@ public class Principal extends javax.swing.JFrame {
 
     /** Creates new form Principal */
     public Principal() {
-        initComponents();
-
-
-                    
-        
-   // setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        
-        
+        initComponents();   
     }
 
     /** This method is called from within the constructor to
@@ -85,7 +83,7 @@ public class Principal extends javax.swing.JFrame {
 
         jdpescritorio.setBackground(java.awt.SystemColor.controlShadow);
 
-        MenuArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-archivos.png"))); // NOI18N
+        MenuArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Usadas/x32-home.png"))); // NOI18N
         MenuArchivo.setText("Archivo");
         MenuArchivo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         MenuArchivo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -119,7 +117,7 @@ public class Principal extends javax.swing.JFrame {
 
         MenuDelSistema.add(MenuArchivo);
 
-        MenuVender.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-caja.png"))); // NOI18N
+        MenuVender.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Usadas/x32-caja.png"))); // NOI18N
         MenuVender.setText("Vender");
         MenuVender.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         MenuVender.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -153,7 +151,7 @@ public class Principal extends javax.swing.JFrame {
 
         MenuDelSistema.add(MenuVender);
 
-        MenuRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-edit_form.png"))); // NOI18N
+        MenuRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Usadas/x32-edit_form.png"))); // NOI18N
         MenuRegistrar.setText("Registrar");
         MenuRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         MenuRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -196,7 +194,7 @@ public class Principal extends javax.swing.JFrame {
 
         MenuDelSistema.add(MenuRegistrar);
 
-        MenuConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-buscar.png"))); // NOI18N
+        MenuConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Usadas/x32-buscar.png"))); // NOI18N
         MenuConsultar.setText("Consultar");
         MenuConsultar.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
         MenuConsultar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -248,7 +246,7 @@ public class Principal extends javax.swing.JFrame {
 
         MenuDelSistema.add(MenuConsultar);
 
-        MenuReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-reporte.png"))); // NOI18N
+        MenuReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Usadas/x32-reporte.png"))); // NOI18N
         MenuReportes.setText("Reportes");
         MenuReportes.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         MenuReportes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -304,8 +302,9 @@ public class Principal extends javax.swing.JFrame {
 
         MenuDelSistema.add(MenuReportes);
 
-        MenuCuentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-info_usuario.png"))); // NOI18N
+        MenuCuentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Usadas/x32-ajustes2.png"))); // NOI18N
         MenuCuentas.setText("Configuración");
+        MenuCuentas.setActionCommand("");
         MenuCuentas.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         MenuCuentas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -313,7 +312,9 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jMenuItem1.setText("Cuentas de usuarios");
+        jMenuItem1.setActionCommand("");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -321,7 +322,9 @@ public class Principal extends javax.swing.JFrame {
         });
         MenuCuentas.add(jMenuItem1);
 
+        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jMenuItem2.setText("Apariencia");
+        jMenuItem2.setActionCommand("");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -346,9 +349,31 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+   public static Clip sonido;
+   public void Reproducir(String tipo) {
+        try {      
+        BufferedInputStream bis = new BufferedInputStream(getClass().getResourceAsStream("/Sonidos/"+tipo+".wav"));
+            AudioInputStream ais  = AudioSystem.getAudioInputStream(bis);
+            sonido = AudioSystem.getClip();
+            sonido.open(ais);
+            sonido.start();
+    } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+            System.out.println("" + e);
+            System.err.println(e);
+        }
+            
+    }
+   void Clic (){
+       Reproducir("Clic");
+   }
+   
+  void EfectoPopUp (){
+       Reproducir("pasar_barra");
+   } 
     
-    
+   void SonidoSalida (){
+       Reproducir("SonidoSalida");
+   }   
     
 private void MenuArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuArchivoActionPerformed
 // TODO add your handling code here:
@@ -357,31 +382,31 @@ private void MenuArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
 private void CerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSesionActionPerformed
 // TODO add your handling code here:
-    sonidoclic();
-    Loggin p= new Loggin();
-    p.setVisible(true);
-    p.pack();
-    p.setLocationRelativeTo(null);
-                try{
-          Clip Sonido=AudioSystem.getClip();
-          Sonido.open(AudioSystem.getAudioInputStream(new File("src\\Sonidos\\sonido_salida.wav")));
-          Sonido.start();
-          
-     }catch(Exception ex){
-     System.err.println(ex+" error");}
-      
-    this.setVisible(false);
+    Object [] opciones ={"Aceptar","Cancelar"};
+        int eleccion = JOptionPane.showOptionDialog(rootPane,"En realidad desea realizar cerrar la aplicacion","Mensaje de Confirmacion",
+        JOptionPane.YES_NO_OPTION,
+    JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
+        if (eleccion == JOptionPane.YES_OPTION){
+            Clic();
+            Loggin p= new Loggin();
+            p.setVisible(true);
+            p.pack();
+            p.setLocationRelativeTo(null);
+            SonidoSalida();
+            this.dispose();
+        }else{
+         Clic();}    
 }//GEN-LAST:event_CerrarSesionActionPerformed
 
 private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
 // TODO add your handling code here:
-        sonidoclic();
+        Clic();
         close();
 }//GEN-LAST:event_SalirActionPerformed
 
 private void ProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductosActionPerformed
 // TODO add your handling code here:
-    sonidoclic();
+    Clic();
      IngresoProductos ip= new IngresoProductos();
     jdpescritorio.add(ip);
     ip.show();
@@ -394,7 +419,7 @@ private void MenuRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 
 private void CientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CientesActionPerformed
 // TODO add your handling code here:
-    sonidoclic();
+    Clic();
     IngresoCliente cli= new IngresoCliente();
     jdpescritorio.add(cli);
     cli.show();
@@ -406,7 +431,7 @@ private void MenuVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
 private void VenderPorFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VenderPorFacturaActionPerformed
 
-    sonidoclic(); // TODO add your handling code here:
+    Clic(); // TODO add your handling code here:
      Factura fac= new Factura();
     jdpescritorio.add(fac);
     fac.show();
@@ -414,7 +439,7 @@ private void VenderPorFacturaActionPerformed(java.awt.event.ActionEvent evt) {//
 
 private void ReporteClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteClientesActionPerformed
 // TODO add your handling code here:
-    sonidoclic();
+    Clic();
         try {
             Conexion cc= new Conexion();
             InputStream dir;
@@ -434,7 +459,7 @@ private void ReporteClientesActionPerformed(java.awt.event.ActionEvent evt) {//G
 
 private void ConsultarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarClientesActionPerformed
 // TODO add your handling code here:
-    sonidoclic();
+    Clic();
    ConsultasClientes clientes= new ConsultasClientes();
     jdpescritorio.add(clientes);
     clientes.show();
@@ -442,7 +467,7 @@ private void ConsultarClientesActionPerformed(java.awt.event.ActionEvent evt) {/
 
 private void ConsultarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarProductoActionPerformed
 // TODO add your handling code here:
-    sonidoclic();
+    Clic();
     ConsultasProductos productos= new ConsultasProductos();
     jdpescritorio.add(productos);
     productos.show();
@@ -450,7 +475,7 @@ private void ConsultarProductoActionPerformed(java.awt.event.ActionEvent evt) {/
 
 private void ConsultarFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarFacturasActionPerformed
 // TODO add your handling code here:
-    sonidoclic();
+    Clic();
     ConsultasFacturas Facturas= new  ConsultasFacturas();
     jdpescritorio.add(Facturas);
     Facturas.show();
@@ -458,7 +483,7 @@ private void ConsultarFacturasActionPerformed(java.awt.event.ActionEvent evt) {/
 
 private void VenderPorTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VenderPorTicketActionPerformed
 // TODO add your handling code here:
-    sonidoclic();
+    Clic();
     Ticket bol = new Ticket();
     jdpescritorio.add(bol);
     bol.show();
@@ -470,7 +495,7 @@ private void MenuConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 
 private void ConsultarTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarTicketsActionPerformed
 // TODO add your handling code here:
-    sonidoclic();
+    Clic();
      ConsultasTickets Boletas= new  ConsultasTickets();
     jdpescritorio.add(Boletas);
     Boletas.show();
@@ -478,7 +503,7 @@ private void ConsultarTicketsActionPerformed(java.awt.event.ActionEvent evt) {//
 
 private void ReporteProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteProductosActionPerformed
 // TODO add your handling code here:
-    sonidoclic();
+    Clic();
            try {
             Conexion cc= new Conexion();
             InputStream dir;
@@ -496,7 +521,7 @@ private void ReporteProductosActionPerformed(java.awt.event.ActionEvent evt) {//
 
 private void ReporteFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteFacturasActionPerformed
 // TODO add your handling code here:
-    sonidoclic();
+    Clic();
     try {
             Conexion cc= new Conexion();
             InputStream dir;
@@ -514,7 +539,7 @@ private void ReporteFacturasActionPerformed(java.awt.event.ActionEvent evt) {//G
 
 private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteTicketsActionPerformed
 // TODO add your handling code here:
-    sonidoclic();
+    Clic();
       try {
             Conexion cc= new Conexion();
             InputStream dir;
@@ -531,13 +556,13 @@ private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
     private void ProvedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvedoresActionPerformed
     IngresoProvedor pro= new IngresoProvedor();
-    sonidoclic();
+    Clic();
     jdpescritorio.add(pro);
     pro.show();        // TODO add your handling code here:
     }//GEN-LAST:event_ProvedoresActionPerformed
 
     private void ReporteProvedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteProvedoresActionPerformed
-        sonidoclic();
+        Clic();
         try {
             Conexion cc= new Conexion();
             InputStream dir;
@@ -559,10 +584,10 @@ private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GE
     JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
         if (eleccion == JOptionPane.YES_OPTION)
             {
-                sonidoclic();
+                Clic();
                 System.exit(0);
             }else{
-            sonidoclic();}
+            Clic();}
         
         /**if (JOptionPane.showConfirmDialog(rootPane, "¿Desea realmente salir del sistema?",
                 "Salir del sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)      
@@ -580,30 +605,30 @@ private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GE
     }//GEN-LAST:event_formWindowClosing
 
     private void MenuArchivoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuArchivoMouseEntered
-    sonidomouse();
+    EfectoPopUp();
     // TODO add your handling code here:
     }//GEN-LAST:event_MenuArchivoMouseEntered
 
     private void MenuVenderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuVenderMouseEntered
-    sonidomouse();  // TODO add your handling code here:
+    EfectoPopUp();  // TODO add your handling code here:
     }//GEN-LAST:event_MenuVenderMouseEntered
 
     private void MenuRegistrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuRegistrarMouseEntered
-    sonidomouse();    // TODO add your handling code here:
+    EfectoPopUp();    // TODO add your handling code here:
     }//GEN-LAST:event_MenuRegistrarMouseEntered
 
     private void MenuConsultarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuConsultarMouseEntered
-    sonidomouse();    // TODO add your handling code here:
+    EfectoPopUp();    // TODO add your handling code here:
     }//GEN-LAST:event_MenuConsultarMouseEntered
 
     private void MenuReportesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuReportesMouseEntered
-    sonidomouse();
+    EfectoPopUp();
         // TODO add your handling code here:
     }//GEN-LAST:event_MenuReportesMouseEntered
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        sonidoclic();
+        Clic();
         AdministrarCuentas i = new AdministrarCuentas();
         i.setLocationRelativeTo(null);
         i.setVisible(true);
@@ -611,12 +636,12 @@ private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
     private void MenuCuentasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuCuentasMouseEntered
         // TODO add your handling code here:
-      sonidomouse();  
+      EfectoPopUp();  
     }//GEN-LAST:event_MenuCuentasMouseEntered
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        sonidoclic();
+        Clic();
         ConfigurarTema F= new  ConfigurarTema();
         jdpescritorio.add(F);
         
@@ -625,48 +650,7 @@ private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GE
         F.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
         F.show();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
-    
-    public void sonidomouse(){
-        
-        try{
-          Clip Sonido=AudioSystem.getClip();
-          Sonido.open(AudioSystem.getAudioInputStream(new File("src\\Sonidos\\pasar_barra.wav")));
-          Sonido.start();
-          
-     }catch(Exception ex){
-         
-     System.err.println(ex+" error");
-     
-     }
-    }
-    
-    public void sonidoclic(){
-        try{
-          Clip Sonido=AudioSystem.getClip();
-          Sonido.open(AudioSystem.getAudioInputStream(new File("src\\Sonidos\\sonido_click.wav")));
-          Sonido.start();
-          
-     }catch(Exception ex){
-         
-     System.err.println(ex+" error");
-     
-     }
-    }
-    public void sonidosalida(){
-        try{
-          Clip Sonido=AudioSystem.getClip();
-          Sonido.open(AudioSystem.getAudioInputStream(new File("src\\Sonidos\\sonido_salida.wav")));
-          Sonido.start();
-          
-          
-     }catch(Exception ex){
-         
-     System.err.println(ex+" error");
-     
-     }
-       
-    }
-    
+   
     /**
      * @param args the command line arguments
      */

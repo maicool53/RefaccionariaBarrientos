@@ -11,17 +11,13 @@
 package Formulario;
 
 import Clases.Conexion;
+import Clases.Sonidos;
 import Login.Loggin;
 import Clases.TimerVentana;
 import com.sun.awt.AWTUtilities;
-import java.io.File;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import de.javasoft.plaf.synthetica.SyntheticaBlueSteelLookAndFeel;
@@ -36,33 +32,32 @@ import de.javasoft.plaf.synthetica.SyntheticaSilverMoonLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaSkyMetallicLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaWhiteVisionLookAndFeel;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
-import javax.swing.JOptionPane;
 /**
  *
  * @author Miguel
  */
+
 public final class PantallaCargando extends javax.swing.JFrame {
+    Sonidos S = new Sonidos();
     Conexion cc = new Conexion();
     Connection cn = cc.conexion();
     /** Creates new form PantallaCargando */
     double i=50,
     j=1;
     TimerVentana hilo;
-    
+   public static Clip sonido;
+   
     public PantallaCargando() throws SQLException {
         initComponents();
         iniciar();
-        Sonido();
         tunear();
-
+        S.Iniciar();
     } 
-//src\\
     void Nimbus(){
     try {
          UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -170,7 +165,6 @@ public final class PantallaCargando extends javax.swing.JFrame {
             rs=SS.executeQuery();
             while(rs.next())
            Tema=rs.getString(1);
-          // System.out.println("El tema es: " + Tema);
             
         if("Nimbus".equals(Tema)){
             Nimbus();
@@ -214,48 +208,14 @@ public final class PantallaCargando extends javax.swing.JFrame {
             System.err.print(ex);
             }
     }
-    
-    
-    
-    
-    
-    
-    
-    public void Sonidos(){
-        try{
-            Clip Sonido=AudioSystem.getClip();
-            Sonido.open(AudioSystem.getAudioInputStream(new File("src\\Sonidos\\sonido_inicio.wav")));
-            Sonido.start();
-             }catch(IOException | LineUnavailableException | UnsupportedAudioFileException ex){
-                 JOptionPane.showMessageDialog(null,ex);
-                 //System.err.println(ex+" error");
-                 }
-        }
-    
-    public void Sonido(){
-        InputStream path;
-        path = getClass().getResourceAsStream("/Sonidos/sonido_inicio.wav");
-        try{
-            Clip sonido = AudioSystem.getClip();
-            sonido.open(AudioSystem.getAudioInputStream(path));
-            sonido.start();
-        }catch(IOException | LineUnavailableException | UnsupportedAudioFileException e){
-            JOptionPane.showMessageDialog(null,e);
-        }
-    }
-    
-    
-    
+       
     public void iniciar(){
         setLocationRelativeTo(null);
         Progreso.setVisible(true);
         hilo=new TimerVentana(getProgreso());
         hilo.start();
-        hilo=null;
+        hilo=null;}
         
-
-    }
-    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -301,6 +261,7 @@ private void ProgresoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRS
         p.pack();
         p.setLocationRelativeTo(null);
         this.dispose();
+        
     }
 }//GEN-LAST:event_ProgresoStateChanged
 

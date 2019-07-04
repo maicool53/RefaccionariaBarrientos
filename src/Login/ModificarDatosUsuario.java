@@ -5,7 +5,7 @@
  */
 package Login;
 
-import Alertas.CamposVacios;
+import Clases.Sonidos;
 import Alertas.ConfirmacionCambios;
 import Alertas.ConfirmarCambioContraseña;
 import Alertas.ContraseñasDiferentes;
@@ -16,6 +16,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -23,7 +25,7 @@ import javax.swing.BorderFactory;
  */
 public class ModificarDatosUsuario extends javax.swing.JFrame {
 
-     
+    Sonidos e = new Sonidos(); 
     static Conexion cc = new Conexion();
     static Connection cn = cc.conexion();
     
@@ -524,9 +526,8 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
         if (((nombre.getText().equals("")) || (a_paterno.getText().equals("")) || (a_materno.getText().equals("")) || (edad.getText().equals("")) || (sexo.getSelectedItem().equals("")) || (tel.getText().equals("")) || (email.getText().equals("")))) {
-            CamposVacios x = new CamposVacios();
-            x.setLocationRelativeTo(null);
-            x.setVisible(true);
+            e.error();
+            JOptionPane.showMessageDialog(null, "Asegurate de introducir todos los datos correctamente", "¡Campos vacios!", JOptionPane.WARNING_MESSAGE);
 
             if (nombre.getText().equals("")) {
                 nombre.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, Color.red));
@@ -570,9 +571,8 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         if (((pass.getText().equals("")) || (pass2.getText().equals("")))) {
-            CamposVacios x = new CamposVacios();
-            x.setLocationRelativeTo(null);
-            x.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Asegurate de introducir todos los datos correctamente", "¡Campos vacios!", JOptionPane.WARNING_MESSAGE);
+
             if (pass.getText().equals("")) {
                 pass.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, Color.red));
             }
