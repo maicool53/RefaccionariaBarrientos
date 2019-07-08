@@ -4,14 +4,15 @@
  * and open the template in the editor.
  */
 package Clases;
-import Formulario.Login;
+import Formulario.PantallaCargando;
+import java.sql.SQLException;
 /**
  *
  * @author Miguel
  */
 public class Principal {
-    public static void main(String[] args) {
-        Login p= new Login();
+    public static void main(String[] args) throws SQLException  {
+        PantallaCargando p= new PantallaCargando();
         
         p.setVisible(true);
         p.pack();

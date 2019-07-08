@@ -6,7 +6,7 @@
 package Formulario;
 
 import Clases.GenerarCodigos;
-import Clases.conectar;
+import Clases.Conexion;
 
 import java.awt.event.KeyEvent;
 import java.sql.*;
@@ -14,10 +14,7 @@ import java.util.logging.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Miguel
- */
+
 public class IngresoCliente extends javax.swing.JInternalFrame {
     DefaultTableModel model;
     /** Creates new form IngresoCliente */
@@ -415,6 +412,11 @@ public class IngresoCliente extends javax.swing.JInternalFrame {
         });
 
         btnbuscar.setText("Mostrar Todos");
+        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscarActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("BUSCAR:");
 
@@ -464,14 +466,15 @@ public class IngresoCliente extends javax.swing.JInternalFrame {
 private void btnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnactualizarActionPerformed
 // TODO add your handling code here:
     try {
-        PreparedStatement pst = cn.prepareStatement("UPDATE cliente SET nom_cli='"
-                +txtnom.getText()+ "',ape_cli='"
-                +txtape.getText()+ "',sexo_cli='"
-                +cbosexo.getSelectedItem()+ "',clas_cli='"
-                +ClaseCliente.getSelectedItem()+ "',tel_cli='"
-                +txttel.getText()+"',email_cli='"
-                +txtemail.getText()+ "',dir_cli='"
-                +txtdir.getText()+ "' WHERE cod_cli='"+txtcod.getText()+"'");
+        PreparedStatement pst = cn.prepareStatement("UPDATE cliente SET "
+                +"nom_cli='"+txtnom.getText()
+                +"',ape_cli='"+txtape.getText()
+                +"',sexo_cli='"+cbosexo.getSelectedItem()
+                +"',clas_cli='"+ClaseCliente.getSelectedItem()
+                +"',tel_cli='"+txttel.getText()
+                +"',email_cli='"+txtemail.getText()
+                +"',dir_cli='"+txtdir.getText()
+                +"' WHERE cod_cli='"+txtcod.getText()+"'");
         pst.executeUpdate();
         cargar("");
           bloquear();
@@ -620,6 +623,10 @@ private void mnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         // TODO add your handling code here:
     }//GEN-LAST:event_txttelActionPerformed
 
+    private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnbuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox ClaseCliente;
@@ -654,6 +661,6 @@ private void mnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JTextField txtnom;
     private javax.swing.JTextField txttel;
     // End of variables declaration//GEN-END:variables
-conectar cc= new conectar();
+Conexion cc= new Conexion();
 Connection cn= cc.conexion();
 }

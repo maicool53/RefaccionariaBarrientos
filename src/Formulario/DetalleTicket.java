@@ -1,14 +1,11 @@
 /*
  * DetalleTicket.java
  *
- * @author elaprendiz http://www.youtube.com/user/JleoD7
+ * @author Miguel
  */
 package Formulario;
 
-/**
- *
- * @author Administrador
- */
+
 public class DetalleTicket extends javax.swing.JInternalFrame {
 
     /** Creates new form DetalleBoleta */

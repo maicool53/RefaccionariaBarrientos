@@ -5,20 +5,18 @@
  */
 package Formulario;
 
-import Clases.conectar;
-import de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel;
+import Clases.Conexion;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Administrador
+ * @author Miguel
  */
 public class ConsultasClientes extends javax.swing.JInternalFrame {
- 
+      
     public ConsultasClientes() {
         initComponents();
         ClaseCliente.setEnabled(false);
@@ -27,7 +25,7 @@ public class ConsultasClientes extends javax.swing.JInternalFrame {
     void Cargarlistaclientes()          
     {
         DefaultTableModel modelo= new DefaultTableModel();
-        String []Titulos = {"CODIGO","NOMBRES","APELLIDOS","SEXO","Clase CLiente","TELEFONO","EMAIL","DIRECCION"};
+        String []Titulos = {"CODIGO","NOMBRES","APELLIDOS","SEXO","CLASE","TELEFONO","EMAIL","DIRECCION"};
         modelo.setColumnIdentifiers(Titulos);
          this.tbclientes.setModel(modelo);
         try {
@@ -70,105 +68,98 @@ public class ConsultasClientes extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        rdgenero = new javax.swing.JRadioButton();
-        rddni = new javax.swing.JRadioButton();
-        rdtodo = new javax.swing.JRadioButton();
-        cbogenero = new javax.swing.JComboBox();
-        btnbuscar = new javax.swing.JButton();
+        radioclase = new javax.swing.JRadioButton();
+        radiotodo = new javax.swing.JRadioButton();
+        radionombre = new javax.swing.JRadioButton();
         ClaseCliente = new javax.swing.JComboBox();
+        txtnombre = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbclientes = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         txtcant = new javax.swing.JTextField();
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder()));
+        setBorder(null);
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("CONSULTA DE CLIENTES");
 
-        buttonGroup1.add(rdgenero);
-        rdgenero.setSelected(true);
-        rdgenero.setText("Mostrar Clientes por Genero:");
-        rdgenero.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(radioclase);
+        radioclase.setText("Buscar Clientes por Clase:");
+        radioclase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdgeneroActionPerformed(evt);
+                radioclaseActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(rddni);
-        rddni.setText("Buscar Clientes por Clase:");
-        rddni.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(radiotodo);
+        radiotodo.setText("Mostrar todos los clientes");
+        radiotodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rddniActionPerformed(evt);
+                radiotodoActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(rdtodo);
-        rdtodo.setText("Mostrar todos los clientes");
-        rdtodo.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(radionombre);
+        radionombre.setSelected(true);
+        radionombre.setText("Buscar Cliente Por Nombre:");
+        radionombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdtodoActionPerformed(evt);
-            }
-        });
-
-        cbogenero.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione...", "M", "F" }));
-
-        btnbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-buscar.png"))); // NOI18N
-        btnbuscar.setText("BUSCAR");
-        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnbuscarActionPerformed(evt);
+                radionombreActionPerformed(evt);
             }
         });
 
         ClaseCliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione...", "A", "B", "C", "D", "E", "F" }));
+        ClaseCliente.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ClaseClienteItemStateChanged(evt);
+            }
+        });
+
+        txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtnombreKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(22, 22, 22)
+                .addComponent(radionombre)
+                .addGap(16, 16, 16)
+                .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(367, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(rdgenero)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbogenero, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(rdtodo)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(rddni)
-                        .addGap(18, 18, 18)
-                        .addComponent(ClaseCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(btnbuscar)
-                .addGap(245, 245, 245))
+                    .addComponent(radioclase)
+                    .addComponent(radiotodo))
+                .addGap(16, 16, 16)
+                .addComponent(ClaseCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(372, 372, 372))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(rdgenero)
-                                    .addComponent(cbogenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rddni))
-                            .addComponent(ClaseCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rdtodo))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radionombre)
+                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radioclase)
+                    .addComponent(ClaseCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addComponent(radiotodo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        tbclientes.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 14)); // NOI18N
         tbclientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -191,14 +182,12 @@ public class ConsultasClientes extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(198, 198, 198)
+                        .addGap(186, 186, 186)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(txtcant, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -209,143 +198,130 @@ public class ConsultasClientes extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtcant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGap(69, 69, 69))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void rdgeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdgeneroActionPerformed
+private void radioclaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioclaseActionPerformed
 // TODO add your handling code here:
-    if(rdgenero.isSelected()==true)
+    if(radioclase.isSelected()==true)
     {
-        
-        cbogenero.setSelectedItem(0);
-        cbogenero.setEnabled(true);
-        ClaseCliente.setEnabled(false);
-    }
-}//GEN-LAST:event_rdgeneroActionPerformed
-
-private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
-// TODO add your handling code here:
-   String sexo= cbogenero.getSelectedItem().toString();
-   String ClasCliente=ClaseCliente.getSelectedItem().toString();
-   
-   if(rdgenero.isSelected()==true)
-   {
-       DefaultTableModel modelo= new DefaultTableModel();
-       String []Titulos = {"CODIGO","NOMBRES","APELLIDOS","SEXO","CLASE","TELEFONO","EMAIL","DIRECCION"};
-       modelo.setColumnIdentifiers(Titulos);
-       this.tbclientes.setModel(modelo);
-       try {
-            
-            String ConsultaSQL="SELECT * FROM cliente WHERE sexo_cli='"+sexo+"'";
-        
-            String []registros= new String[9];
-           
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(ConsultaSQL);
-            while(rs.next())
-            {
-                registros[0]=rs.getString("cod_cli");
-                registros[1]=rs.getString("nom_cli");
-                registros[2]=rs.getString("ape_cli");  
-                registros[3]=rs.getString("sexo_cli");
-                registros[4]=rs.getString("clas_cli");
-                registros[5]=rs.getString("tel_cli");
-                registros[6]=rs.getString("email_cli");
-                registros[7]=rs.getString("dir_cli");
-                modelo.addRow(registros);
-                                
-            }
-            tbclientes.setModel(modelo);
-            txtcant.setText(""+tbclientes.getRowCount());
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultasClientes.class.getName()).log(Level.SEVERE, null, ex);
-        }
-   }
-   
-   if(rddni.isSelected()==true)
-   {
-       DefaultTableModel modelo= new DefaultTableModel();
-       String []Titulos = {"CODIGO","NOMBRES","APELLIDOS","SEXO","CLASE","TELEFONO","EMAIL","DIRECCION"};
-       modelo.setColumnIdentifiers(Titulos);
-       this.tbclientes.setModel(modelo);
-       try {
-            
-            String ConsultaSQL="SELECT * FROM cliente WHERE clas_cli='"+ClasCliente+"'";
-        
-            String []registros= new String[9];
-           
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(ConsultaSQL);
-            while(rs.next())
-            {
-                registros[0]=rs.getString("cod_cli");
-                registros[1]=rs.getString("nom_cli");
-                registros[2]=rs.getString("ape_cli");  
-                registros[3]=rs.getString("sexo_cli");
-                registros[4]=rs.getString("clas_cli");
-                registros[5]=rs.getString("tel_cli");
-                registros[6]=rs.getString("email_cli");
-                registros[7]=rs.getString("dir_cli");
-                modelo.addRow(registros);
-                                
-            }
-            tbclientes.setModel(modelo);
-            txtcant.setText(""+tbclientes.getRowCount());
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultasClientes.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
-       
-   }
-   if(rdtodo.isSelected()==true)
-   {
-       Cargarlistaclientes();
-   }
-   
-}//GEN-LAST:event_btnbuscarActionPerformed
-
-private void rddniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rddniActionPerformed
-// TODO add your handling code here:
-    if(rddni.isSelected()==true)
-    {
-        cbogenero.setSelectedIndex(0);
-        cbogenero.setEnabled(false);
+        txtnombre.setEnabled(false);
         ClaseCliente.setEnabled(true);
+        ClaseCliente.setSelectedItem("Seleccione...");
 
     }
-}//GEN-LAST:event_rddniActionPerformed
+}//GEN-LAST:event_radioclaseActionPerformed
 
-private void rdtodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdtodoActionPerformed
+private void radiotodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radiotodoActionPerformed
 // TODO add your handling code here:
     Cargarlistaclientes();
     ClaseCliente.setEnabled(false);
-}//GEN-LAST:event_rdtodoActionPerformed
+    ClaseCliente.setSelectedItem("Seleccione...");
+    txtnombre.setEnabled(false);
+}//GEN-LAST:event_radiotodoActionPerformed
+
+    private void radionombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radionombreActionPerformed
+if(radionombre.isSelected()==true)
+    {
+        txtnombre.setEnabled(true);
+        ClaseCliente.setSelectedItem("Seleccione...");
+        ClaseCliente.setEnabled(false);
+        
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_radionombreActionPerformed
+
+    private void txtnombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyReleased
+        // TODO add your handling code here:
+        DefaultTableModel modelo= new DefaultTableModel();
+        String valor= txtnombre.getText();
+        String[]titulos={"CODIGO","NOMBRES","APELLIDOS","SEXO","CLASE","TELEFONO","EMAIL","DIRECCION"} ;  
+        String []Registros= new String[8];
+        modelo=new DefaultTableModel(null,titulos);
+        String Sql="SELECT * FROM cliente WHERE CONCAT(cod_cli,nom_cli,ape_cli,clas_cli,email_cli,dir_cli) LIKE '%"+valor+"%'";
+       
+        try {
+             Statement st = cn.createStatement();
+             ResultSet rs = st.executeQuery(Sql);
+             while(rs.next())
+             {
+                 Registros[0]= rs.getString("cod_cli");
+                  Registros[1]= rs.getString("nom_cli");
+                  Registros[2]= rs.getString("ape_cli");
+                  Registros[3]= rs.getString("sexo_cli");
+                  Registros[4]= rs.getString("clas_cli");
+                  Registros[5]= rs.getString("tel_cli");
+                  Registros[6]= rs.getString("email_cli");
+                  Registros[7]= rs.getString("dir_cli");   
+                 modelo.addRow(Registros);
+             } 
+             tbclientes.setModel(modelo);
+        } catch (SQLException ex) {
+            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+        
+        
+    }//GEN-LAST:event_txtnombreKeyReleased
+
+    private void ClaseClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ClaseClienteItemStateChanged
+        // TODO add your handling code here:
+        String clase= ClaseCliente.getSelectedItem().toString();
+        
+        DefaultTableModel modelo= new DefaultTableModel();
+       String []Titulos = {"CODIGO","NOMBRES","APELLIDOS","SEXO","CLASE","TELEFONO","EMAIL","DIRECCION"};
+       modelo.setColumnIdentifiers(Titulos);
+       this.tbclientes.setModel(modelo);
+       try {
+            
+            String ConsultaSQL="SELECT * FROM cliente WHERE clas_cli='"+clase+"'";
+        
+            String []registros= new String[9];
+           
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(ConsultaSQL);
+            while(rs.next())
+            {
+                registros[0]=rs.getString("cod_cli");
+                registros[1]=rs.getString("nom_cli");
+                registros[2]=rs.getString("ape_cli");  
+                registros[3]=rs.getString("sexo_cli");
+                registros[4]=rs.getString("clas_cli");
+                registros[5]=rs.getString("tel_cli");
+                registros[6]=rs.getString("email_cli");
+                registros[7]=rs.getString("dir_cli");
+                modelo.addRow(registros);
+                                
+            }
+            tbclientes.setModel(modelo);
+            txtcant.setText(""+tbclientes.getRowCount());
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultasClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_ClaseClienteItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox ClaseCliente;
-    private javax.swing.JButton btnbuscar;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JComboBox cbogenero;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JRadioButton rddni;
-    private javax.swing.JRadioButton rdgenero;
-    private javax.swing.JRadioButton rdtodo;
+    private javax.swing.JRadioButton radioclase;
+    private javax.swing.JRadioButton radionombre;
+    private javax.swing.JRadioButton radiotodo;
     private javax.swing.JTable tbclientes;
     private javax.swing.JTextField txtcant;
+    private javax.swing.JTextField txtnombre;
     // End of variables declaration//GEN-END:variables
-conectar cc= new conectar();
+Conexion cc= new Conexion();
 Connection cn = cc.conexion();
 
 

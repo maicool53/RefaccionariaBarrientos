@@ -6,7 +6,7 @@
  */
 package Formulario;
 
-import Clases.conectar;
+import Clases.Conexion;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -230,7 +230,7 @@ private void rbtndesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private javax.swing.JTable tbproductos;
     private javax.swing.JTextField txtdes;
     // End of variables declaration//GEN-END:variables
-conectar cc= new conectar();
+Conexion cc= new Conexion();
 Connection cn = cc.conexion();
 
 }

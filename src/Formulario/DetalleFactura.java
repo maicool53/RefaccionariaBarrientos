@@ -30,8 +30,6 @@ public class DetalleFactura extends javax.swing.JInternalFrame {
         txtfac = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtcod = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtruc = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtfecha = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -62,8 +60,6 @@ public class DetalleFactura extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Cod. Cliente");
 
-        jLabel4.setText("RUC");
-
         jLabel5.setText("Fecha:");
 
         tbdetalle.setModel(new javax.swing.table.DefaultTableModel(
@@ -86,7 +82,7 @@ public class DetalleFactura extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Subtotal:");
 
-        jLabel7.setText("IGV:");
+        jLabel7.setText("IVA:");
 
         jLabel8.setText("Total a Pagar:");
 
@@ -108,10 +104,7 @@ public class DetalleFactura extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtcod, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtruc, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(134, 134, 134))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -141,8 +134,6 @@ public class DetalleFactura extends javax.swing.JInternalFrame {
                     .addComponent(txtfac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(txtcod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtruc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(txtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -155,7 +146,7 @@ public class DetalleFactura extends javax.swing.JInternalFrame {
                     .addComponent(jLabel7)
                     .addComponent(txtsub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -169,7 +160,6 @@ private void txtfacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -180,7 +170,6 @@ private void txtfacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     public static javax.swing.JTextField txtfac;
     public static javax.swing.JTextField txtfecha;
     public static javax.swing.JTextField txtigv;
-    public static javax.swing.JTextField txtruc;
     public static javax.swing.JTextField txtsub;
     public static javax.swing.JTextField txttot;
     // End of variables declaration//GEN-END:variables
