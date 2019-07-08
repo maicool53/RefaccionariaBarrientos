@@ -48,5 +48,11 @@ public class Sonidos {
    public void notificacion(){
        Reproducir ("Notify");
    }
+   public void EfectoPopUp(){
+       Reproducir ("pasar_barra");
+   }
+   public void SonidoSalida(){
+       Reproducir ("SonidoSalida");
+   }
     
 }

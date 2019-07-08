@@ -5,7 +5,6 @@
  */
 package Login;
 
-import Alertas.CamposVacios;
 import Alertas.Error;
 import Alertas.ContraseñasDiferentes;
 import Alertas.UsuarioCreado;
@@ -20,6 +19,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -527,11 +527,8 @@ public class SingUp extends javax.swing.JFrame {
         || (Edad.getText().equals("")) || (Sexo.getSelectedItem().equals("")) || (Telefono.getText().equals("")) 
         || (Email.getText().equals("")))){
         
-        
-        
-        CamposVacios x = new CamposVacios();
-        x.setLocationRelativeTo(null);
-        x.setVisible(true);
+        JOptionPane.showMessageDialog(null, "Asegurate de introducir todos los datos correctamente :)", "¡Campos vacios!", JOptionPane.WARNING_MESSAGE);
+
         
         if (Usuario.getText().equals("")){
             Usuario.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2,  Color.red));}

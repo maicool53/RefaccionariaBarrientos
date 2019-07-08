@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -134,9 +135,7 @@ public class ConfirmarCambioContraseña extends javax.swing.JFrame {
 
     private void ButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAceptarActionPerformed
         if (pass.getText().equals("")){
-            CamposVacios cvl = new CamposVacios();
-            cvl.setLocationRelativeTo(null);
-            cvl.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Asegurate de introducir tu contraseña :)", "¡Campos vacios!", JOptionPane.WARNING_MESSAGE);
             pass.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2,  Color.red));
         }else{
             try{

@@ -7,18 +7,11 @@
 package Formulario;
 
 import Clases.Conexion;
+import Clases.Sonidos;
 import Login.Loggin;
 import Login.AdministrarCuentas;
 import java.awt.Dimension;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
@@ -29,6 +22,8 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class Principal extends javax.swing.JFrame {
 
+    Sonidos SS =new Sonidos();
+    
     /** Creates new form Principal */
     public Principal() {
         initComponents();   
@@ -349,31 +344,7 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-   public static Clip sonido;
-   public void Reproducir(String tipo) {
-        try {      
-        BufferedInputStream bis = new BufferedInputStream(getClass().getResourceAsStream("/Sonidos/"+tipo+".wav"));
-            AudioInputStream ais  = AudioSystem.getAudioInputStream(bis);
-            sonido = AudioSystem.getClip();
-            sonido.open(ais);
-            sonido.start();
-    } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
-            System.out.println("" + e);
-            System.err.println(e);
-        }
-            
-    }
-   void Clic (){
-       Reproducir("Clic");
-   }
-   
-  void EfectoPopUp (){
-       Reproducir("pasar_barra");
-   } 
-    
-   void SonidoSalida (){
-       Reproducir("SonidoSalida");
-   }   
+
     
 private void MenuArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuArchivoActionPerformed
 // TODO add your handling code here:
@@ -387,26 +358,26 @@ private void CerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         JOptionPane.YES_NO_OPTION,
     JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
         if (eleccion == JOptionPane.YES_OPTION){
-            Clic();
+            SS.Click();
             Loggin p= new Loggin();
             p.setVisible(true);
             p.pack();
             p.setLocationRelativeTo(null);
-            SonidoSalida();
+            SS.SonidoSalida();
             this.dispose();
         }else{
-         Clic();}    
+         SS.Click();}    
 }//GEN-LAST:event_CerrarSesionActionPerformed
 
 private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
 // TODO add your handling code here:
-        Clic();
+        SS.Click();
         close();
 }//GEN-LAST:event_SalirActionPerformed
 
 private void ProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductosActionPerformed
 // TODO add your handling code here:
-    Clic();
+    SS.Click();
      IngresoProductos ip= new IngresoProductos();
     jdpescritorio.add(ip);
     ip.show();
@@ -419,7 +390,7 @@ private void MenuRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 
 private void CientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CientesActionPerformed
 // TODO add your handling code here:
-    Clic();
+    SS.Click();
     IngresoCliente cli= new IngresoCliente();
     jdpescritorio.add(cli);
     cli.show();
@@ -430,16 +401,16 @@ private void MenuVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_MenuVenderActionPerformed
 
 private void VenderPorFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VenderPorFacturaActionPerformed
-
-    Clic(); // TODO add your handling code here:
-     Factura fac= new Factura();
+    // TODO add your handling code here:
+    SS.Click();
+    Factura fac= new Factura();
     jdpescritorio.add(fac);
     fac.show();
 }//GEN-LAST:event_VenderPorFacturaActionPerformed
 
 private void ReporteClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteClientesActionPerformed
 // TODO add your handling code here:
-    Clic();
+    SS.Click();
         try {
             Conexion cc= new Conexion();
             InputStream dir;
@@ -459,7 +430,7 @@ private void ReporteClientesActionPerformed(java.awt.event.ActionEvent evt) {//G
 
 private void ConsultarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarClientesActionPerformed
 // TODO add your handling code here:
-    Clic();
+    SS.Click();
    ConsultasClientes clientes= new ConsultasClientes();
     jdpescritorio.add(clientes);
     clientes.show();
@@ -467,7 +438,7 @@ private void ConsultarClientesActionPerformed(java.awt.event.ActionEvent evt) {/
 
 private void ConsultarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarProductoActionPerformed
 // TODO add your handling code here:
-    Clic();
+    SS.Click();
     ConsultasProductos productos= new ConsultasProductos();
     jdpescritorio.add(productos);
     productos.show();
@@ -475,7 +446,7 @@ private void ConsultarProductoActionPerformed(java.awt.event.ActionEvent evt) {/
 
 private void ConsultarFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarFacturasActionPerformed
 // TODO add your handling code here:
-    Clic();
+    SS.Click();
     ConsultasFacturas Facturas= new  ConsultasFacturas();
     jdpescritorio.add(Facturas);
     Facturas.show();
@@ -483,7 +454,7 @@ private void ConsultarFacturasActionPerformed(java.awt.event.ActionEvent evt) {/
 
 private void VenderPorTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VenderPorTicketActionPerformed
 // TODO add your handling code here:
-    Clic();
+    SS.Click();
     Ticket bol = new Ticket();
     jdpescritorio.add(bol);
     bol.show();
@@ -495,7 +466,7 @@ private void MenuConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 
 private void ConsultarTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarTicketsActionPerformed
 // TODO add your handling code here:
-    Clic();
+    SS.Click();
      ConsultasTickets Boletas= new  ConsultasTickets();
     jdpescritorio.add(Boletas);
     Boletas.show();
@@ -503,7 +474,7 @@ private void ConsultarTicketsActionPerformed(java.awt.event.ActionEvent evt) {//
 
 private void ReporteProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteProductosActionPerformed
 // TODO add your handling code here:
-    Clic();
+    SS.Click();
            try {
             Conexion cc= new Conexion();
             InputStream dir;
@@ -521,7 +492,7 @@ private void ReporteProductosActionPerformed(java.awt.event.ActionEvent evt) {//
 
 private void ReporteFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteFacturasActionPerformed
 // TODO add your handling code here:
-    Clic();
+    SS.Click();
     try {
             Conexion cc= new Conexion();
             InputStream dir;
@@ -539,7 +510,7 @@ private void ReporteFacturasActionPerformed(java.awt.event.ActionEvent evt) {//G
 
 private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteTicketsActionPerformed
 // TODO add your handling code here:
-    Clic();
+    SS.Click();
       try {
             Conexion cc= new Conexion();
             InputStream dir;
@@ -556,13 +527,13 @@ private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
     private void ProvedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvedoresActionPerformed
     IngresoProvedor pro= new IngresoProvedor();
-    Clic();
+    SS.Click();
     jdpescritorio.add(pro);
     pro.show();        // TODO add your handling code here:
     }//GEN-LAST:event_ProvedoresActionPerformed
 
     private void ReporteProvedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteProvedoresActionPerformed
-        Clic();
+        SS.Click();
         try {
             Conexion cc= new Conexion();
             InputStream dir;
@@ -584,51 +555,42 @@ private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GE
     JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
         if (eleccion == JOptionPane.YES_OPTION)
             {
-                Clic();
+                SS.Click();
                 System.exit(0);
             }else{
-            Clic();}
-        
-        /**if (JOptionPane.showConfirmDialog(rootPane, "¿Desea realmente salir del sistema?",
-                "Salir del sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)      
-            sonidoclic();
-            System.exit(0); **/       
-    }    
-    //Timer timer = new Timer (100, new ActionListener() { 
-    //public void actionPerformed(ActionEvent e){ 
-    //System.exit(0);
-     //timer.stop();}}
-            
+            SS.Click();}
+    }       
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
       close();  
     }//GEN-LAST:event_formWindowClosing
 
     private void MenuArchivoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuArchivoMouseEntered
-    EfectoPopUp();
+        SS.EfectoPopUp();
     // TODO add your handling code here:
     }//GEN-LAST:event_MenuArchivoMouseEntered
 
     private void MenuVenderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuVenderMouseEntered
-    EfectoPopUp();  // TODO add your handling code here:
+        SS.EfectoPopUp();  // TODO add your handling code here:
     }//GEN-LAST:event_MenuVenderMouseEntered
 
     private void MenuRegistrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuRegistrarMouseEntered
-    EfectoPopUp();    // TODO add your handling code here:
+       SS.EfectoPopUp();    // TODO add your handling code here:
     }//GEN-LAST:event_MenuRegistrarMouseEntered
 
     private void MenuConsultarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuConsultarMouseEntered
-    EfectoPopUp();    // TODO add your handling code here:
+    // TODO add your handling code here:
+    SS.EfectoPopUp();
     }//GEN-LAST:event_MenuConsultarMouseEntered
 
     private void MenuReportesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuReportesMouseEntered
-    EfectoPopUp();
         // TODO add your handling code here:
+            SS.EfectoPopUp();
     }//GEN-LAST:event_MenuReportesMouseEntered
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        Clic();
+        SS.Click();
         AdministrarCuentas i = new AdministrarCuentas();
         i.setLocationRelativeTo(null);
         i.setVisible(true);
@@ -636,12 +598,12 @@ private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
     private void MenuCuentasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuCuentasMouseEntered
         // TODO add your handling code here:
-      EfectoPopUp();  
+      SS.EfectoPopUp();  
     }//GEN-LAST:event_MenuCuentasMouseEntered
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        Clic();
+        SS.Click();
         ConfigurarTema F= new  ConfigurarTema();
         jdpescritorio.add(F);
         

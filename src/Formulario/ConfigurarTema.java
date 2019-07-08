@@ -5,6 +5,7 @@
  */
 package Formulario;
 import Clases.Conexion;
+import Clases.Sonidos;
 import java.sql.*;
 import java.sql.PreparedStatement;
 import java.util.logging.Level;
@@ -16,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author maico
  */
 public class ConfigurarTema extends javax.swing.JInternalFrame {
-    
+    Sonidos I= new Sonidos();
 
     /**
      * Creates new form ConfigurarTema
@@ -120,30 +121,12 @@ public class ConfigurarTema extends javax.swing.JInternalFrame {
     JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
         if (eleccion == JOptionPane.YES_OPTION)
             {
+                I.Click();
                 System.exit(0);
             }else{
-            Principal I = new Principal ();
-            I.Clic();}
+            I.Click();}
     }
     
-    private void combo(){
-    Temas.addItem("");
-    Temas.addItem("Nimbus");
-    Temas.addItem("Black Eye");
-    Temas.addItem("Black Moon");
-    Temas.addItem("Black Star");
-    Temas.addItem("Blue Ice");
-    Temas.addItem("Blue Light");
-    Temas.addItem("Blue Moon");
-    Temas.addItem("Blue Steel");
-    Temas.addItem("Green Dream");
-    Temas.addItem("Mauve Metallic");
-    Temas.addItem("Orange Metallic");
-    Temas.addItem("Silver Moon");
-    Temas.addItem("Simple 2D");
-    Temas.addItem("Sky Metallic");
-    Temas.addItem("White Vision");
-    }
     
     void cargar(){
         try {

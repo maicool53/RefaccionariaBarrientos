@@ -11,6 +11,7 @@ import Login.SingUp;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -175,9 +176,8 @@ public class OpcionesAcceso extends javax.swing.JFrame {
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
         if (comodin.getText().equals("")) {
-            CamposVacios n = new CamposVacios();
-            n.setLocationRelativeTo(null);
-            n.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Asegurate de introducir tu contraseña :)", "¡Campos vacios!", JOptionPane.WARNING_MESSAGE);
+
         } else {
             if (UsuarioIlimitado.isSelected()) {
                 try {
