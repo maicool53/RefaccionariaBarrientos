@@ -104,10 +104,7 @@ public class ConfigurarTema extends javax.swing.JInternalFrame {
         Reiniciar();
     } catch (Exception e) {
         System.err.print(e);
-       
-        //.showMessageDialog(null, e);
-    }
-        
+        }    
     }//GEN-LAST:event_AceptarActionPerformed
 
     private void CerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarActionPerformed
