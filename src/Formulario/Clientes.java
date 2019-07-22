@@ -54,6 +54,38 @@ public class Clientes extends javax.swing.JInternalFrame {
         
         
     }
+    
+    void enviar (){
+        String cod="",nom="",ape="",email="",tipocli;
+    int fila = tbclientes.getSelectedRow();
+    try {
+        if(fila==-1)
+        {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun dato");       
+        }
+        else
+        {
+         cod = (String)tbclientes.getValueAt(fila, 0);
+         nom = (String)tbclientes.getValueAt(fila, 1);
+         ape = (String)tbclientes.getValueAt(fila, 2);
+         tipocli= (String)tbclientes.getValueAt(fila, 4);
+         email = (String)tbclientes.getValueAt(fila, 6);
+         Factura.txtcod.setDisabledTextColor(Color.blue);
+         Factura.txtcod.setText(cod);
+         Factura.txtnomape.setDisabledTextColor(Color.blue);
+         Factura.txtnomape.setText(nom+" "+ape);
+         Factura.ClaseCliente.setDisabledTextColor(Color.blue);
+         Factura.ClaseCliente.setText(tipocli);
+         Factura.txtemail.setDisabledTextColor(Color.blue);
+         Factura.txtemail.setText(email);
+
+         this.dispose();
+         
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null,"Error: "+ e);
+        }
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -73,6 +105,7 @@ public class Clientes extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbclientes = new javax.swing.JTable();
         Btnregistrar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         mnenviar.setText("Enviar Datos");
         mnenviar.addActionListener(new java.awt.event.ActionListener() {
@@ -91,7 +124,6 @@ public class Clientes extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Buscar Cliente:");
 
-        btnbus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-buscar.png"))); // NOI18N
         btnbus.setText("Mostrar Todo");
         btnbus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,23 +144,38 @@ public class Clientes extends javax.swing.JInternalFrame {
 
         tbclientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Codigo", "Nombres", "Apellidos", "Sexo", "Clase", "Telefono", "Email", "Direccion"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tbclientes.setComponentPopupMenu(jPopupMenu1);
         jScrollPane1.setViewportView(tbclientes);
+        if (tbclientes.getColumnModel().getColumnCount() > 0) {
+            tbclientes.getColumnModel().getColumn(3).setPreferredWidth(20);
+            tbclientes.getColumnModel().getColumn(4).setPreferredWidth(20);
+        }
 
-        Btnregistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-add_user.png"))); // NOI18N
         Btnregistrar.setText("Registrar Clientes");
         Btnregistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnregistrarActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Enviar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -139,15 +186,18 @@ public class Clientes extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtbus, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(txtbus, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnbus)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Btnregistrar)))
+                        .addComponent(Btnregistrar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -160,8 +210,10 @@ public class Clientes extends javax.swing.JInternalFrame {
                     .addComponent(btnbus)
                     .addComponent(Btnregistrar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -200,36 +252,8 @@ private void txtbusKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t
 }//GEN-LAST:event_txtbusKeyReleased
 
 private void mnenviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnenviarActionPerformed
-// TODO add your handling code here:
-    String cod="",nom="",ape="",email="",tipocli;
-    int fila = tbclientes.getSelectedRow();
-    try {
-        if(fila==-1)
-        {
-            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun dato");
-                  
-        }
-        else
-        {
-         cod = (String)tbclientes.getValueAt(fila, 0);
-         nom = (String)tbclientes.getValueAt(fila, 1);
-         ape = (String)tbclientes.getValueAt(fila, 2);
-         tipocli= (String)tbclientes.getValueAt(fila, 4);
-         email = (String)tbclientes.getValueAt(fila, 6);
-         Factura.txtcod.setDisabledTextColor(Color.blue);
-         Factura.txtcod.setText(cod);
-         Factura.txtnomape.setDisabledTextColor(Color.blue);
-         Factura.txtnomape.setText(nom+" "+ape);
-         Factura.ClaseCliente.setDisabledTextColor(Color.blue);
-         Factura.ClaseCliente.setText(tipocli);
-         Factura.txtemail.setDisabledTextColor(Color.blue);
-         Factura.txtemail.setText(email);
-
-         this.dispose();
-         
-        }
-    } catch (Exception e) {
-    }
+        // TODO add your handling code here:
+        enviar();
 }//GEN-LAST:event_mnenviarActionPerformed
 
 private void BtnregistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnregistrarActionPerformed
@@ -242,17 +266,19 @@ private void BtnregistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         this.dispose();
         
     } catch (Exception e) {
-    }
-    
-        
-    
-    
-    
+        JOptionPane.showMessageDialog(null,"Error: "+ e);
+    }  
 }//GEN-LAST:event_BtnregistrarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        enviar();      
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btnregistrar;
     private javax.swing.JButton btnbus;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu jPopupMenu1;

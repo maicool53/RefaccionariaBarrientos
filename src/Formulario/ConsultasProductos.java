@@ -7,6 +7,7 @@
 package Formulario;
 
 import Clases.Conexion;
+import Clases.Sonidos;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,40 +15,60 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Administrador
+ * @author Miguel
  */
 public class ConsultasProductos extends javax.swing.JInternalFrame {
-
+    DefaultTableModel tabla;
+    Sonidos SS = new Sonidos();
     /** Creates new form ConsultasProductos */
     public ConsultasProductos() {
         initComponents();
-        mostrartodosproductos();
+        cargar("");
     }
-    void mostrartodosproductos()
-    {
-        DefaultTableModel tabla= new DefaultTableModel();
-        String []titulos={"CODIGO","DESCRIPCION","PRECIO"};
-        tabla.setColumnIdentifiers(titulos);
-        this.tbproductos.setModel(tabla);
-        String consulta= "SELECT * FROM producto";
-        String []Datos= new String [3];
-        try {
-            Statement st = cn.createStatement();
-            ResultSet rs= st.executeQuery(consulta);
-            while(rs.next())
-            {
-                Datos[0]=rs.getString("cod_pro");
-                Datos[1]=rs.getString("descripcion");
-                Datos[2]=rs.getString("precio");
-                tabla.addRow(Datos);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultasProductos.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        
+    void cargar(String valor) {
+        try{
+            String [] titulos={"Codigo","Descripcion","Marca","Precio Compra","Precio Venta","Stock","Estante","Repisa","Familia","Provedor","Codigo Barras Provedor"};
+            String [] registros= new String[11];
+            tabla=new DefaultTableModel(null,titulos);
+            
+            String cons="select * from producto WHERE CONCAT (descripcion,'',precio,'',codbar_prov,marca,'',familia,'') LIKE '%"+valor+"%'";
+            Statement st= cn.createStatement();
+            ResultSet rs = st.executeQuery(cons);
+            while(rs.next()){
+                registros[0]=rs.getString(1);
+                registros[1]=rs.getString(2);
+                registros[2]=rs.getString(3);
+                registros[3]=rs.getString(4);
+                registros[4]=rs.getString(5);
+                registros[5]=rs.getString(6);
+                registros[6]=rs.getString(7);
+                registros[7]=rs.getString(8);
+                registros[8]=rs.getString(9);
+                registros[9]=rs.getString(10);
+                registros[10]=rs.getString(11);
                 
-    }
+                tabla.addRow(registros);
+                txtcant.setText(""+tabla.getRowCount());
+               
+            }
+            tbproductos.setModel(tabla);
+            tbproductos.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tbproductos.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tbproductos.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tbproductos.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tbproductos.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tbproductos.getColumnModel().getColumn(5).setPreferredWidth(70);
+            tbproductos.getColumnModel().getColumn(6).setPreferredWidth(80);
+            tbproductos.getColumnModel().getColumn(7).setPreferredWidth(80);
+            tbproductos.getColumnModel().getColumn(8).setPreferredWidth(80);
+            tbproductos.getColumnModel().getColumn(9).setPreferredWidth(90);
+            tbproductos.getColumnModel().getColumn(10).setPreferredWidth(150);
+            }
+        catch(Exception e){
+                System.out.println(e.getMessage());
+                 }
+        }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -58,14 +79,14 @@ public class ConsultasProductos extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        rbtndes = new javax.swing.JRadioButton();
-        rbtntodo = new javax.swing.JRadioButton();
-        txtdes = new javax.swing.JTextField();
-        btnbuscar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        txtbuscar = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
         tbproductos = new javax.swing.JTable();
+        txtcant = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder()));
         setClosable(true);
@@ -74,161 +95,122 @@ public class ConsultasProductos extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("CONSULTA DE PRODUCTOS");
 
-        buttonGroup1.add(rbtndes);
-        rbtndes.setSelected(true);
-        rbtndes.setText("Mostrar Productos por Descripcion");
-        rbtndes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtndesActionPerformed(evt);
+        txtbuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtbuscarKeyReleased(evt);
             }
         });
 
-        buttonGroup1.add(rbtntodo);
-        rbtntodo.setText("Mostrar todos los Productos");
-        rbtntodo.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Buscar:");
+
+        jButton1.setText("Mostrar Todo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtntodoActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
-        btnbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-buscar.png"))); // NOI18N
-        btnbuscar.setText("Buscar");
-        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnbuscarActionPerformed(evt);
+        tbproductos.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        tbproductos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Descripcion", "Marca", "Precio Compra", "Precio Venta", "Stock", "Estante", "Repisa", "Familia", "Provedor"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
             }
         });
+        jScrollPane2.setViewportView(tbproductos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(rbtndes)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtdes, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnbuscar))
-                    .addComponent(rbtntodo))
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbtndes)
-                    .addComponent(txtdes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnbuscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbtntodo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton1))
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        tbproductos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
+        txtcant.setEnabled(false);
 
-            }
-        ));
-        jScrollPane1.setViewportView(tbproductos);
+        jLabel2.setText("Total Productos: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(485, 485, 485)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtcant, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(536, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap(30, Short.MAX_VALUE))))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtcant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void rbtntodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtntodoActionPerformed
-// TODO add your handling code here:
-    if(rbtntodo.isSelected()==true)
-    {
-        txtdes.setText("");
-        txtdes.setEnabled(false);
-        mostrartodosproductos();
-    }
-   
-}//GEN-LAST:event_rbtntodoActionPerformed
+    private void txtbuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscarKeyReleased
+        // TODO add your handling code here:
+        cargar(txtbuscar.getText());
+    }//GEN-LAST:event_txtbuscarKeyReleased
 
-private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
-// TODO add your handling code here:
-    String buscar=txtdes.getText();
-    if(rbtndes.isSelected()==true)
-    {
-         DefaultTableModel tabla= new DefaultTableModel();
-        String []titulos={"CODIGO","DESCRIPCION","PRECIO"};
-        tabla.setColumnIdentifiers(titulos);
-        this.tbproductos.setModel(tabla);
-        String consulta= "SELECT * FROM producto WHERE descripcion  LIKE '%"+buscar+"%'";
-        String []Datos= new String [3];
-        try {
-            Statement st = cn.createStatement();
-            ResultSet rs= st.executeQuery(consulta);
-            while(rs.next())
-            {
-                Datos[0]=rs.getString("cod_pro");
-                Datos[1]=rs.getString("descripcion");
-                Datos[2]=rs.getString("precio");
-                tabla.addRow(Datos);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultasProductos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
-    else
-    {
-        mostrartodosproductos();
-    }
-}//GEN-LAST:event_btnbuscarActionPerformed
-
-private void rbtndesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtndesActionPerformed
-// TODO add your handling code here:
-    if(rbtndes.isSelected()==true)
-    {
-        txtdes.setEnabled(true);
-        txtdes.requestFocus();
-    }
-}//GEN-LAST:event_rbtndesActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        SS.Click();
+        cargar("");
+        txtbuscar.setText("");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnbuscar;
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JRadioButton rbtndes;
-    private javax.swing.JRadioButton rbtntodo;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tbproductos;
-    private javax.swing.JTextField txtdes;
+    private javax.swing.JTextField txtbuscar;
+    private javax.swing.JTextField txtcant;
     // End of variables declaration//GEN-END:variables
 Conexion cc= new Conexion();
 Connection cn = cc.conexion();

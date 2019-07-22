@@ -5,11 +5,9 @@
  */
 package Login;
 
-import Alertas.Error;
-import Alertas.ContraseñasDiferentes;
 import Alertas.UsuarioCreado;
-import Alertas.UsuarioExistente;
 import Clases.Conexion;
+import Clases.Sonidos;
 import Clases.validar;
 import java.awt.Color;
 import java.sql.Connection;
@@ -18,7 +16,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,6 +26,7 @@ public class SingUp extends javax.swing.JFrame {
         validar v = new validar();
     Conexion cc = new Conexion();
     Connection cn = cc.conexion();
+    Sonidos SS = new Sonidos();
     /**
      * Creates new form SingUp
      */
@@ -48,14 +46,9 @@ public class SingUp extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jLabel13 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         pass = new javax.swing.JPasswordField();
         ContraseñaConfirmada = new javax.swing.JPasswordField();
@@ -63,12 +56,8 @@ public class SingUp extends javax.swing.JFrame {
         Usuario = new javax.swing.JTextField();
         RepitaContra = new javax.swing.JLabel();
         EstablezcaContra = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        UsuarioOcupado = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        error_icono = new javax.swing.JLabel();
+        UsuarioDisponibilidad = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         Nombre = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -87,16 +76,6 @@ public class SingUp extends javax.swing.JFrame {
         Sexo = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
 
-        jCheckBox1.setText("jCheckBox1");
-
-        jLabel13.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        jLabel13.setText("Edad");
-        jLabel13.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 153, 255)));
-
-        jTextField5.setText("jTextField5");
-
-        jRadioButton1.setText("jRadioButton1");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel5.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
@@ -106,10 +85,10 @@ public class SingUp extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(104, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(94, 94, 94)
                 .addComponent(jLabel5)
-                .addGap(93, 93, 93))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,18 +97,9 @@ public class SingUp extends javax.swing.JFrame {
                 .addComponent(jLabel5))
         );
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-salir.png"))); // NOI18N
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
-        jButton1.setFocusPainted(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Crear usuario y contraseña para acceder al sistema"));
 
         pass.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
-        pass.setForeground(new java.awt.Color(206, 192, 192));
         pass.setCaretColor(new java.awt.Color(255, 102, 0));
         pass.setSelectionColor(new java.awt.Color(204, 204, 204));
         pass.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -139,7 +109,6 @@ public class SingUp extends javax.swing.JFrame {
         });
 
         ContraseñaConfirmada.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
-        ContraseñaConfirmada.setForeground(new java.awt.Color(206, 192, 192));
         ContraseñaConfirmada.setCaretColor(new java.awt.Color(255, 102, 0));
         ContraseñaConfirmada.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -151,11 +120,15 @@ public class SingUp extends javax.swing.JFrame {
         Seleccioneunnombre.setText("Seleccione un nombre de usuario");
 
         Usuario.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
-        Usuario.setForeground(new java.awt.Color(206, 192, 192));
         Usuario.setCaretColor(new java.awt.Color(255, 102, 0));
         Usuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 UsuarioMouseClicked(evt);
+            }
+        });
+        Usuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                UsuarioKeyReleased(evt);
             }
         });
 
@@ -165,22 +138,8 @@ public class SingUp extends javax.swing.JFrame {
         EstablezcaContra.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         EstablezcaContra.setText("Establezca una contraseña");
 
-        jLabel6.setText("Crear usuario y contraseña para acceder al sistema");
-
-        UsuarioOcupado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        UsuarioOcupado.setForeground(new java.awt.Color(255, 0, 0));
-
-        jButton2.setBackground(new java.awt.Color(153, 153, 153));
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jButton2.setText("Comprabar disponibilidad");
-        jButton2.setFocusPainted(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        error_icono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-delete.png"))); // NOI18N
+        UsuarioDisponibilidad.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        UsuarioDisponibilidad.setForeground(new java.awt.Color(49, 165, 155));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -189,68 +148,53 @@ public class SingUp extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel6))
+                        .addContainerGap()
+                        .addComponent(Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(UsuarioDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(Seleccioneunnombre))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(UsuarioOcupado, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(13, 13, 13)
-                        .addComponent(jButton2)
-                        .addGap(43, 43, 43)
-                        .addComponent(error_icono, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(EstablezcaContra, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(RepitaContra, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(ContraseñaConfirmada, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(139, 139, 139))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(EstablezcaContra, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(RepitaContra, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addComponent(ContraseñaConfirmada, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jLabel6)
-                .addGap(13, 13, 13)
+                .addContainerGap()
                 .addComponent(Seleccioneunnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(error_icono)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(UsuarioOcupado, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton2))))
-                .addGap(11, 11, 11)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(EstablezcaContra)
-                    .addComponent(RepitaContra))
+                    .addComponent(Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(UsuarioDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(RepitaContra)
+                    .addComponent(EstablezcaContra))
                 .addGap(13, 13, 13)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ContraseñaConfirmada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
-        jLabel7.setText("Por favor, escriba algunos datos sobre usted");
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Por favor, escriba algunos datos sobre usted"));
 
         jLabel8.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel8.setText("Nombre:");
 
         Nombre.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
-        Nombre.setForeground(new java.awt.Color(206, 192, 192));
         Nombre.setToolTipText("");
         Nombre.setCaretColor(new java.awt.Color(255, 102, 0));
         Nombre.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -263,7 +207,6 @@ public class SingUp extends javax.swing.JFrame {
         jLabel9.setText("Segundo nombre:");
 
         SegundoNombre.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
-        SegundoNombre.setForeground(new java.awt.Color(206, 192, 192));
         SegundoNombre.setToolTipText("");
         SegundoNombre.setCaretColor(new java.awt.Color(255, 102, 0));
         SegundoNombre.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -276,7 +219,6 @@ public class SingUp extends javax.swing.JFrame {
         jLabel10.setText("Apellido paterno:");
 
         ApePaterno.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
-        ApePaterno.setForeground(new java.awt.Color(206, 192, 192));
         ApePaterno.setToolTipText("");
         ApePaterno.setCaretColor(new java.awt.Color(255, 102, 0));
         ApePaterno.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -286,7 +228,6 @@ public class SingUp extends javax.swing.JFrame {
         });
 
         ApeMaterno.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
-        ApeMaterno.setForeground(new java.awt.Color(206, 192, 192));
         ApeMaterno.setToolTipText("");
         ApeMaterno.setCaretColor(new java.awt.Color(255, 102, 0));
         ApeMaterno.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -305,7 +246,6 @@ public class SingUp extends javax.swing.JFrame {
         jLabel14.setText("Sexo");
 
         Edad.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
-        Edad.setForeground(new java.awt.Color(206, 192, 192));
         Edad.setToolTipText("");
         Edad.setCaretColor(new java.awt.Color(255, 102, 0));
         Edad.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -318,7 +258,6 @@ public class SingUp extends javax.swing.JFrame {
         jLabel15.setText("Numero telefonico");
 
         Telefono.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
-        Telefono.setForeground(new java.awt.Color(206, 192, 192));
         Telefono.setToolTipText("");
         Telefono.setCaretColor(new java.awt.Color(255, 102, 0));
         Telefono.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -331,7 +270,6 @@ public class SingUp extends javax.swing.JFrame {
         jLabel16.setText("Email");
 
         Email.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
-        Email.setForeground(new java.awt.Color(206, 192, 192));
         Email.setToolTipText("");
         Email.setCaretColor(new java.awt.Color(255, 102, 0));
         Email.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -352,43 +290,37 @@ public class SingUp extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(Telefono)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                    .addComponent(ApePaterno)
+                    .addComponent(Nombre)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(Telefono)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                            .addComponent(ApePaterno)
-                            .addComponent(Nombre)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ApeMaterno)
+                            .addComponent(SegundoNombre)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(ApeMaterno)
-                                    .addComponent(SegundoNombre)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(Edad)
-                                    .addComponent(Sexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(Email)
-                                .addGap(103, 103, 103)))))
+                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Edad)
+                            .addComponent(Sexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(Email)
+                        .addGap(103, 103, 103)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel9)
@@ -416,7 +348,7 @@ public class SingUp extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jButton3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
@@ -441,31 +373,28 @@ public class SingUp extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(107, 107, 107)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(217, 217, 217)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(255, 255, 255)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -477,11 +406,15 @@ public class SingUp extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -508,48 +441,22 @@ public class SingUp extends javax.swing.JFrame {
         v.limitar_caracteres(Email, 50);
         v.especiales(Usuario);
         v.especiales(pass);
-        v.especiales(ContraseñaConfirmada);
-        error_icono.hide();}
+        v.especiales(ContraseñaConfirmada);}
     
     public void combo(){
         Sexo.addItem("");
         Sexo.addItem("Masculino");
         Sexo.addItem("Femenino");}
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-    Boolean o = false;
+        SS.Click();
+        Boolean o = false;
     if ((Usuario.getText().equals("")) || (pass.getText().equals("")) || (ContraseñaConfirmada.getText().equals("")
         || (Nombre.getText().equals("")) || (ApePaterno.getText().equals("")) || (ApeMaterno.getText().equals("")) 
         || (Edad.getText().equals("")) || (Sexo.getSelectedItem().equals("")) || (Telefono.getText().equals("")) 
         || (Email.getText().equals("")))){
         
         JOptionPane.showMessageDialog(null, "Asegurate de introducir todos los datos correctamente :)", "¡Campos vacios!", JOptionPane.WARNING_MESSAGE);
-
-        
-        if (Usuario.getText().equals("")){
-            Usuario.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2,  Color.red));}
-        if (pass.getText().equals("")){
-            pass.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2,  Color.red));}
-        if (ContraseñaConfirmada.getText().equals("")){
-            ContraseñaConfirmada.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2,  Color.red));}
-        if (Nombre.getText().equals("")){
-            Nombre.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2,  Color.red));}
-        if (ApePaterno.getText().equals("")){
-            ApePaterno.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2,  Color.red));}
-        if (ApeMaterno.getText().equals("")){
-            ApeMaterno.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2,  Color.red));}
-        if (Edad.getText().equals("")){
-            Edad.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2,  Color.red));}
-        if (Sexo.getSelectedItem().equals("")){
-            Sexo.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2,  Color.red));}
-        if (Telefono.getText().equals("")){
-            Telefono.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2,  Color.red));}
-        if (Email.getText().equals("")){
-            Email.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2,  Color.red));}
         
     }else{
         
@@ -561,20 +468,19 @@ public class SingUp extends javax.swing.JFrame {
             rs = pps.executeQuery();
          
             if (rs.next()) {
-                UsuarioExistente n = new UsuarioExistente();   
-                n.setLocationRelativeTo(null);
-                n.setVisible(true);
-                n.texto1.setText("El nombre de usuario: " + Usuario.getText());
-            }else{
-                o = true;   
-        
-            }
+                JOptionPane.showMessageDialog(null, "Tal parece que ya existe un suario con ese nombre", "¡Usuario Existente!", JOptionPane.WARNING_MESSAGE);
+                }else{
+                o = true;
+                }
+            
+            
         }catch(SQLException ex){
             Logger.getLogger(SingUp.class.getName()).log(Level.SEVERE,null,ex);
-        }
+            }
+        
         if (o == true){
-            /*debido a que en la tabla el campo sexo permite solo 1 caracter (M o F) se crea variable(p2) que contenga dicho
-            caracter dependiendo de contenido de combobox*/
+            /**debido a que en la tabla el campo sexo permite solo 1 caracter (M o F) se crea variable(p2) que contenga dicho
+            caracter dependiendo de contenido de combobox**/
             String p2 = "";
             String p1 = Sexo.getSelectedItem().toString();
             if (p1.equals("Masculino")){
@@ -609,14 +515,10 @@ public class SingUp extends javax.swing.JFrame {
                 Logger.getLogger(SingUp.class.getName()).log(Level.SEVERE,null,ex);
             }
         }else{
-            Error err = new Error();
-            err.setLocationRelativeTo(null);
-            err.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Error al intentar registrar usuario, por favor intente de nuevo", "¡ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         }else{
-         ContraseñasDiferentes nw = new ContraseñasDiferentes();   
-        nw.setLocationRelativeTo(null);
-        nw.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Las conreseñas no son iguales, por favor intente de nuevo", "¡ERROR!", JOptionPane.WARNING_MESSAGE);
         
     }
     }
@@ -664,31 +566,6 @@ public class SingUp extends javax.swing.JFrame {
         //Sexo.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
     }//GEN-LAST:event_SexoMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-        if (Usuario.getText().equals("")){
-
-        }else{
-            try{
-                ResultSet rs = null;
-                PreparedStatement rrt = cn.prepareStatement("SELECT * FROM Usuarios where User_nam = ?");
-                rrt.setString(1, Usuario.getText());
-                rs = rrt.executeQuery();
-                if (rs.next()){
-                    UsuarioOcupado.setText("Nombre de usuario no disponible");
-                    UsuarioOcupado.setForeground(new Color(153,0,0));
-                    error_icono.show();
-                }else{
-                    UsuarioOcupado.setText("Nombre de usuario disponible");
-                    UsuarioOcupado.setForeground(Color.green);
-                    error_icono.hide();
-                }
-            }catch(SQLException ex){
-                Logger.getLogger(SingUp.class.getName()).log(Level.SEVERE,null,ex);
-            }
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void UsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsuarioMouseClicked
         //Usuario.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
     }//GEN-LAST:event_UsuarioMouseClicked
@@ -700,6 +577,29 @@ public class SingUp extends javax.swing.JFrame {
     private void passMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passMouseClicked
         //pass.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
     }//GEN-LAST:event_passMouseClicked
+
+    private void UsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_UsuarioKeyReleased
+        // TODO add your handling code here:
+        if (Usuario.getText().equals("")){
+
+        }else{
+            try{
+                ResultSet rs = null;
+                PreparedStatement rrt = cn.prepareStatement("SELECT * FROM Usuarios where User_nam = ?");
+                rrt.setString(1, Usuario.getText());
+                rs = rrt.executeQuery();
+                if (rs.next()){
+                    UsuarioDisponibilidad.setText("Nombre de usuario no disponible");
+                    UsuarioDisponibilidad.setForeground(new Color(213,7,7));
+                }else{
+                    UsuarioDisponibilidad.setText("Nombre de usuario disponible");
+                    UsuarioDisponibilidad.setForeground(new Color(49,165,155));
+                }
+            }catch(SQLException ex){
+                Logger.getLogger(SingUp.class.getName()).log(Level.SEVERE,null,ex);
+            }
+        }
+    }//GEN-LAST:event_UsuarioKeyReleased
 
     /**
      * @param args the command line arguments
@@ -753,30 +653,21 @@ public class SingUp extends javax.swing.JFrame {
     public static javax.swing.JComboBox<String> Sexo;
     public static javax.swing.JTextField Telefono;
     public static javax.swing.JTextField Usuario;
-    private javax.swing.JLabel UsuarioOcupado;
-    private javax.swing.JLabel error_icono;
-    private javax.swing.JButton jButton1;
-    public static javax.swing.JButton jButton2;
+    private javax.swing.JLabel UsuarioDisponibilidad;
     public static javax.swing.JButton jButton3;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     public static javax.swing.JLabel jLabel5;
-    public static javax.swing.JLabel jLabel6;
-    public static javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     public static javax.swing.JPanel jPanel1;
     public static javax.swing.JPanel jPanel2;
     protected static javax.swing.JPanel jPanel3;
     public static javax.swing.JPanel jPanel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JPasswordField pass;
     // End of variables declaration//GEN-END:variables
 }

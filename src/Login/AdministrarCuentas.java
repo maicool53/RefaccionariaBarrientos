@@ -8,15 +8,12 @@ package Login;
 import Alertas.OpcionesAcceso;
 import Alertas.TranferirSU;
 import Clases.Conexion;
-import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -60,7 +57,7 @@ public class AdministrarCuentas extends javax.swing.JFrame {
                 datos[1] = rs.getString(2);
                 modelox.addRow(datos);
             }
-            tabla_pendientes.setModel(modelox);
+            TablaPendientes.setModel(modelox);
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(AdministrarCuentas.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -108,11 +105,10 @@ public class AdministrarCuentas extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabla_pendientes = new javax.swing.JTable();
+        TablaPendientes = new javax.swing.JTable();
         masInfo1 = new javax.swing.JButton();
         establecerAcceso = new javax.swing.JButton();
         oculto = new javax.swing.JTextField();
@@ -126,22 +122,10 @@ public class AdministrarCuentas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("AdminCuentas"); // NOI18N
-        setUndecorated(true);
-
-        jButton1.setText("Salir");
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
-        jButton1.setFocusPainted(false);
-        jButton1.setRolloverEnabled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jTabbedPane1.setBackground(new java.awt.Color(18, 30, 49));
 
-        tabla_pendientes.setModel(new javax.swing.table.DefaultTableModel(
+        TablaPendientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -152,7 +136,7 @@ public class AdministrarCuentas extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tabla_pendientes);
+        jScrollPane1.setViewportView(TablaPendientes);
 
         masInfo1.setBackground(new java.awt.Color(153, 153, 153));
         masInfo1.setText("Más información");
@@ -270,27 +254,21 @@ public class AdministrarCuentas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(376, 376, 376))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,35 +278,25 @@ public class AdministrarCuentas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void masInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masInfo1ActionPerformed
         try {
-            int fila = tabla_pendientes.getSelectedRow();
-            String usuario = tabla_pendientes.getValueAt(fila, 0).toString();
+            int fila = TablaPendientes.getSelectedRow();
+            String usuario = TablaPendientes.getValueAt(fila, 0).toString();
             if (fila == -1) {
                 System.out.println("Selecciona una fila");
             } else {
-                SingUp nw = new SingUp();
-                nw.setLocationRelativeTo(null);
-                nw.setVisible(true);
-                nw.jPanel2.setVisible(false);
-                nw.jButton3.setVisible(false);
-                nw.jLabel7.setVisible(false);
-                nw.jLabel7.setVisible(false);
-                nw.Nombre.setEditable(false);
-                nw.SegundoNombre.setEditable(false);
-                nw.ApePaterno.setEditable(false);
-                nw.ApeMaterno.setEditable(false);
-                nw.Edad.setEditable(false);
-                nw.Sexo.setEditable(false);
-                nw.Email.setEditable(false);
-                nw.Telefono.setEditable(false);
-                nw.setBounds(500, 250, 500, 300);
-                nw.jPanel3.setBounds(480, 220, 480, 270);
                 
+                Detalles i = new Detalles();
+                i.setLocationRelativeTo(null);
+                i.Nombre.setEditable(false);
+                i.SegundoNombre.setEditable(false);
+                i.ApePaterno.setEditable(false);
+                i.ApeMaterno.setEditable(false);
+                i.Edad.setEditable(false);
+                i.Sexo.setEditable(false);
+                i.Email.setEditable(false);
+                i.Telefono.setEditable(false);
+                i.setBounds(500, 250, 500, 300);                
                 try {
                     ResultSet rs = null;
                     PreparedStatement pps = cn.prepareStatement("select Primer_nombre,Segundo_nombre,Ape_Paterno,Ape_Materno,Edad,Sexo,Email,Tel from Usuarios where User_nam = ?");
@@ -336,18 +304,18 @@ public class AdministrarCuentas extends javax.swing.JFrame {
                     rs = pps.executeQuery();
 
                     if (rs.next()) {
-                        nw.Nombre.setText(rs.getString(1));
-                        nw.SegundoNombre.setText(rs.getString(2));
-                        nw.ApePaterno.setText(rs.getString(3));
-                        nw.ApeMaterno.setText(rs.getString(4));
-                        nw.Edad.setText(rs.getString(5));
+                        i.Nombre.setText(rs.getString(1));
+                        i.SegundoNombre.setText(rs.getString(2));
+                        i.ApePaterno.setText(rs.getString(3));
+                        i.ApeMaterno.setText(rs.getString(4));
+                        i.Edad.setText(rs.getString(5));
                         if (rs.getString(6).equals("M")) {
-                            nw.Sexo.setSelectedItem("Masculino");
+                            i.Sexo.setSelectedItem("Masculino");
                         } else {
-                            nw.Sexo.setSelectedItem("Femenino");
+                            i.Sexo.setSelectedItem("Femenino");
                         }
-                        nw.Email.setText(rs.getString(7));
-                        nw.Telefono.setText(rs.getString(8));
+                        i.Email.setText(rs.getString(7));
+                        i.Telefono.setText(rs.getString(8));
 
                     }
                 } catch (SQLException ex) {
@@ -361,8 +329,8 @@ public class AdministrarCuentas extends javax.swing.JFrame {
 
     private void establecerAccesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_establecerAccesoActionPerformed
        try {
-            int fila = tabla_pendientes.getSelectedRow();
-            String usuario = tabla_pendientes.getValueAt(fila, 0).toString();
+            int fila = TablaPendientes.getSelectedRow();
+            String usuario = TablaPendientes.getValueAt(fila, 0).toString();
             oculto.setText(usuario);
             if (fila == -1) {
                 System.out.println("Selecciona elemento");
@@ -374,21 +342,9 @@ public class AdministrarCuentas extends javax.swing.JFrame {
             }
         } catch (SecurityException ex) {
             System.out.println(ex.getMessage());
-        }
-        
-        
-        
-        
-        try{
-          Clip Sonido=AudioSystem.getClip();
-          Sonido.open(AudioSystem.getAudioInputStream(new File("src\\Sonidos\\sonido_click.wav")));
-          Sonido.start();
-          
-     }catch(Exception ex){
-         
-     System.err.println(ex+" error");
+        }       
     }//GEN-LAST:event_establecerAccesoActionPerformed
-    }
+
     private void masInfo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masInfo2ActionPerformed
         try {
             int fila = tabla_asignados.getSelectedRow();
@@ -396,22 +352,17 @@ public class AdministrarCuentas extends javax.swing.JFrame {
             if (fila == -1) {
                 System.out.println("Selecciona una fila");
             } else {
-                SingUp nw = new SingUp();
-                nw.setLocationRelativeTo(null);
-                nw.setVisible(true);
-                nw.jPanel2.setVisible(false);
-                nw.jButton3.setVisible(false);
-                nw.jLabel7.setVisible(false);
-                nw.jLabel7.setVisible(false);
-                nw.Nombre.setEditable(false);
-                nw.SegundoNombre.setEditable(false);
-                nw.ApePaterno.setEditable(false);
-                nw.ApeMaterno.setEditable(false);
-                nw.Edad.setEditable(false);
-                nw.Sexo.setEditable(false);
-                nw.Email.setEditable(false);
-                nw.Telefono.setEditable(false);
-                nw.setBounds(500, 250, 500, 300);
+                Detalles i = new Detalles();
+                i.setLocationRelativeTo(null);
+                i.Nombre.setEditable(false);
+                i.SegundoNombre.setEditable(false);
+                i.ApePaterno.setEditable(false);
+                i.ApeMaterno.setEditable(false);
+                i.Edad.setEditable(false);
+                i.Sexo.setEditable(false);
+                i.Email.setEditable(false);
+                i.Telefono.setEditable(false);
+                i.setBounds(500, 250, 500, 300);
 
                 try {
                     ResultSet rs = null;
@@ -420,18 +371,18 @@ public class AdministrarCuentas extends javax.swing.JFrame {
                     rs = pps.executeQuery();
 
                     if (rs.next()) {
-                        nw.Nombre.setText(rs.getString(1));
-                        nw.SegundoNombre.setText(rs.getString(2));
-                        nw.ApePaterno.setText(rs.getString(3));
-                        nw.ApeMaterno.setText(rs.getString(4));
-                        nw.Edad.setText(rs.getString(5));
+                        i.Nombre.setText(rs.getString(1));
+                        i.SegundoNombre.setText(rs.getString(2));
+                        i.ApePaterno.setText(rs.getString(3));
+                        i.ApeMaterno.setText(rs.getString(4));
+                        i.Edad.setText(rs.getString(5));
                         if (rs.getString(6).equals("M")) {
-                            nw.Sexo.setSelectedItem("Masculino");
+                            i.Sexo.setSelectedItem("Masculino");
                         } else {
-                            nw.Sexo.setSelectedItem("Femenino");
+                            i.Sexo.setSelectedItem("Femenino");
                         }
-                        nw.Email.setText(rs.getString(7));
-                        nw.Telefono.setText(rs.getString(8));
+                        i.Email.setText(rs.getString(7));
+                        i.Telefono.setText(rs.getString(8));
 
                     }
                 } catch (SQLException ex) {
@@ -519,9 +470,9 @@ try {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JTable TablaPendientes;
     private javax.swing.JTextField comodin;
     public static javax.swing.JButton establecerAcceso;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -534,6 +485,5 @@ try {
     public static javax.swing.JTextField oculto;
     public static javax.swing.JTextField oculto1;
     public static javax.swing.JTable tabla_asignados;
-    public static javax.swing.JTable tabla_pendientes;
     // End of variables declaration//GEN-END:variables
 }

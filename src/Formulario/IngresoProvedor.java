@@ -14,17 +14,22 @@ import java.util.logging.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import com.mxrck.autocompleter.TextAutoCompleter;
+import Clases.Sonidos;
 /**
  *
  * @author Miguel
  */
+    
+
 public class IngresoProvedor extends javax.swing.JInternalFrame {
     DefaultTableModel model;
+    Sonidos SS = new Sonidos();
     /** Creates new form IngresoCliente */
     public IngresoProvedor() {
         initComponents();
         bloquear();
         cargar("");
+        btnguardar.setEnabled(false);
     }
   
      void bloquear(){
@@ -38,7 +43,6 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
     txtapecontacto.setEnabled(false);
     txttelcontacto.setEnabled(false);
     txtemailcontacto.setEnabled(false);
-    btnguardar.setEnabled(false);
     btnnuevo.setEnabled(true);
     btncancelar.setEnabled(false);
     btnactualizar.setEnabled(false);
@@ -69,7 +73,7 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
     txtapecontacto.setEnabled(true);
     txttelcontacto.setEnabled(true);
     txtemailcontacto.setEnabled(true);
-    btnguardar.setEnabled(true);
+
     btnnuevo.setEnabled(false);
     btncancelar.setEnabled(true);
     btnactualizar.setEnabled(false);
@@ -110,42 +114,28 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
         String num="";
         String c="";
          String SQL="select max(cod_prov) from provedor";
-       // String SQL="select count(*) from factura";
-        //String SQL="SELECT MAX(cod_emp) AS cod_emp FROM empleado";
-        //String SQL="SELECT @@identity AS ID";
         try {
             Statement st = cn.createStatement();
             ResultSet rs=st.executeQuery(SQL);
-            if(rs.next())
-            {              
-                 c=rs.getString(1);
+            if(rs.next()){
+                c=rs.getString(1);
             }
-           
-                  
             if(c==null){
                 txtcod.setText("CC0001");
             }
             else{
                 char r1=c.charAt(2);
-            char r2=c.charAt(3);
-            char r3=c.charAt(4);
-            char r4=c.charAt(5);
-            String r="";
-            r=""+r1+r2+r3+r4;
-            
+                char r2=c.charAt(3);
+                char r3=c.charAt(4);
+                char r4=c.charAt(5);
+                String r="";
+                r=""+r1+r2+r3+r4;
                  j=Integer.parseInt(r);
                  GenerarCodigos gen= new GenerarCodigos();
                  gen.generar(j);
                  txtcod.setText("CC"+gen.serie());
-                
-            
             }
-       
-          
-                  
-           
-           
-         
+
         } catch (SQLException ex) {
            Logger.getLogger(IngresoProvedor.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -550,34 +540,43 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
 
 private void btnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnactualizarActionPerformed
 // TODO add your handling code here:
+    SS.Click();
+    btnguardar.setEnabled(false);
     try {
         PreparedStatement pst = cn.prepareStatement("UPDATE provedor SET "
-                +"nom_prov='"+txtnom.getText()
-                +"',tel_prov='"+txttel.getText()
-                +"',email_prov='"+txtemail.getText()
-                +"',dir_prov='"+txtdir.getText()
-                +"',sucursal'"+txtsucursal.getText()
-                +"',nombrecontacto'"+txtnomcontacto.getText()
-                +"',apellidocontacto'"+txtapecontacto.getText()        
-                +"',telefonocontacto'"+txttelcontacto.getText()
-                +"',emailcontacto'"+txtemailcontacto.getText()
-                +"' WHERE cod_prov='"+txtcod.getText()+"'");
+                + "nom_prov='"+txtnom.getText()+"'"
+                + ",tel_prov='"+txttel.getText()+"',"
+                + "email_prov='"+txtemail.getText()+"',"
+                + "dir_prov='"+txtdir.getText()+"',"
+                + "sucursal='"+txtsucursal.getText()+"',"
+                + "nombrecontacto='"+txtnomcontacto.getText()+"',"
+                + "apellidocontacto='"+txtapecontacto.getText()+"',"
+                + "telefonocontacto='"+txttelcontacto.getText()+"',"
+                + "emailcontacto='"+txtemailcontacto.getText()+"' WHERE cod_prov='"+txtcod.getText()+"'");
         pst.executeUpdate();
-        cargar("");
+        JOptionPane.showMessageDialog(null, "Actualizado Con Exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
+
+          cargar("");
           bloquear();
+          
     } catch (Exception e) {
-        System.out.print(e.getMessage());
+        //System.out.print(e.getMessage());
+        //System.out.println("Error: "+e);
+        JOptionPane.showMessageDialog(null, e,"Error",JOptionPane.ERROR_MESSAGE);
     }
     
 }//GEN-LAST:event_btnactualizarActionPerformed
 
 private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
 // TODO add your handling code here:
+    SS.Click();
     this.dispose();
 }//GEN-LAST:event_btnsalirActionPerformed
 
 private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
-// TODO add your handling code here:
+     // TODO add your handling code here:
+     SS.Click();    
+     btnguardar.setEnabled(true);
      desbloquear();
      limpiar();
      codigosclientes();
@@ -586,12 +585,14 @@ private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
 private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
 // TODO add your handling code here:
+    SS.Click();
     bloquear();
     limpiar();
 }//GEN-LAST:event_btncancelarActionPerformed
 
 private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
-// TODO add your handling code here:
+    // TODO add your handling code here:
+    SS.Click();
     String cod,dir,nom,tel,email,sucursal,nomcontact,apecontact,telefonocontac,correocontact;
             String sql="";
             cod=txtcod.getText();
@@ -621,8 +622,9 @@ private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             pst.setString(10, correocontact);
             int n=pst.executeUpdate();
             if(n>0){
-            JOptionPane.showMessageDialog(null, "Registro Guardado con Exito");
-            bloquear();
+                SS.notificacion();
+                JOptionPane.showMessageDialog(null, "Registro Guardado con Exito","Exito",JOptionPane.INFORMATION_MESSAGE);
+                bloquear();
             }
             cargar("");
         } catch (SQLException ex) {
@@ -657,34 +659,42 @@ if((car<'a' || car>'z') && (car<'A' || car>'Z') && (car!=(char)KeyEvent.VK_SPACE
 }//GEN-LAST:event_txtnomKeyTyped
 
 private void mneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mneliminarActionPerformed
-// TODO add your handling code here:
-    int fila= tbclientes.getSelectedRow();
-    String cod="";
-    cod=tbclientes.getValueAt(fila, 0).toString();
-    if(fila>=0)
-    {
-        try {
-            PreparedStatement pst = cn.prepareStatement("DELETE FROM provedor WHERE cod_prov='"+cod+"'");
-            pst.executeUpdate();
-            cargar("");
-        } catch (SQLException ex) {
-            Logger.getLogger(IngresoProvedor.class.getName()).log(Level.SEVERE, null, ex);
+        // TODO add your handling code here:
+        SS.Click();
+        SS.notificacion();
+    Object [] opciones ={"Aceptar","Cancelar"};
+    int eleccion = JOptionPane.showOptionDialog(rootPane,"¿En realidad desea eliminar el registro?","Mensaje de Confirmacion",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
+    if (eleccion == JOptionPane.YES_OPTION){
+        int fila= tbclientes.getSelectedRow();
+        String cod="";
+        cod=tbclientes.getValueAt(fila, 0).toString();
+        if(fila>=0)
+            {try {
+                PreparedStatement pst = cn.prepareStatement("DELETE FROM provedor WHERE cod_prov='"+cod+"'");
+                pst.executeUpdate();
+                cargar("");
+                } catch (SQLException ex) {
+                    Logger.getLogger(IngresoProvedor.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+            }else{
+            SS.error();
+            JOptionPane.showMessageDialog(this, "No ha selecionada ninguna fila","Error",JOptionPane.ERROR_MESSAGE);
+            }
         }
+    else{
+        
     }
-    else
-    {
-        JOptionPane.showMessageDialog(this, "No ha selecionada ninguna fila");
-    }
+    
         
 }//GEN-LAST:event_mneliminarActionPerformed
 
 private void mnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnmodificarActionPerformed
-// TODO add your handling code here:
+    // TODO add your handling code here:
+    SS.Click();
     desbloquear();
-     btnactualizar.setEnabled(true);
+    btnactualizar.setEnabled(true);
     int filamodificar= tbclientes.getSelectedRow();
-    if(filamodificar>=0)
-    {
+    if(filamodificar>=0){
         txtcod.setText(tbclientes.getValueAt(filamodificar, 0).toString());
         txtnom.setText(tbclientes.getValueAt(filamodificar, 1).toString());
         txttel.setText(tbclientes.getValueAt(filamodificar, 2).toString());
@@ -694,13 +704,10 @@ private void mnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         txtnomcontacto.setText(tbclientes.getValueAt(filamodificar, 6).toString());
         txtapecontacto.setText(tbclientes.getValueAt(filamodificar, 7).toString());
         txttelcontacto.setText(tbclientes.getValueAt(filamodificar, 8).toString());
-        txtemailcontacto.setText(tbclientes.getValueAt(filamodificar, 9).toString());
-        
-      
-    }
-    else
-    {
-        JOptionPane.showMessageDialog(this,"No ha seleccionado ");
+        txtemailcontacto.setText(tbclientes.getValueAt(filamodificar, 9).toString());}
+    else{
+        SS.notificacion();
+        JOptionPane.showMessageDialog(this,"No ha seleccionado");
     }
 }//GEN-LAST:event_mnmodificarActionPerformed
 

@@ -7,7 +7,6 @@ package Login;
 
 import static Login.AdministrarCuentas.cn;
 import static Login.AdministrarCuentas.mostrar_pendientes;
-import static Login.AdministrarCuentas.tabla_pendientes;
 import static Login.AdministrarCuentas.ya_asignados;
 import Alertas.OpcionesAcceso;
 import Clases.Conexion;
@@ -18,6 +17,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import javax.swing.table.DefaultTableModel;
+import static Login.AdministrarCuentas.TablaPendientes;
 
 /**
  *

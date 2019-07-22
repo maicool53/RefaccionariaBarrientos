@@ -40,13 +40,13 @@ public class validar {
 
     public void cambia_color_rojo(JTextField x) {
         if (x.getText().equals("")) {
-            x.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, Color.red));
+            x.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red));
         }
     }
 
     public void cambia_color_rojo2(JComboBox x) {
         if (x.getSelectedIndex() == 0) {
-            x.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, Color.red));
+            x.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red));
         }
     }
 

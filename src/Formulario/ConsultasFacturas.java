@@ -337,6 +337,7 @@ private void mnverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
         DetalleFactura.txtigv.setText(igv);
         DetalleFactura.txttot.setText(total);
         DetalleFactura.txtfecha.setText(fecha);
+        
         DefaultTableModel model = (DefaultTableModel) DetalleFactura.tbdetalle.getModel();
         String ver="SELECT * FROM detallefactura WHERE num_fac='"+numfac+"'";
         String []datos= new String[5]   ;

@@ -6,6 +6,7 @@
 package Formulario;
 
 import Clases.Conexion;
+import Clases.Sonidos;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,9 +15,10 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Administrador
+ * @author Miguel
  */
 public class Productos extends javax.swing.JInternalFrame {
+    Sonidos SS = new Sonidos();
     DefaultTableModel tabla;
     
 
@@ -37,20 +39,75 @@ public class Productos extends javax.swing.JInternalFrame {
             while(rs.next())
             {
                 cant=rs.getString(4);
-            }
-            
-        } catch (SQLException ex) {
+            }         
+        }catch (SQLException ex) {
             Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return cant;
-        
+        return cant;   
     }
+     void envio(){
+         try {
+         DefaultTableModel tabladet = (DefaultTableModel) Factura.tbdet.getModel();
+         String[]  dato=new String[5];
+         int  fila = tbprod.getSelectedRow();
+       
+         if(fila==-1)
+         {
+             SS.error();
+             JOptionPane.showMessageDialog(null, "No  ha seleccionado ningun registro");
+         }else{
+                 String codins=tbprod.getValueAt(fila, 0).toString();
+                 String desins=tbprod.getValueAt(fila, 1).toString();
+                 String preins=tbprod.getValueAt(fila, 4).toString();
+                 
+                 int c=0;
+                 int j=0;
+                 SS.notificacion();
+                 String  cant=JOptionPane.showInputDialog("ingrese cantidad");
+                 if((cant.equals("")) || (cant.equals("0"))){
+                     SS.error();
+                     JOptionPane.showMessageDialog(this, "Debe ingresar algun valor mayor que 0");
+                     }else{
+                     int canting=Integer.parseInt(cant);
+                     int comp=Integer.parseInt(comparar(codins));
+//                     double comp=Double.parseDouble(comparar(codins));
+                     if(canting>comp){
+                         JOptionPane.showMessageDialog(this,"Ud. no cuenta con el stock apropiado");}
+                     else{
+                         for(int i=0;i<Factura.tbdet.getRowCount();i++){
+                             Object com=Factura.tbdet.getValueAt(i,0);
+                             if(codins.equals(com)){
+                                 j=i;
+                                 Factura.tbdet.setValueAt(cant, i, 3);
+                                 c=c+1;}}
+                         if(c==0){
+                             dato[0]=codins;
+                             dato[1]=desins;
+                             dato[2]=preins;
+                             dato[3]=cant;
+                             tabladet.addRow(dato);
+                             Factura.tbdet.setModel(tabladet);}
+                         }
+                     }
+                 }
+         }catch (Exception e) {
+            //System.out.println("error: "+e);
+            System.err.println("error: "+ e);
+            //JOptionPane.showMessageDialog(null,"Error: "+ e);
+    }
+     }
+     
+     void guardardetalles(){
+         
+     }
+     
+     
   
     void cargarlistaproductos(String dato){
     String [] Titulo={"Codigo","Descripcion","Marca","Precio Compra","Precio Venta","Stock","Estante","Repisa","Familia","Provedor"};
         tabla=new DefaultTableModel(null,Titulo);
     String [] Registro= new String[10];
-    String mostrar="SELECT * FROM producto WHERE CONCAT (cod_pro,'',descripcion) LIKE '%"+dato+"%'"; 
+    String mostrar="SELECT * FROM producto WHERE CONCAT (cod_pro,descripcion,marca,familia,cod_prov) LIKE '%"+dato+"%'"; 
     Statement st;
         try {
             st = cn.createStatement();
@@ -73,10 +130,6 @@ public class Productos extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
-    
-    
-    
     }
 
     /** This method is called from within the constructor to
@@ -97,6 +150,8 @@ public class Productos extends javax.swing.JInternalFrame {
         txtprod = new javax.swing.JTextField();
         btnmostrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -119,7 +174,6 @@ public class Productos extends javax.swing.JInternalFrame {
         });
         jPopupMenu1.add(mnenviarpro);
 
-        setBorder(null);
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
@@ -128,15 +182,20 @@ public class Productos extends javax.swing.JInternalFrame {
 
         tbprod.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Codigo", "Descripcion", "Marca", "Precio Compra", "Precio Venta", "Stock", "Estante", "Repisa", "Familia", "Provedor"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tbprod.setComponentPopupMenu(jPopupMenu1);
         jScrollPane2.setViewportView(tbprod);
 
@@ -155,22 +214,43 @@ public class Productos extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Buscar Productos");
 
+        jButton1.setText("Enviar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(txtprod, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                .addComponent(btnmostrar)
-                .addGap(99, 99, 99))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1027, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)))
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2)
-                .addContainerGap())
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(txtprod, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnmostrar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,8 +261,12 @@ public class Productos extends javax.swing.JInternalFrame {
                     .addComponent(btnmostrar)
                     .addComponent(txtprod, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap())
         );
 
         pack();
@@ -199,85 +283,24 @@ private void txtprodKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
 }//GEN-LAST:event_txtprodKeyReleased
 
 private void mnenviarproActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnenviarproActionPerformed
-// TODO add your handling code here:
-   
-    try {
-        
-         DefaultTableModel tabladet = (DefaultTableModel) Factura.tbdet.getModel();
-         String[]  dato=new String[5];
-   
-         int  fila = tbprod.getSelectedRow();
-       
-         if(fila==-1)
-         {
-             JOptionPane.showMessageDialog(null, "No  ha seleccionado ningun registro");
-         }
-         
-         else
-          {
-          String codins=tbprod.getValueAt(fila, 0).toString();
-          String desins=tbprod.getValueAt(fila, 1).toString();
-          String preins=tbprod.getValueAt(fila, 4).toString();
-          int c=0;
-          int j=0;
-           String  cant=JOptionPane.showInputDialog("ingrese cantidad");
-         if((cant.equals("")) || (cant.equals("0")))
-         {
-             JOptionPane.showMessageDialog(this, "Debe ingresar algun valor mayor que 0");
-         }
-         else
-         {
-             
-             int canting=Integer.parseInt(cant);
-             int comp=Integer.parseInt(comparar(codins));
-             if(canting>comp)
-             {
-                 JOptionPane.showMessageDialog(this,"Ud. no cuenta con el stock apropiado");
-             }
-             else
-             {
-                      for(int i=0;i<Factura.tbdet.getRowCount();i++)
-          {
-            Object com=Factura.tbdet.getValueAt(i,0);
-            if(codins.equals(com))
-            {
-                j=i;
-                Factura.tbdet.setValueAt(cant, i, 3);
-                c=c+1;
-       
-            }
-   
-          }
-          if(c==0)
-          {
-           
-            
-      
-            dato[0]=codins;
-            dato[1]=desins;
-            dato[2]=preins;
-            dato[3]=cant;
-            
-            tabladet.addRow(dato);
-        
-            Factura.tbdet.setModel(tabladet);
-            
-            
-        }
-             }
-              
-         }
-        
-    }
-      
-    
-    } catch (Exception e) {
-    }
-    
+        // TODO add your handling code here:
+        envio();
 }//GEN-LAST:event_mnenviarproActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        envio();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnmostrar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;

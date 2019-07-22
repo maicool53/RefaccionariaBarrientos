@@ -585,7 +585,7 @@ private void btncalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
 private void btnclientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnclientesActionPerformed
 // TODO add your handling code here:
-     ClientesBusqueda cli = new ClientesBusqueda();
+     ClientesBusquedaTicket cli = new ClientesBusquedaTicket();
     Principal.jdpescritorio.add(cli);
     cli.toFront();
     cli.setVisible(true);
@@ -594,7 +594,7 @@ private void btnclientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 private void btnproductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnproductosActionPerformed
 // TODO add your handling code here:
       try {
-          ProductosB pro= new ProductosB();
+          ProductosTickets pro= new ProductosTickets();
     Principal.jdpescritorio.add(pro);
     pro.toFront();
     pro.setVisible(true);

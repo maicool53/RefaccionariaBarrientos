@@ -40,7 +40,7 @@ where f.num=$P{NumFactura}]]>
 	<title>
 		<band height="147" splitType="Stretch">
 			<rectangle radius="10">
-				<reportElement x="0" y="0" width="572" height="44" backcolor="#B4B4B4" uuid="ba9b87a8-5f24-4bf8-bfdd-1938fb10c25c"/>
+				<reportElement x="0" y="0" width="572" height="36" backcolor="#B4B4B4" uuid="ba9b87a8-5f24-4bf8-bfdd-1938fb10c25c"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="15" y="4" width="540" height="32" uuid="2bb62f67-6795-46d5-8f05-a6d8e1a78156"/>

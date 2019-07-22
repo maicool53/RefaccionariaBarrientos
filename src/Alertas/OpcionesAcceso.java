@@ -55,7 +55,7 @@ public class OpcionesAcceso extends javax.swing.JFrame {
         Denegar = new javax.swing.JRadioButton();
         comodin = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
 
         texto_alerta.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N

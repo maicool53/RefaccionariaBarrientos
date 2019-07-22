@@ -10,23 +10,33 @@ import Clases.Conexion;
 import Clases.Sonidos;
 import Login.Loggin;
 import Login.AdministrarCuentas;
+import Login.ModificarDatosUsuario;
 import java.awt.Dimension;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
- * @author Administrador
+ * @author Miguel
  */
 public class Principal extends javax.swing.JFrame {
-
+    Conexion cc = new Conexion();
+   Connection cn = cc.conexion();
     Sonidos SS =new Sonidos();
     
     /** Creates new form Principal */
     public Principal() {
-        initComponents();   
+        initComponents();
+        usuario();
+        EditarEdatosMensaje.setVisible(false);
     }
 
     /** This method is called from within the constructor to
@@ -39,6 +49,9 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jdpescritorio = new javax.swing.JDesktopPane();
+        EditarEdatosMensaje = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        LabelUsuario = new javax.swing.JLabel();
         MenuDelSistema = new javax.swing.JMenuBar();
         MenuArchivo = new javax.swing.JMenu();
         CerrarSesion = new javax.swing.JMenuItem();
@@ -61,7 +74,7 @@ public class Principal extends javax.swing.JFrame {
         ReporteProductos = new javax.swing.JMenuItem();
         ReporteTickets = new javax.swing.JMenuItem();
         ReporteFacturas = new javax.swing.JMenuItem();
-        MenuCuentas = new javax.swing.JMenu();
+        MenuConfiguracion = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
 
@@ -77,6 +90,32 @@ public class Principal extends javax.swing.JFrame {
         });
 
         jdpescritorio.setBackground(java.awt.SystemColor.controlShadow);
+
+        EditarEdatosMensaje.setForeground(new java.awt.Color(255, 255, 0));
+        EditarEdatosMensaje.setText("Haz clic para editar tus datos personales");
+        jdpescritorio.add(EditarEdatosMensaje);
+        EditarEdatosMensaje.setBounds(10, 30, 290, 16);
+
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel2.setText("Usuario:");
+        jdpescritorio.add(jLabel2);
+        jLabel2.setBounds(0, 0, 90, 30);
+
+        LabelUsuario.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        LabelUsuario.setForeground(new java.awt.Color(102, 102, 255));
+        LabelUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LabelUsuarioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                LabelUsuarioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                LabelUsuarioMouseExited(evt);
+            }
+        });
+        jdpescritorio.add(LabelUsuario);
+        LabelUsuario.setBounds(60, 0, 200, 30);
 
         MenuArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Usadas/x32-home.png"))); // NOI18N
         MenuArchivo.setText("Archivo");
@@ -297,13 +336,13 @@ public class Principal extends javax.swing.JFrame {
 
         MenuDelSistema.add(MenuReportes);
 
-        MenuCuentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Usadas/x32-ajustes2.png"))); // NOI18N
-        MenuCuentas.setText("Configuración");
-        MenuCuentas.setActionCommand("");
-        MenuCuentas.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        MenuCuentas.addMouseListener(new java.awt.event.MouseAdapter() {
+        MenuConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Usadas/x32-ajustes2.png"))); // NOI18N
+        MenuConfiguracion.setText("Configuración");
+        MenuConfiguracion.setActionCommand("");
+        MenuConfiguracion.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        MenuConfiguracion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                MenuCuentasMouseEntered(evt);
+                MenuConfiguracionMouseEntered(evt);
             }
         });
 
@@ -315,7 +354,7 @@ public class Principal extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        MenuCuentas.add(jMenuItem1);
+        MenuConfiguracion.add(jMenuItem1);
 
         jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jMenuItem2.setText("Apariencia");
@@ -325,9 +364,9 @@ public class Principal extends javax.swing.JFrame {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        MenuCuentas.add(jMenuItem2);
+        MenuConfiguracion.add(jMenuItem2);
 
-        MenuDelSistema.add(MenuCuentas);
+        MenuDelSistema.add(MenuConfiguracion);
 
         setJMenuBar(MenuDelSistema);
 
@@ -339,13 +378,25 @@ public class Principal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jdpescritorio, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
+            .add(jdpescritorio, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    
+    private void usuario (){
+        
+    try {
+        Statement st=cn.createStatement();
+        ResultSet rs=st.executeQuery("Select * from Usuarios where User_nam= '"+Loggin.Usuario.getText()+"'");
+        while(rs.next()){
+            LabelUsuario.setText(rs.getString("Primer_nombre")+(" ")+rs.getString("Ape_Paterno"));}}
+    catch (SQLException ex) {
+            Logger.getLogger(IngresoProductos.class.getName()).log(Level.SEVERE, null, ex);
+            
+            JOptionPane.showMessageDialog(null,ex);
+        }
+    }
+   
 private void MenuArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuArchivoActionPerformed
 // TODO add your handling code here:
     
@@ -354,9 +405,7 @@ private void MenuArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 private void CerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSesionActionPerformed
 // TODO add your handling code here:
     Object [] opciones ={"Aceptar","Cancelar"};
-        int eleccion = JOptionPane.showOptionDialog(rootPane,"En realidad desea realizar cerrar la aplicacion","Mensaje de Confirmacion",
-        JOptionPane.YES_NO_OPTION,
-    JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
+int eleccion = JOptionPane.showOptionDialog(rootPane,"¿En realidad desea cerrar la sesión?","Mensaje de Confirmacion",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
         if (eleccion == JOptionPane.YES_OPTION){
             SS.Click();
             Loggin p= new Loggin();
@@ -596,10 +645,10 @@ private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GE
         i.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void MenuCuentasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuCuentasMouseEntered
+    private void MenuConfiguracionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuConfiguracionMouseEntered
         // TODO add your handling code here:
       SS.EfectoPopUp();  
-    }//GEN-LAST:event_MenuCuentasMouseEntered
+    }//GEN-LAST:event_MenuConfiguracionMouseEntered
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
@@ -612,6 +661,20 @@ private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GE
         F.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
         F.show();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void LabelUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelUsuarioMouseClicked
+        ModificarDatosUsuario si = new ModificarDatosUsuario();
+        si.setLocationRelativeTo(null);
+        si.setVisible(true);
+    }//GEN-LAST:event_LabelUsuarioMouseClicked
+
+    private void LabelUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelUsuarioMouseEntered
+        EditarEdatosMensaje.setVisible(true);
+    }//GEN-LAST:event_LabelUsuarioMouseEntered
+
+    private void LabelUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelUsuarioMouseExited
+        EditarEdatosMensaje.setVisible(false);
+    }//GEN-LAST:event_LabelUsuarioMouseExited
    
     /**
      * @param args the command line arguments
@@ -634,9 +697,11 @@ private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JMenuItem ConsultarFacturas;
     private javax.swing.JMenuItem ConsultarProducto;
     private javax.swing.JMenuItem ConsultarTickets;
+    private javax.swing.JLabel EditarEdatosMensaje;
+    private javax.swing.JLabel LabelUsuario;
     private javax.swing.JMenu MenuArchivo;
+    public static javax.swing.JMenu MenuConfiguracion;
     private javax.swing.JMenu MenuConsultar;
-    private javax.swing.JMenu MenuCuentas;
     private javax.swing.JMenuBar MenuDelSistema;
     private javax.swing.JMenu MenuRegistrar;
     private javax.swing.JMenu MenuReportes;
@@ -651,6 +716,7 @@ private void ReporteTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JMenuItem Salir;
     private javax.swing.JMenuItem VenderPorFactura;
     private javax.swing.JMenuItem VenderPorTicket;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     public static javax.swing.JDesktopPane jdpescritorio;

@@ -5,7 +5,6 @@
  */
 package Login;
 
-import Alertas.ContraseñaIncorrecta;
 import Clases.Conexion;
 import Clases.Sonidos;
 import Formulario.PantallaBienvenido;
@@ -309,19 +308,16 @@ getMaximumWindowBounds();
                                 i.pack();
                                 i.setSize(maxBounds.width, maxBounds.height);
                                 i.setLocationRelativeTo(null);
+                                i.MenuConfiguracion.setVisible(false);
                                 PantallaBienvenido b = new PantallaBienvenido();
                                 b.setLocationRelativeTo(null);
                                 b.setVisible(true);
-                                b.setUndecorated(true);
                                 S.IniciarSesion();}}
                             this.dispose();
                         }
 
                     } else {
-                        ContraseñaIncorrecta v = new ContraseñaIncorrecta();
-                        v.setLocationRelativeTo(null);
-                        v.setVisible(true);
-                        v.setAlwaysOnTop(true);
+                        JOptionPane.showMessageDialog(null, "Contraseña incorrecta:)", "¡Error!", JOptionPane.ERROR_MESSAGE);
                         jPanel3.setBackground(new Color(255, 51, 51));
                         Contraseña.setText("");
                     }

@@ -92,7 +92,7 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
             String [] registros= new String[11];
             model=new DefaultTableModel(null,titulos);
             
-            String cons="select * from producto WHERE CONCAT (descripcion,'',precio) LIKE '%"+valor+"%'";
+            String cons="select * from producto WHERE CONCAT (descripcion,'',precio,'',codbar_prov) LIKE '%"+valor+"%'";
             Statement st= cn.createStatement();
             ResultSet rs = st.executeQuery(cons);
             while(rs.next()){
@@ -112,7 +112,7 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
             }
 
             tbproductos.setModel(model);
-            tbproductos.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tbproductos.getColumnModel().getColumn(0).setPreferredWidth(100);
             tbproductos.getColumnModel().getColumn(1).setPreferredWidth(200);
             tbproductos.getColumnModel().getColumn(2).setPreferredWidth(100);
             tbproductos.getColumnModel().getColumn(3).setPreferredWidth(100);
@@ -121,15 +121,12 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
             tbproductos.getColumnModel().getColumn(6).setPreferredWidth(80);
             tbproductos.getColumnModel().getColumn(7).setPreferredWidth(80);
             tbproductos.getColumnModel().getColumn(8).setPreferredWidth(80);
-            tbproductos.getColumnModel().getColumn(9).setPreferredWidth(100);
+            tbproductos.getColumnModel().getColumn(9).setPreferredWidth(90);
+            tbproductos.getColumnModel().getColumn(10).setPreferredWidth(150);
             }
         catch(Exception e){
                 System.out.println(e.getMessage());
                  }
-        
-        
-        
-     
         }
 
         void BuscarProductoEditar(String cod) {
@@ -211,7 +208,6 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
 
     }
     private void verprov(){
-    System.out.println("si se ejecuta");
     try {
         Statement st=cn.createStatement();
         ResultSet rs=st.executeQuery("Select nom_prov from provedor where cod_prov= '"+ComboProvedor.getSelectedItem().toString()+"'");
@@ -416,7 +412,7 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
             }
         });
 
-        ComboEstante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        ComboEstante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Colgante" }));
 
         ComboRepisa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "1", "2", "3", "4", "5", "6", "7", "8" }));
 
@@ -504,19 +500,19 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
                             .addComponent(ProvedorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jLabel10)
-                        .addGap(4, 4, 4)
-                        .addComponent(ComboFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel8)
-                        .addGap(3, 3, 3)
-                        .addComponent(ComboEstante, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel9)
-                        .addGap(7, 7, 7)
-                        .addComponent(ComboRepisa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(4, 4, 4)
+                                .addComponent(ComboFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(3, 3, 3)
+                                .addComponent(ComboEstante, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(7, 7, 7)
+                                .addComponent(ComboRepisa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(64, 64, 64))
         );
         jPanel1Layout.setVerticalGroup(
@@ -567,9 +563,7 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
                             .addComponent(ComboRepisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(8, 8, 8)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(5, 5, 5))
+                            .addComponent(jLabel11)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(ComboProvedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -648,15 +642,15 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnnuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnnuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
                 .addComponent(btnactualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btncancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btncancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btngenerarcodbar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btngenerarcodbar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -732,7 +726,7 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
                             .addComponent(jButton1)))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -916,8 +910,8 @@ private void txtstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         double preciocompra = Double.parseDouble(txtprecom.getText());
         double precioventa =  (preciocompra*2); 
         String cadena = String.valueOf(precioventa);
-            if(txtprecom.getText().equals("")){
-            txtprevent.setText("");}
+            if(txtprecom.getText().equals("")||txtprecom.getText().equals("0")){
+            txtprevent.setText("0.00");}
             else {
                 txtprevent.setText(cadena); 
             }
@@ -930,7 +924,8 @@ private void txtstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
     private void txtprecomKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecomKeyTyped
     char car2 = evt.getKeyChar();
-    if((car2<'0' || car2>'9')) evt.consume();       
+    if((car2<'0' || car2>'9')&& (car2<',' || car2>'.')) evt.consume(); 
+    
     // TODO add your handling code here:
     }//GEN-LAST:event_txtprecomKeyTyped
 

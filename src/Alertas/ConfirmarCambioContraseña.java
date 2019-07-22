@@ -46,7 +46,7 @@ public class ConfirmarCambioContraseña extends javax.swing.JFrame {
         ButtonAceptar = new javax.swing.JButton();
         ButtonCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
 
         TextoAlerta.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -148,17 +148,12 @@ public class ConfirmarCambioContraseña extends javax.swing.JFrame {
                     sdd.setString(1, ModificarDatosUsuario.pass.getText());
                     sdd.setString(2, Loggin.Usuario.getText());
                     sdd.executeUpdate();
-                    UsuarioCreado uc = new UsuarioCreado();
-                    uc.setLocationRelativeTo(null);
-                    uc.setVisible(true);
-                    uc.jLabel4.setText("Contraseña modificada correctamente");
+                    JOptionPane.showMessageDialog(null, "Contraseña modificada correctamente :)", "¡Exito!", JOptionPane.INFORMATION_MESSAGE);
                     ModificarDatosUsuario.pass.setText("");
                     ModificarDatosUsuario.pass2.setText(""); 
                     this.dispose();
                 }else{
-                    ContraseñaIncorrecta ci = new ContraseñaIncorrecta();
-                    ci.setLocationRelativeTo(null);
-                    ci.setVisible(true);
+                    JOptionPane.showMessageDialog(null, "Contraseña incorrecta:)", "¡Error!", JOptionPane.ERROR_MESSAGE);
                 }
             }catch(SQLException ex){
                 System.out.println(ex.getErrorCode());

@@ -25,7 +25,7 @@ public class ConsultasClientes extends javax.swing.JInternalFrame {
     void Cargarlistaclientes()          
     {
         DefaultTableModel modelo= new DefaultTableModel();
-        String []Titulos = {"CODIGO","NOMBRES","APELLIDOS","SEXO","CLASE","TELEFONO","EMAIL","DIRECCION"};
+        String []Titulos = {"Codigo","Nombres","Apellidos","Sexo","Clase","Telefono","Email","Dirección"};
         modelo.setColumnIdentifiers(Titulos);
          this.tbclientes.setModel(modelo);
         try {
@@ -130,18 +130,19 @@ public class ConsultasClientes extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(radionombre)
-                .addGap(16, 16, 16)
-                .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(367, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(radioclase)
-                    .addComponent(radiotodo))
-                .addGap(16, 16, 16)
-                .addComponent(ClaseCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(372, 372, 372))
+                    .addComponent(radiotodo)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(radioclase)
+                                .addGap(24, 24, 24)
+                                .addComponent(ClaseCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(radionombre)
+                                .addGap(16, 16, 16)
+                                .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(298, 298, 298))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,7 +155,7 @@ public class ConsultasClientes extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(radioclase)
                     .addComponent(ClaseCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(radiotodo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -162,16 +163,27 @@ public class ConsultasClientes extends javax.swing.JInternalFrame {
         tbclientes.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 14)); // NOI18N
         tbclientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Codigo", "Nombres", "Apellidos", "Sexo", "Clase", "Telefono", "Email", "Dirección"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tbclientes);
+        if (tbclientes.getColumnModel().getColumnCount() > 0) {
+            tbclientes.getColumnModel().getColumn(3).setResizable(false);
+            tbclientes.getColumnModel().getColumn(3).setPreferredWidth(30);
+            tbclientes.getColumnModel().getColumn(4).setResizable(false);
+            tbclientes.getColumnModel().getColumn(4).setPreferredWidth(30);
+        }
 
         jLabel1.setText("Cantidad de Registros");
 
@@ -187,10 +199,11 @@ public class ConsultasClientes extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(186, 186, 186)
+                        .addGap(270, 270, 270)
                         .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtcant, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtcant, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -200,11 +213,11 @@ public class ConsultasClientes extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtcant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(69, 69, 69))
+                .addGap(28, 28, 28))
         );
 
         pack();
@@ -243,7 +256,7 @@ if(radionombre.isSelected()==true)
         // TODO add your handling code here:
         DefaultTableModel modelo= new DefaultTableModel();
         String valor= txtnombre.getText();
-        String[]titulos={"CODIGO","NOMBRES","APELLIDOS","SEXO","CLASE","TELEFONO","EMAIL","DIRECCION"} ;  
+        String[]titulos={"Codigo","Nombre","Apellidos","Sexo","Clase","Telefono","Email","Dirección"} ;  
         String []Registros= new String[8];
         modelo=new DefaultTableModel(null,titulos);
         String Sql="SELECT * FROM cliente WHERE CONCAT(cod_cli,nom_cli,ape_cli,clas_cli,email_cli,dir_cli) LIKE '%"+valor+"%'";
@@ -277,7 +290,7 @@ if(radionombre.isSelected()==true)
         String clase= ClaseCliente.getSelectedItem().toString();
         
         DefaultTableModel modelo= new DefaultTableModel();
-       String []Titulos = {"CODIGO","NOMBRES","APELLIDOS","SEXO","CLASE","TELEFONO","EMAIL","DIRECCION"};
+       String []Titulos = {"Codigo","Nombre","Apellidos","Sexo","Clase","Telefono","Email","Dirección"};
        modelo.setColumnIdentifiers(Titulos);
        this.tbclientes.setModel(modelo);
        try {
