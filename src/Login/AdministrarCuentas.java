@@ -139,6 +139,7 @@ public class AdministrarCuentas extends javax.swing.JFrame {
         jScrollPane1.setViewportView(TablaPendientes);
 
         masInfo1.setBackground(new java.awt.Color(153, 153, 153));
+        masInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Add List_32px.png"))); // NOI18N
         masInfo1.setText("Más información");
         masInfo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,6 +148,7 @@ public class AdministrarCuentas extends javax.swing.JFrame {
         });
 
         establecerAcceso.setBackground(new java.awt.Color(153, 153, 153));
+        establecerAcceso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Add User Group Man Man_32px.png"))); // NOI18N
         establecerAcceso.setText("Establecer Acceso");
         establecerAcceso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,7 +165,7 @@ public class AdministrarCuentas extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(establecerAcceso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                    .addComponent(establecerAcceso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(masInfo1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(oculto))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -174,9 +176,9 @@ public class AdministrarCuentas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(masInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(establecerAcceso, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(masInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(establecerAcceso, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(oculto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE))
@@ -198,6 +200,7 @@ public class AdministrarCuentas extends javax.swing.JFrame {
         tabla_asignados.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         masInfo2.setBackground(new java.awt.Color(153, 153, 153));
+        masInfo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Add List_32px.png"))); // NOI18N
         masInfo2.setText("Más información");
         masInfo2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,6 +209,7 @@ public class AdministrarCuentas extends javax.swing.JFrame {
         });
 
         modificarAcceso.setBackground(new java.awt.Color(153, 153, 153));
+        modificarAcceso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Add User Male_32px.png"))); // NOI18N
         modificarAcceso.setText("Modificar acceso");
         modificarAcceso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,7 +226,7 @@ public class AdministrarCuentas extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(masInfo2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                    .addComponent(masInfo2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
                     .addComponent(modificarAcceso, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(oculto1)
                     .addComponent(comodin))
@@ -234,9 +238,9 @@ public class AdministrarCuentas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(masInfo2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(modificarAcceso)
+                        .addComponent(masInfo2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(modificarAcceso, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(comodin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -349,10 +353,8 @@ public class AdministrarCuentas extends javax.swing.JFrame {
         try {
             int fila = tabla_asignados.getSelectedRow();
             String usuario = tabla_asignados.getValueAt(fila, 0).toString();
-            if (fila == -1) {
-                System.out.println("Selecciona una fila");
-            } else {
-                Detalles i = new Detalles();
+            if (fila>=0) {
+                 Detalles i = new Detalles();
                 i.setLocationRelativeTo(null);
                 i.Nombre.setEditable(false);
                 i.SegundoNombre.setEditable(false);
@@ -387,7 +389,9 @@ public class AdministrarCuentas extends javax.swing.JFrame {
                     }
                 } catch (SQLException ex) {
                     java.util.logging.Logger.getLogger(AdministrarCuentas.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                }   
+            } else {
+                System.out.println("Selecciona una fila");
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

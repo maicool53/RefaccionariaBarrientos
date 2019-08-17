@@ -5,10 +5,8 @@
  */
 package Login;
 
-import static Login.AdministrarCuentas.cn;
 import static Login.AdministrarCuentas.mostrar_pendientes;
 import static Login.AdministrarCuentas.ya_asignados;
-import Alertas.OpcionesAcceso;
 import Clases.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +15,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import javax.swing.table.DefaultTableModel;
-import static Login.AdministrarCuentas.TablaPendientes;
 
 /**
  *
@@ -97,15 +94,20 @@ public class TransferirCredenciales extends javax.swing.JFrame {
 
         tabla1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Usuario", "Nombre"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tabla1);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N

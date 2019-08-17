@@ -13,8 +13,8 @@ import java.sql.*;
 import java.util.logging.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import com.mxrck.autocompleter.TextAutoCompleter;
 import Clases.Sonidos;
+import java.awt.HeadlessException;
 /**
  *
  * @author Miguel
@@ -32,7 +32,7 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
         btnguardar.setEnabled(false);
     }
   
-     void bloquear(){
+     private void bloquear(){
     txtcod.setEnabled(false);
     txtnom.setEnabled(false);
     txtdir.setEnabled(false);
@@ -48,7 +48,7 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
     btnactualizar.setEnabled(false);
     
     }
-    void limpiar(){
+    private void limpiar(){
     txtcod.setText("");
     txtnom.setText("");
     txtdir.setText("");
@@ -78,7 +78,7 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
     btncancelar.setEnabled(true);
     btnactualizar.setEnabled(false);
     }
-    void cargar(String valor){
+    private void cargar(String valor){
     String mostrar="SELECT * FROM provedor WHERE CONCAT(cod_prov,nom_prov) LIKE '%"+valor+"%'";
     String []titulos={"Codigo","Provedor","Telefono","Email","Direccion","Sucursal","Contacto","Apellido","Telefono","E-mail"};
     String []Registros=new String[10];
@@ -108,7 +108,7 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
         }
     
   }
-    void codigosclientes(){
+    private void codigosclientes(){
      int j;
         int cont=1;
         String num="";
@@ -189,6 +189,7 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
         btnbuscar = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
 
+        mnmodificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Refresh_16px.png"))); // NOI18N
         mnmodificar.setText("Modificar");
         mnmodificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,6 +198,7 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
         });
         jPopupMenu1.add(mnmodificar);
 
+        mneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Trash_16px.png"))); // NOI18N
         mneliminar.setText("Eliminar");
         mneliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,11 +226,6 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
             }
         });
 
-        txttel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txttelActionPerformed(evt);
-            }
-        });
         txttel.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txttelKeyTyped(evt);
@@ -245,34 +242,11 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Nombres:");
 
-        txtnomcontacto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtnomcontactoKeyTyped(evt);
-            }
-        });
-
-        txttelcontacto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txttelcontactoActionPerformed(evt);
-            }
-        });
-        txttelcontacto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txttelcontactoKeyTyped(evt);
-            }
-        });
-
         jLabel9.setText("Telefono:");
 
         jLabel11.setText("Email:");
 
         jLabel4.setText("Apellido:");
-
-        txtapecontacto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtapecontactoKeyTyped(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -393,6 +367,7 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btnnuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Add User Male_32px.png"))); // NOI18N
         btnnuevo.setText("Nuevo");
         btnnuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -400,6 +375,7 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
             }
         });
 
+        btnguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save_32px.png"))); // NOI18N
         btnguardar.setText("Guardar");
         btnguardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -407,6 +383,7 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
             }
         });
 
+        btnactualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Refresh_32px.png"))); // NOI18N
         btnactualizar.setText("Actualizar");
         btnactualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -414,6 +391,7 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
             }
         });
 
+        btncancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Delete_32px.png"))); // NOI18N
         btncancelar.setText("Cancelar");
         btncancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -421,6 +399,7 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
             }
         });
 
+        btnsalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Exit_32px.png"))); // NOI18N
         btnsalir.setText("Salir");
         btnsalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -445,7 +424,7 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnnuevo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnguardar)
@@ -472,17 +451,13 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
         tbclientes.setComponentPopupMenu(jPopupMenu1);
         jScrollPane2.setViewportView(tbclientes);
 
-        txtbuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtbuscarActionPerformed(evt);
-            }
-        });
         txtbuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtbuscarKeyReleased(evt);
             }
         });
 
+        btnbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Search_32px.png"))); // NOI18N
         btnbuscar.setText("Mostrar Todos");
         btnbuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -490,46 +465,47 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel10.setText("BUSCAR:");
+        jLabel10.setText("Buscar:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnbuscar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 786, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnbuscar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 786, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnbuscar)
-                    .addComponent(jLabel10))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnbuscar)
+                            .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -540,7 +516,7 @@ public class IngresoProvedor extends javax.swing.JInternalFrame {
 
 private void btnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnactualizarActionPerformed
 // TODO add your handling code here:
-    SS.Click();
+    SS.Clic();
     btnguardar.setEnabled(false);
     try {
         PreparedStatement pst = cn.prepareStatement("UPDATE provedor SET "
@@ -554,12 +530,13 @@ private void btnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN
                 + "telefonocontacto='"+txttelcontacto.getText()+"',"
                 + "emailcontacto='"+txtemailcontacto.getText()+"' WHERE cod_prov='"+txtcod.getText()+"'");
         pst.executeUpdate();
+        SS.notificacion();
         JOptionPane.showMessageDialog(null, "Actualizado Con Exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
 
           cargar("");
           bloquear();
           
-    } catch (Exception e) {
+    } catch (HeadlessException | SQLException e) {
         //System.out.print(e.getMessage());
         //System.out.println("Error: "+e);
         JOptionPane.showMessageDialog(null, e,"Error",JOptionPane.ERROR_MESSAGE);
@@ -569,13 +546,13 @@ private void btnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 
 private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
 // TODO add your handling code here:
-    SS.Click();
+    SS.Clic();
     this.dispose();
 }//GEN-LAST:event_btnsalirActionPerformed
 
 private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
      // TODO add your handling code here:
-     SS.Click();    
+     SS.Clic();    
      btnguardar.setEnabled(true);
      desbloquear();
      limpiar();
@@ -585,14 +562,15 @@ private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
 private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
 // TODO add your handling code here:
-    SS.Click();
+    SS.Clic();
     bloquear();
+    btnguardar.setEnabled(false);
     limpiar();
 }//GEN-LAST:event_btncancelarActionPerformed
 
 private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
     // TODO add your handling code here:
-    SS.Click();
+    SS.Clic();
     String cod,dir,nom,tel,email,sucursal,nomcontact,apecontact,telefonocontac,correocontact;
             String sql="";
             cod=txtcod.getText();
@@ -632,11 +610,6 @@ private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         }
 }//GEN-LAST:event_btnguardarActionPerformed
 
-private void txtbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtbuscarActionPerformed
-// TODO add your handling code here:
-    
-}//GEN-LAST:event_txtbuscarActionPerformed
-
 private void txtbuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscarKeyReleased
 // TODO add your handling code here:
     cargar(txtbuscar.getText());
@@ -660,7 +633,7 @@ if((car<'a' || car>'z') && (car<'A' || car>'Z') && (car!=(char)KeyEvent.VK_SPACE
 
 private void mneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mneliminarActionPerformed
         // TODO add your handling code here:
-        SS.Click();
+        SS.Clic();
         SS.notificacion();
     Object [] opciones ={"Aceptar","Cancelar"};
     int eleccion = JOptionPane.showOptionDialog(rootPane,"¿En realidad desea eliminar el registro?","Mensaje de Confirmacion",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
@@ -681,16 +654,13 @@ private void mneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             JOptionPane.showMessageDialog(this, "No ha selecionada ninguna fila","Error",JOptionPane.ERROR_MESSAGE);
             }
         }
-    else{
-        
-    }
-    
-        
+    else{  
+    }     
 }//GEN-LAST:event_mneliminarActionPerformed
 
 private void mnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnmodificarActionPerformed
     // TODO add your handling code here:
-    SS.Click();
+    SS.Clic();
     desbloquear();
     btnactualizar.setEnabled(true);
     int filamodificar= tbclientes.getSelectedRow();
@@ -711,32 +681,11 @@ private void mnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     }
 }//GEN-LAST:event_mnmodificarActionPerformed
 
-    private void txttelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txttelActionPerformed
-
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
         // TODO add your handling code here:
+        SS.Clic();
+        cargar("");
     }//GEN-LAST:event_btnbuscarActionPerformed
-
-    private void txtnomcontactoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnomcontactoKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtnomcontactoKeyTyped
-
-    private void txttelcontactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttelcontactoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txttelcontactoActionPerformed
-
-    private void txttelcontactoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttelcontactoKeyTyped
-    char car2 = evt.getKeyChar();
-    if(txttelcontacto.getText().length()>=10) evt.consume();
-    if((car2<'0' || car2>'9')) evt.consume();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txttelcontactoKeyTyped
-
-    private void txtapecontactoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapecontactoKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtapecontactoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

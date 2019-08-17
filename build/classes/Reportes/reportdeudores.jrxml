@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fa65c4a7-266c-48aa-985e-53c73732c609">
+	<property name="ireport.zoom" value="1.4641000000000113"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[SELECT
+     deudas."Nombre" AS deudas_Nombre,
+     deudas."deuda" AS deudas_deuda,
+     deudas."fecha" AS deudas_fecha
+FROM
+     "dbo"."deudas" deudas]]>
+	</queryString>
+	<field name="deudas_Nombre" class="java.lang.String"/>
+	<field name="deudas_deuda" class="java.lang.String"/>
+	<field name="deudas_fecha" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="553" height="95" backcolor="#000000" uuid="0a06a1c8-2aa5-4fe3-8fc4-5633fbc29628"/>
+				<staticText>
+					<reportElement style="Title" x="0" y="0" width="460" height="66" uuid="68bd46a3-0d82-47e4-8354-cfe58513ba36"/>
+					<textElement>
+						<font isBold="false"/>
+					</textElement>
+					<text><![CDATA[Información Detallada]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="SubTitle" x="0" y="66" width="249" height="29" uuid="0dfd7226-ee65-4174-b2d2-ff100d5e72ab"/>
+					<textElement>
+						<font size="22" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Deudores]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="-1" y="100" width="555" height="32" forecolor="#000000" backcolor="#CC0000" uuid="deeeda6e-ad2d-4632-b1e3-d6d971dd0828"/>
+				<staticText>
+					<reportElement x="1" y="12" width="76" height="20" uuid="72b925c5-c008-49e7-8e8c-00b22392891b"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font fontName="Times New Roman" size="16"/>
+					</textElement>
+					<text><![CDATA[Nombre]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="186" y="12" width="76" height="20" uuid="d1fe0e7b-7dcf-460c-a87b-948525aee160"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font fontName="Times New Roman" size="16"/>
+					</textElement>
+					<text><![CDATA[Deuda]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="371" y="12" width="116" height="20" uuid="2f75ac31-4b64-4d60-baf2-c36e157325d1"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font fontName="Times New Roman" size="16"/>
+					</textElement>
+					<text><![CDATA[Fecha de adeudo]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="185" height="20" uuid="cbbf0fd8-4b74-4d72-929e-813bd2ff99cd"/>
+				<textFieldExpression><![CDATA[$F{deudas_Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="186" y="0" width="184" height="20" uuid="335d6c93-5d9c-403c-b127-cff42e54c35b"/>
+				<textFieldExpression><![CDATA[$F{deudas_deuda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="371" y="0" width="174" height="20" uuid="708af88a-4aa6-487e-80d4-169c55cb1fb9"/>
+				<textFieldExpression><![CDATA[$F{deudas_fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-3" y="1" width="555" height="24" forecolor="#D0B48E" backcolor="#000000" uuid="4f032f67-f5a4-48ac-9265-0823d17a3d82"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="513" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="7de5c52e-9360-49a1-8310-eadb1800db26"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="433" y="0" width="80" height="20" forecolor="#FFFFFF" uuid="9f45cdb6-cfd9-4017-83ce-88c1a7993376"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="1" width="197" height="20" forecolor="#FFFFFF" uuid="5b59954e-1d8d-421f-a17e-450178b617f0"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

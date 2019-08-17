@@ -9,14 +9,11 @@ import Clases.Sonidos;
 import Alertas.ConfirmacionCambios;
 import Alertas.ConfirmarCambioContraseña;
 import Clases.Conexion;
-import static Login.SingUp.Usuario;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 
@@ -89,7 +86,6 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         pass = new javax.swing.JPasswordField();
         pass2 = new javax.swing.JPasswordField();
@@ -117,6 +113,7 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
         email = new javax.swing.JTextField();
         sexo = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -139,16 +136,6 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
                 .addGap(0, 5, Short.MAX_VALUE)
                 .addComponent(jLabel5))
         );
-
-        jButton1.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
-        jButton1.setText("Salir");
-        jButton1.setBorderPainted(false);
-        jButton1.setFocusPainted(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -188,6 +175,7 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
         jLabel4.setText("Establezca una contraseña");
 
         jButton4.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Checkmark_32px.png"))); // NOI18N
         jButton4.setText("Modificar contraseña");
         jButton4.setFocusPainted(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -368,7 +356,7 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
                                 .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -376,7 +364,7 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
                                         .addGap(29, 29, 29)
                                         .addComponent(tel, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(sexo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 55, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -413,6 +401,7 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
         );
 
         jButton3.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Checkmark_32px.png"))); // NOI18N
         jButton3.setText("Modificar");
         jButton3.setFocusPainted(false);
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -429,6 +418,13 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Exit_32px.png"))); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -441,8 +437,8 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(122, 122, 122)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton3)))
@@ -453,7 +449,7 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -478,10 +474,6 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void passMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passMouseClicked
        // pass.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(0, 153, 255)));
@@ -556,8 +548,7 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
             }
 
         } else {
-            
-            
+           
             ConfirmacionCambios cc = new ConfirmacionCambios();
             cc.setLocationRelativeTo(null);
             cc.setVisible(true);
@@ -576,7 +567,9 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3MouseEntered
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        e.Clic();
         if (((pass.getText().equals("")) || (pass2.getText().equals("")))) {
+            e.notificacion();
             JOptionPane.showMessageDialog(null, "Asegurate de introducir todos los datos correctamente", "¡Campos vacios!", JOptionPane.WARNING_MESSAGE);
 
             if (pass.getText().equals("")) {
@@ -587,6 +580,7 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
             }
         } else {
             if (!pass.getText().equals(pass2.getText())) {
+                e.error();
                 JOptionPane.showMessageDialog(null, "Contraseña incorrecta:)", "¡Error!", JOptionPane.ERROR_MESSAGE);
             } else {
                 ConfirmarCambioContraseña cc = new ConfirmarCambioContraseña();
@@ -618,6 +612,12 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
             }
         }*/
     }//GEN-LAST:event_userKeyReleased
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        e.Clic();
+        this.dispose();
+    }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -663,7 +663,6 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
     public static javax.swing.JTextField a_paterno;
     public static javax.swing.JTextField edad;
     public static javax.swing.JTextField email;
-    private javax.swing.JButton jButton1;
     public static javax.swing.JButton jButton3;
     public static javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
@@ -673,6 +672,7 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     public static javax.swing.JLabel jLabel5;
@@ -690,4 +690,5 @@ public class ModificarDatosUsuario extends javax.swing.JFrame {
     public static javax.swing.JTextField tel;
     public static javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
+
 }

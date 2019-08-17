@@ -6,6 +6,7 @@
 package Formulario;
 
 import Clases.ImageSelection;
+import Clases.Sonidos;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -21,6 +22,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 import net.sourceforge.barbecue.Barcode;
+import net.sourceforge.barbecue.BarcodeException;
 import net.sourceforge.barbecue.BarcodeFactory;
 import net.sourceforge.barbecue.BarcodeImageHandler;
 import net.sourceforge.barbecue.output.OutputException;
@@ -42,13 +44,14 @@ public class CrearBarras extends javax.swing.JInternalFrame {
         //auto();
     }
 
-        void bloquear(){
+        private void bloquear(){
     txtcodigodebarras.setEnabled(false);
    }
         /**void auto(){
         VerCodigo.setVisible(false);}
         **/
    Timer timer = new Timer (100, new ActionListener () { 
+    @Override
     public void actionPerformed(ActionEvent e) 
     { // Aquí el código que queramos ejecutar.
      VerCodigo.doClick(); 
@@ -87,6 +90,7 @@ public class CrearBarras extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Copy to Clipboard_32px.png"))); // NOI18N
         jButton2.setText("Copiar al Portapapeles");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,6 +98,7 @@ public class CrearBarras extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Print_32px.png"))); // NOI18N
         jButton4.setText("Imprimir");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,6 +106,7 @@ public class CrearBarras extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Exit_32px.png"))); // NOI18N
         jButton5.setText("Salir");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,8 +138,8 @@ public class CrearBarras extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(VerCodigo)))
+                            .addComponent(VerCodigo)
+                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jLabel1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -155,7 +161,7 @@ public class CrearBarras extends javax.swing.JInternalFrame {
                         .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(VerCodigo)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jButton4.getAccessibleContext().setAccessibleDescription("Seleccione para ver opciones de impresión");
@@ -167,10 +173,11 @@ public class CrearBarras extends javax.swing.JInternalFrame {
 
     private void VerCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerCodigoActionPerformed
         // TODO add your handling code here:
+        SS.Clic();
         Barcode barcode = null;
         try {
             barcode = BarcodeFactory.createCode39(txtcodigodebarras.getText(), true);
-        } catch (Exception e) {
+        } catch (BarcodeException e) {
         }
         barcode.setDrawingText(false);
 
@@ -181,7 +188,7 @@ public class CrearBarras extends javax.swing.JInternalFrame {
 
         try {
             barcode.draw(g, 5, 20);
-        } catch (Exception e) {
+        } catch (OutputException e) {
         }
         ImageIcon icon = new ImageIcon(image);
         lblcode.setIcon(icon);
@@ -190,6 +197,7 @@ public class CrearBarras extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        SS.Clic();
         Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
         ImageIcon image = (ImageIcon) lblcode.getIcon();
         ImageSelection dh = new ImageSelection(image.getImage());
@@ -199,10 +207,11 @@ public class CrearBarras extends javax.swing.JInternalFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        SS.Clic();
         Barcode barcode = null;
         try {
             barcode = BarcodeFactory.createCode39(txtcodigodebarras.getText(), true);
-        } catch (Exception e) {
+        } catch (BarcodeException e) {
         }
         barcode.setDrawingText(false);
 
@@ -241,4 +250,5 @@ public class CrearBarras extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblcode;
     public static javax.swing.JTextField txtcodigodebarras;
     // End of variables declaration//GEN-END:variables
+Sonidos SS= new Sonidos();
 }

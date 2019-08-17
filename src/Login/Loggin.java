@@ -48,7 +48,6 @@ getMaximumWindowBounds();
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         Usuario = new javax.swing.JTextField();
@@ -60,8 +59,6 @@ getMaximumWindowBounds();
         Registrarse = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         Salir = new javax.swing.JButton();
-
-        jLabel5.setText("jLabel5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -167,6 +164,7 @@ getMaximumWindowBounds();
             }
         });
 
+        Registrarse.setBackground(new java.awt.Color(153, 153, 153));
         Registrarse.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Registrarse.setText("Registrarse");
         Registrarse.setFocusPainted(false);
@@ -183,7 +181,7 @@ getMaximumWindowBounds();
             }
         });
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Usadas/user_male2-128.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/user_male2-128.png"))); // NOI18N
 
         Salir.setBackground(new java.awt.Color(153, 153, 153));
         Salir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -264,14 +262,15 @@ getMaximumWindowBounds();
     }// </editor-fold>//GEN-END:initComponents
 
     private void EntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntrarActionPerformed
-        S.Click();
+        S.Clic();
         if ((Usuario.getText().equals("")) || (Contraseña.getText().equals(""))) {
+            S.notificacion();
             JOptionPane.showMessageDialog(null, "Asegurate de introducir tu usuario y tu contraseña :)", "¡Campos vacios!", JOptionPane.WARNING_MESSAGE);
 
             if (Usuario.getText().equals("")) {
-                jPanel2.setBackground(new Color(135, 0, 0));}
+                Usuario.setBackground(new Color(135, 0, 0));}
             if (Contraseña.getText().equals("")){
-                jPanel3.setBackground(new Color(135, 0, 0));}
+                Contraseña.setBackground(new Color(135, 0, 0));}
 
         } else {
             try {
@@ -286,6 +285,7 @@ getMaximumWindowBounds();
                         x = rs.getInt(4);
 
                         if (x == 0) {
+                            S.error();
                             JOptionPane.showMessageDialog(null, "Aun no tienes permiso para acceder, ponte en contacto con el administrador :) ", "¡Acceso Denegado!", JOptionPane.ERROR_MESSAGE);
                         } else {
                             if (x == 1) {
@@ -317,13 +317,15 @@ getMaximumWindowBounds();
                         }
 
                     } else {
+                        S.error();
                         JOptionPane.showMessageDialog(null, "Contraseña incorrecta:)", "¡Error!", JOptionPane.ERROR_MESSAGE);
-                        jPanel3.setBackground(new Color(255, 51, 51));
+                        Contraseña.setBackground(new Color(255, 51, 51));
                         Contraseña.setText("");
                     }
                 } else {
                     S.error();
                     String L = System.getProperty("line.separator");
+                    S.notificacion();
                     JOptionPane.showMessageDialog(null, "Oh no esa cuenta no existe, ¿seguro que estas registrado? "+L+"Asegurate de estar registrado o contacta a tu administrador", "¡Cuenta Inexistente!", JOptionPane.ERROR_MESSAGE);
                     Registrarse.setBorderPainted(true);
                 }
@@ -336,7 +338,7 @@ getMaximumWindowBounds();
     }//GEN-LAST:event_EntrarActionPerformed
 
     private void RegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarseActionPerformed
-        S.Click();
+        S.Clic();
         SingUp W = new SingUp();
         W.setLocationRelativeTo(null);
         W.setVisible(true);
@@ -362,7 +364,7 @@ getMaximumWindowBounds();
         char c = evt.getKeyChar();
         if (c == evt.VK_ENTER) {
             Entrar.doClick();
-            S.Click();
+            S.Clic();
         }
     }//GEN-LAST:event_ContraseñaKeyTyped
 
@@ -376,7 +378,7 @@ getMaximumWindowBounds();
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
         // TODO add your handling code here:
-        S.Click();
+        S.Clic();
         System.exit(0);
     }//GEN-LAST:event_SalirActionPerformed
 
@@ -390,17 +392,17 @@ getMaximumWindowBounds();
 
     private void EntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EntrarMouseClicked
         // TODO add your handling code here:
-        S.Click();     
+        S.Clic();     
     }//GEN-LAST:event_EntrarMouseClicked
 
     private void SalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirMouseClicked
         // TODO add your handling code here:
-        S.Click();
+        S.Clic();
     }//GEN-LAST:event_SalirMouseClicked
 
     private void RegistrarseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrarseMouseClicked
         // TODO add your handling code here:
-        S.Click();
+        S.Clic();
     }//GEN-LAST:event_RegistrarseMouseClicked
 
     /**
@@ -449,7 +451,6 @@ getMaximumWindowBounds();
     private javax.swing.JButton Registrarse;
     public static javax.swing.JButton Salir;
     public static javax.swing.JTextField Usuario;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     public javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

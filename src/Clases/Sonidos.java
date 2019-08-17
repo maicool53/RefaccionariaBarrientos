@@ -32,7 +32,7 @@ public class Sonidos {
         }
             
     }
-   public void Click(){
+   public void Clic(){
        Reproducir("Clic");
    }
    public void Iniciar(){

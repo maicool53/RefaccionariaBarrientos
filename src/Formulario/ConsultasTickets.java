@@ -7,6 +7,7 @@
 package Formulario;
 
 import Clases.Conexion;
+import Clases.Sonidos;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,7 +28,7 @@ public class ConsultasTickets extends javax.swing.JInternalFrame {
         jDateChooser1.setEnabled(false);
        
     }
-     void cargartodasBoletas()
+     private void cargartodasBoletas()
     {
         DefaultTableModel tabla= new DefaultTableModel();
         String []titulos={"NUMERO","COD. CLIENTE","TOTAL A PAGAR","FECHA"};
@@ -85,7 +86,7 @@ public class ConsultasTickets extends javax.swing.JInternalFrame {
         });
         jPopupMenu1.add(mnver);
 
-        mneliminar.setText("mneliminar");
+        mneliminar.setText("Eliminar");
         mneliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mneliminarActionPerformed(evt);
@@ -125,7 +126,7 @@ public class ConsultasTickets extends javax.swing.JInternalFrame {
             }
         });
 
-        btnbuscador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/x32-buscar.png"))); // NOI18N
+        btnbuscador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Search_32px.png"))); // NOI18N
         btnbuscador.setText("BUSCAR");
         btnbuscador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,18 +143,18 @@ public class ConsultasTickets extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rdbntodos)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(rdbbnfecha)
                                 .addGap(18, 18, 18)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(rdbnnumero)
                                 .addGap(27, 27, 27)
                                 .addComponent(txtnumero, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(26, 26, 26)
                         .addComponent(btnbuscador)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(375, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,15 +177,20 @@ public class ConsultasTickets extends javax.swing.JInternalFrame {
 
         tbboletas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "NUMERO", "COD. CLIENTE", "TOTAL A PAGAR", "FECHA"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tbboletas.setComponentPopupMenu(jPopupMenu1);
         jScrollPane1.setViewportView(tbboletas);
 
@@ -196,7 +202,7 @@ public class ConsultasTickets extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 875, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -205,7 +211,7 @@ public class ConsultasTickets extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -252,7 +258,7 @@ private void rdbntodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
 private void btnbuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscadorActionPerformed
 // TODO add your handling code here:
-    
+    SS.Clic();
     String num=txtnumero.getText();
     
     String consulta="";
@@ -264,7 +270,7 @@ private void btnbuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     {
         Date fecha=jDateChooser1.getDate();
    SimpleDateFormat formatofecha= new SimpleDateFormat("dd/MM/YYYY");
-String fec=""+formatofecha.format(fecha);
+    String fec=""+formatofecha.format(fecha);
         consulta= "SELECT * FROM boleta WHERE fecha='"+fec+"'";
     }
     if(rdbntodos.isSelected()==true)
@@ -301,12 +307,14 @@ private void mnverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
     int filasele= tbboletas.getSelectedRow();
     if(filasele==-1)
     {
+        SS.notificacion();
         JOptionPane.showMessageDialog(null, "No Seleciono ninguna fila");
     }
     else
     {
            DetalleTicket detalle = new DetalleTicket();
     Principal.jdpescritorio.add(detalle);
+    
     detalle.toFront();
     detalle.setVisible(true);
         String numbol=tbboletas.getValueAt(filasele, 0).toString();
@@ -315,7 +323,7 @@ private void mnverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
         String total=tbboletas.getValueAt(filasele, 2).toString();
         String fecha=tbboletas.getValueAt(filasele, 3).toString();
         DetalleTicket.txtfac.setText(numbol);
-        DetalleTicket.txtcod.setText(cod);
+        DetalleTicket.txtcodcli.setText(cod);
         
          DetalleTicket.txttot.setText(total);
          DetalleTicket.txtfecha.setText(fecha);
@@ -350,9 +358,13 @@ private void mnverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
 
 private void mneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mneliminarActionPerformed
 // TODO add your handling code here:
+SS.Clic();
+SS.notificacion();
+int opt=JOptionPane.showConfirmDialog(null, "¿Realmente desea eliminar?", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+   if (opt==0){
+    try {
     int fila=tbboletas.getSelectedRow();
-    if(fila>=0)
-    {
+    if(fila>=0){
         String cod=tbboletas.getValueAt(fila, 0).toString();
             try {
                 PreparedStatement pst = cn.prepareStatement("DELETE FROM boleta WHERE num_bol='"+cod+"'");
@@ -361,11 +373,11 @@ private void mneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             } catch (SQLException ex) {
                 Logger.getLogger(ConsultasTickets.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
-    }
-    else
-    {
+            }else{
+        SS.notificacion();
         JOptionPane.showMessageDialog(this, "Seleccione alguna fila");
+        }} catch (Exception e) {
+            }
     }
 }//GEN-LAST:event_mneliminarActionPerformed
 
@@ -384,6 +396,7 @@ private void mneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     public static javax.swing.JTable tbboletas;
     private javax.swing.JTextField txtnumero;
     // End of variables declaration//GEN-END:variables
-Conexion cc= new Conexion();
+    Sonidos SS = new Sonidos();
+    Conexion cc= new Conexion();
 Connection cn = cc.conexion();
 }

@@ -7,7 +7,6 @@ package Alertas;
 
 import Login.AdministrarCuentas;
 import Clases.Conexion;
-import Login.SingUp;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +31,7 @@ public class OpcionesAcceso extends javax.swing.JFrame {
         comodin.setVisible(false);
     }
 
-    public void n_usuario() {
+    private void n_usuario() {
         labelUsuario.setText(AdministrarCuentas.oculto.getText());
     }
 
@@ -63,6 +62,7 @@ public class OpcionesAcceso extends javax.swing.JFrame {
 
         aceptar.setBackground(new java.awt.Color(204, 204, 204));
         aceptar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        aceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Checkmark_32px.png"))); // NOI18N
         aceptar.setText("Aceptar");
         aceptar.setFocusPainted(false);
         aceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -77,6 +77,7 @@ public class OpcionesAcceso extends javax.swing.JFrame {
 
         cancelar.setBackground(new java.awt.Color(204, 204, 204));
         cancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Delete_32px.png"))); // NOI18N
         cancelar.setText("Cancelar");
         cancelar.setFocusPainted(false);
         cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -116,9 +117,9 @@ public class OpcionesAcceso extends javax.swing.JFrame {
                         .addGap(122, 122, 122)
                         .addComponent(aceptar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comodin, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelar))
+                        .addComponent(comodin, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(UsuarioIlimitado)
@@ -150,9 +151,9 @@ public class OpcionesAcceso extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(comodin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cancelar)
-                            .addComponent(aceptar))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(aceptar)
+                            .addComponent(cancelar))
                         .addContainerGap())))
         );
 
@@ -246,35 +247,9 @@ public class OpcionesAcceso extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(OpcionesAcceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(OpcionesAcceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(OpcionesAcceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(OpcionesAcceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new OpcionesAcceso().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new OpcionesAcceso().setVisible(true);
         });
     }
 

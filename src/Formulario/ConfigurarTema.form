@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+  <Properties>
+    <Property name="title" type="java.lang.String" value="PERSONALIZACION"/>
+  </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
@@ -21,16 +24,16 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="Temas" min="-2" pref="159" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
                       <Component id="Aceptar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="Cerrar" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -46,12 +49,12 @@
                   <Component id="Temas" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="38" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="Aceptar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Cerrar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -74,6 +77,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="Aceptar">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/Checkmark_32px.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Aceptar"/>
       </Properties>
       <Events>
@@ -82,6 +88,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="Cerrar">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/Delete_32px.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Cerrar"/>
       </Properties>
       <Events>

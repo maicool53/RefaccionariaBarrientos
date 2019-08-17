@@ -5,7 +5,7 @@
  * @author Miguel
  */
 package Formulario;
-
+import Clases.Sonidos;
 import Clases.GenerarCodigos;
 import Clases.Conexion;
 import static Formulario.Principal.jdpescritorio;
@@ -34,14 +34,15 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
         cargar("");
         llenarcombofamilias();
         llenarcomboprovedor();
+        botonguardar.setEnabled(false);
     }
     
-     void bloquear(){
+     private void bloquear(){
     txtcod.setEnabled(false);
     txtprod.setEnabled(false);
     txtprecom.setEnabled(false);
     txtstock.setEnabled(false);
-    botonguardar.setEnabled(false);
+    
     btnnuevo.setEnabled(true);
     btncancelar.setEnabled(false);
     btnactualizar.setEnabled(false);
@@ -69,12 +70,12 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
     ComboRepisa.setSelectedItem("Seleccione una opcion");
     ComboProvedor.setSelectedItem("Seleccione una opcion");}
 
-    void desbloquear(){
+   private void desbloquear(){
     txtcod.setEnabled(true);
     txtprod.setEnabled(true);
     txtprecom.setEnabled(true);
     txtstock.setEnabled(true);
-    botonguardar.setEnabled(true);
+    
     btnnuevo.setEnabled(false);
     btncancelar.setEnabled(true);
     txtdmarca.setEnabled(true);
@@ -86,13 +87,13 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
     txtprov.setEnabled(true);
     }
 
-    void cargar(String valor) {
+    private void cargar(String valor) {
         try{
             String [] titulos={"Codigo","Descripcion","Marca","Precio Compra","Precio Venta","Stock","Estante","Repisa","Familia","Provedor","Codigo Barras Provedor"};
             String [] registros= new String[11];
             model=new DefaultTableModel(null,titulos);
             
-            String cons="select * from producto WHERE CONCAT (descripcion,'',precio,'',codbar_prov) LIKE '%"+valor+"%'";
+            String cons="select * from producto WHERE CONCAT (cod_pro,'',descripcion,'',precio,'',codbar_prov,'',familia,'',marca) LIKE '%"+valor+"%'";
             Statement st= cn.createStatement();
             ResultSet rs = st.executeQuery(cons);
             while(rs.next()){
@@ -124,7 +125,7 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
             tbproductos.getColumnModel().getColumn(9).setPreferredWidth(90);
             tbproductos.getColumnModel().getColumn(10).setPreferredWidth(150);
             }
-        catch(Exception e){
+        catch(SQLException e){
                 System.out.println(e.getMessage());
                  }
         }
@@ -268,8 +269,8 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPopupMenu1 = new javax.swing.JPopupMenu();
-        mnactualizar = new javax.swing.JMenuItem();
-        mneliminar = new javax.swing.JMenuItem();
+        Actualizar = new javax.swing.JMenuItem();
+        Eliminar = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtcod = new javax.swing.JTextField();
@@ -320,21 +321,23 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        mnactualizar.setText("Modificar");
-        mnactualizar.addActionListener(new java.awt.event.ActionListener() {
+        Actualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Refresh_16px.png"))); // NOI18N
+        Actualizar.setText("Modificar");
+        Actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnactualizarActionPerformed(evt);
+                ActualizarActionPerformed(evt);
             }
         });
-        jPopupMenu1.add(mnactualizar);
+        jPopupMenu1.add(Actualizar);
 
-        mneliminar.setText("Eliminar");
-        mneliminar.addActionListener(new java.awt.event.ActionListener() {
+        Eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Trash_16px.png"))); // NOI18N
+        Eliminar.setText("Eliminar");
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mneliminarActionPerformed(evt);
+                EliminarActionPerformed(evt);
             }
         });
-        jPopupMenu1.add(mneliminar);
+        jPopupMenu1.add(Eliminar);
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder()));
         setClosable(true);
@@ -353,11 +356,6 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
                 txtcodActionPerformed(evt);
             }
         });
-        txtcod.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtcodKeyTyped(evt);
-            }
-        });
 
         jLabel2.setText("Producto:");
 
@@ -369,11 +367,6 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Precio compra:");
 
-        txtprecom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtprecomActionPerformed(evt);
-            }
-        });
         txtprecom.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtprecomKeyReleased(evt);
@@ -385,11 +378,6 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Stock:");
 
-        txtstock.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtstockActionPerformed(evt);
-            }
-        });
         txtstock.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtstockKeyTyped(evt);
@@ -398,19 +386,7 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Precio Venta:");
 
-        txtprevent.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtpreventActionPerformed(evt);
-            }
-        });
-
         jLabel7.setText("Marca:");
-
-        txtdmarca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtdmarcaActionPerformed(evt);
-            }
-        });
 
         ComboEstante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Colgante" }));
 
@@ -419,12 +395,6 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
         jLabel8.setText("Estante:");
 
         jLabel9.setText("Repisa:");
-
-        ComboFamilia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboFamiliaActionPerformed(evt);
-            }
-        });
 
         jLabel10.setText("Familia:");
 
@@ -437,11 +407,6 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
         });
 
         txtprov.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        txtprov.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtprovActionPerformed(evt);
-            }
-        });
 
         jLabel12.setText("Codigo Provedor:");
 
@@ -581,6 +546,7 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btnnuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Add List_32px.png"))); // NOI18N
         btnnuevo.setText("Nuevo");
         btnnuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -588,13 +554,15 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
             }
         });
 
-        botonguardar.setText("Grabar");
+        botonguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save_32px.png"))); // NOI18N
+        botonguardar.setText("Guardar");
         botonguardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonguardarActionPerformed(evt);
             }
         });
 
+        btnactualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Refresh_32px.png"))); // NOI18N
         btnactualizar.setText("Actualizar");
         btnactualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -602,6 +570,7 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
             }
         });
 
+        btncancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Delete_32px.png"))); // NOI18N
         btncancelar.setText("Cancelar");
         btncancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -609,6 +578,7 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
             }
         });
 
+        btnsalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Exit_32px.png"))); // NOI18N
         btnsalir.setText("Salir");
         btnsalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -616,7 +586,8 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
             }
         });
 
-        btngenerarcodbar.setText("Crear Codigo De Barras");
+        btngenerarcodbar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Barcode_32px.png"))); // NOI18N
+        btngenerarcodbar.setText("Codigo De Barras");
         btngenerarcodbar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btngenerarcodbarActionPerformed(evt);
@@ -645,13 +616,13 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
                 .addComponent(btnnuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botonguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnactualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btncancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btngenerarcodbar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -672,17 +643,13 @@ public class IngresoProductos extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Buscar:");
 
-        txtbuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtbuscarActionPerformed(evt);
-            }
-        });
         txtbuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtbuscarKeyReleased(evt);
             }
         });
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Search_32px.png"))); // NOI18N
         jButton1.setText("Mostrar Todo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -740,12 +707,15 @@ private void txtcodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
 private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
 // TODO add your handling code here:
+SS.Clic();
     this.dispose();
 }//GEN-LAST:event_btnsalirActionPerformed
 
 private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
 // TODO add your handling code here:
+SS.Clic();
     desbloquear();
+    botonguardar.setEnabled(true);
     limpiar();
     txtcod.requestFocus();
     codigos();
@@ -754,6 +724,9 @@ private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
 private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
 // TODO add your handling code here:
+
+SS.Clic();
+botonguardar.setEnabled(false);
     limpiar();
     bloquear();
 }//GEN-LAST:event_btncancelarActionPerformed
@@ -763,14 +736,9 @@ private void txtprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     txtprod.transferFocus();
 }//GEN-LAST:event_txtprodActionPerformed
 
-private void txtprecomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtprecomActionPerformed
-// TODO add your handling code here:
-
-    txtprecom.transferFocus();
-}//GEN-LAST:event_txtprecomActionPerformed
-
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 // TODO add your handling code here:
+SS.Clic();
     cargar("");
 }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -779,13 +747,16 @@ private void txtbuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
     cargar(txtbuscar.getText());
 }//GEN-LAST:event_txtbuscarKeyReleased
 
-private void mneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mneliminarActionPerformed
+private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
 // TODO add your handling code here:
+SS.Clic();
     int filasel = tbproductos.getSelectedRow();
+    SS.notificacion();
     int opt=JOptionPane.showConfirmDialog(null, "¿Realmente desea eliminar?", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
    if (opt==0){
     try {
         if (filasel == -1) {
+            SS.notificacion();
             JOptionPane.showMessageDialog(null, "Seleccione algun dato");
         } else {
             String cod = (String) tbproductos.getValueAt(filasel, 0);
@@ -793,6 +764,7 @@ private void mneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             try {
                 PreparedStatement pst = cn.prepareStatement(eliminarSQL);
                 pst.executeUpdate();
+                SS.notificacion();
                 JOptionPane.showMessageDialog(null, "Borrado");
                 cargar("");
             } catch (Exception e) {
@@ -801,10 +773,11 @@ private void mneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         }
     } catch (Exception e) {
     }}
-}//GEN-LAST:event_mneliminarActionPerformed
+}//GEN-LAST:event_EliminarActionPerformed
 
 private void botonguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonguardarActionPerformed
 // TODO add your handling code here:
+SS.Clic();
     String cod,des,marca,pre,preven,stock,stante,repisa,familia,cod_prov,codbar_prov;
             String sql="";
             cod=txtcod.getText();
@@ -838,9 +811,10 @@ private void botonguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             
             int n=pst.executeUpdate();
             if(n>0){
-
+                SS.notificacion();
             JOptionPane.showMessageDialog(null, "Registro Guardado con Exito");
             bloquear();
+            botonguardar.setEnabled(false);
         }
         cargar("");
     } catch (SQLException ex) {
@@ -848,12 +822,14 @@ private void botonguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     }
 }//GEN-LAST:event_botonguardarActionPerformed
 
-private void mnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnactualizarActionPerformed
+private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
 // TODO add your handling code here:
-
+SS.Clic();
+botonguardar.setEnabled(false);
     try {
         int filaMod = tbproductos.getSelectedRow();
         if (filaMod == -1) {
+            SS.notificacion();
             JOptionPane.showMessageDialog(null, "Seleccione alguna fila");
         } else {
 
@@ -866,10 +842,11 @@ private void mnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     } catch (Exception e) {
     }
      verprov();
-}//GEN-LAST:event_mnactualizarActionPerformed
+}//GEN-LAST:event_ActualizarActionPerformed
 
 private void btnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnactualizarActionPerformed
 // TODO add your handling code here:
+SS.Clic();
      String sql="UPDATE producto SET precio = '"+txtprecom.getText()
              +"',descripcion ='"+txtprod.getText()
              +"',marca ='"+ txtdmarca.getText()
@@ -884,27 +861,17 @@ private void btnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     try {
         PreparedStatement pst = cn.prepareStatement(sql);
         pst.executeUpdate();
+        SS.notificacion();
         JOptionPane.showMessageDialog(null, "Actualizado");
         cargar("");
         bloquear();
+        botonguardar.setEnabled(false);
         limpiar();
         verprov();
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, e);
     }
 }//GEN-LAST:event_btnactualizarActionPerformed
-
-private void txtstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtstockActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_txtstockActionPerformed
-
-    private void txtpreventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpreventActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtpreventActionPerformed
-
-    private void txtdmarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdmarcaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtdmarcaActionPerformed
 
     private void txtprecomKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecomKeyReleased
         double preciocompra = Double.parseDouble(txtprecom.getText());
@@ -917,10 +884,6 @@ private void txtstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             }
         
     }//GEN-LAST:event_txtprecomKeyReleased
-
-    private void txtbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtbuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtbuscarActionPerformed
 
     private void txtprecomKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecomKeyTyped
     char car2 = evt.getKeyChar();
@@ -936,28 +899,17 @@ private void txtstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
     private void btngenerarcodbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngenerarcodbarActionPerformed
         // TODO add your handling code here:
+        SS.Clic();
         CrearBarras frm = new CrearBarras();        
         Principal.jdpescritorio.add(frm);
         frm.toFront();
         Dimension desktopSize = jdpescritorio.getSize();
         Dimension FrameSize = frm.getSize();
         frm.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        SS.EfectoPopUp();
         frm.show();
-        frm.txtcodigodebarras.setText(txtcod.getText());
-        
+        frm.txtcodigodebarras.setText(txtcod.getText());     
     }//GEN-LAST:event_btngenerarcodbarActionPerformed
-
-    private void txtcodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcodKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtcodKeyTyped
-
-    private void txtprovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtprovActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtprovActionPerformed
-
-    private void ComboFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboFamiliaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboFamiliaActionPerformed
 
     private void ComboProvedorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboProvedorItemStateChanged
         // TODO add your handling code here: 
@@ -966,10 +918,12 @@ private void txtstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Actualizar;
     private javax.swing.JComboBox<String> ComboEstante;
     private javax.swing.JComboBox<String> ComboFamilia;
     private javax.swing.JComboBox<String> ComboProvedor;
     private javax.swing.JComboBox<String> ComboRepisa;
+    private javax.swing.JMenuItem Eliminar;
     private javax.swing.JTextField ProvedorNombre;
     private javax.swing.JButton botonguardar;
     private javax.swing.JButton btnactualizar;
@@ -996,8 +950,6 @@ private void txtstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JMenuItem mnactualizar;
-    private javax.swing.JMenuItem mneliminar;
     private javax.swing.JTable tbproductos;
     private javax.swing.JTextField txtbuscar;
     private javax.swing.JTextField txtcod;
@@ -1008,7 +960,8 @@ private void txtstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JTextField txtprov;
     private javax.swing.JTextField txtstock;
     // End of variables declaration//GEN-END:variables
-   Conexion cc = new Conexion();
+   Sonidos SS= new Sonidos();
+    Conexion cc = new Conexion();
    Connection cn = cc.conexion();
 
 }

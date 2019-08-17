@@ -70,7 +70,7 @@ public final class PantallaBienvenido extends javax.swing.JFrame {
                 ProgresoStateChanged(evt);
             }
         });
-        getContentPane().add(Progreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 290, 30));
+        getContentPane().add(Progreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 290, 30));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/giphy (1).gif"))); // NOI18N
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));

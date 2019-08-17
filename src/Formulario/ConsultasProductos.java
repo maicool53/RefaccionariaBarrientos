@@ -9,8 +9,6 @@ package Formulario;
 import Clases.Conexion;
 import Clases.Sonidos;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,13 +24,13 @@ public class ConsultasProductos extends javax.swing.JInternalFrame {
         cargar("");
     }
         
-    void cargar(String valor) {
+    private void cargar(String valor) {
         try{
             String [] titulos={"Codigo","Descripcion","Marca","Precio Compra","Precio Venta","Stock","Estante","Repisa","Familia","Provedor","Codigo Barras Provedor"};
             String [] registros= new String[11];
             tabla=new DefaultTableModel(null,titulos);
             
-            String cons="select * from producto WHERE CONCAT (descripcion,'',precio,'',codbar_prov,marca,'',familia,'') LIKE '%"+valor+"%'";
+            String cons="select * from producto WHERE CONCAT (cod_pro,'',descripcion,'',precio,'',codbar_prov,marca,'',familia,'') LIKE '%"+valor+"%'";
             Statement st= cn.createStatement();
             ResultSet rs = st.executeQuery(cons);
             while(rs.next()){
@@ -65,7 +63,8 @@ public class ConsultasProductos extends javax.swing.JInternalFrame {
             tbproductos.getColumnModel().getColumn(9).setPreferredWidth(90);
             tbproductos.getColumnModel().getColumn(10).setPreferredWidth(150);
             }
-        catch(Exception e){
+        catch(SQLException e){
+            SS.error();
                 System.out.println(e.getMessage());
                  }
         }
@@ -104,6 +103,7 @@ public class ConsultasProductos extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Buscar:");
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Search_32px.png"))); // NOI18N
         jButton1.setText("Mostrar Todo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,7 +142,7 @@ public class ConsultasProductos extends javax.swing.JInternalFrame {
                 .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(685, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,8 +152,8 @@ public class ConsultasProductos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(jButton1))
                 .addGap(20, 20, 20)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         txtcant.setEnabled(false);
@@ -165,15 +165,15 @@ public class ConsultasProductos extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(485, 485, 485)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtcant, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(536, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(488, 488, 488)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtcant, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,7 +197,7 @@ public class ConsultasProductos extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        SS.Click();
+        SS.Clic();
         cargar("");
         txtbuscar.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed

@@ -6,11 +6,8 @@
 package Clases;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import static java.awt.event.KeyEvent.VK_ENTER;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
@@ -53,19 +50,23 @@ public class validar {
     public void color_azul(JTextField y) {
 
         y.addMouseListener(new MouseListener() {
+            @Override
             public void mouseClicked(MouseEvent me) {
                 y.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, new Color(0, 153, 255)));
             }
-
+            @Override
             public void mousePressed(MouseEvent me) {
             }
 
+            @Override
             public void mouseReleased(MouseEvent me) {
             }
 
+            @Override
             public void mouseEntered(MouseEvent me) {
             }
 
+            @Override
             public void mouseExited(MouseEvent me) {
             }
         });
@@ -75,19 +76,24 @@ public class validar {
     public void color_azul2(JComboBox y) {
 
         y.addMouseListener(new MouseListener() {
+            @Override
             public void mouseClicked(MouseEvent me) {
-                y.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, new Color(0, 153, 255)));
+                y.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(0, 153, 255)));
             }
 
+            @Override
             public void mousePressed(MouseEvent me) {
             }
 
+            @Override
             public void mouseReleased(MouseEvent me) {
             }
 
+            @Override
             public void mouseEntered(MouseEvent me) {
             }
 
+            @Override
             public void mouseExited(MouseEvent me) {
             }
         });
@@ -109,6 +115,7 @@ public class validar {
      */
     public void letras(JTextField campo) {
         campo.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
                 if (Character.isDigit(c) || !Character.isLetterOrDigit(c)) {
@@ -120,6 +127,7 @@ public class validar {
 
     public void especiales(JTextField campo) {
         campo.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
                 if (!Character.isLetterOrDigit(c)) {
@@ -131,6 +139,7 @@ public class validar {
 
     public void numeros(JTextField campo) {
         campo.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
                 if (Character.isLetter(c)) {
@@ -142,6 +151,7 @@ public class validar {
 
     public void limitar_caracteres(JTextField campo, int x) {
         campo.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyTyped(KeyEvent e) {
                 int max = campo.getText().length();
                 if (max >= x) {
@@ -153,6 +163,7 @@ public class validar {
 
     public void min_max_edad(JTextField campo, int a, int b) {
         campo.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyTyped(KeyEvent e) {
                 String edad = campo.getText();
                 int EDAD = Integer.parseInt(edad);

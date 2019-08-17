@@ -5,6 +5,18 @@
  */
 package Formulario;
 
+import Clases.Conexion;
+import Clases.Sonidos;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
+
 
 public class DetalleTicket extends javax.swing.JInternalFrame {
 
@@ -23,7 +35,7 @@ public class DetalleTicket extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         txtfac = new javax.swing.JTextField();
-        txtcod = new javax.swing.JTextField();
+        txtcodcli = new javax.swing.JTextField();
         txtfecha = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbdetalle = new javax.swing.JTable();
@@ -32,13 +44,14 @@ public class DetalleTicket extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnimprimir = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder()));
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("DETALLE DE FACTURA");
+        setTitle("DETALLE DE TICKET");
 
         txtfac.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,13 +77,21 @@ public class DetalleTicket extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tbdetalle);
 
-        jLabel1.setText("Boleta:");
+        jLabel1.setText("Ticket:");
 
         jLabel3.setText("Cod. Cliente");
 
         jLabel5.setText("Fecha:");
 
         jLabel2.setText("Total:");
+
+        btnimprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Print_32px.png"))); // NOI18N
+        btnimprimir.setText("Imprimir");
+        btnimprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnimprimirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,47 +100,50 @@ public class DetalleTicket extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtfac, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(76, 76, 76)
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtcod, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(75, 75, 75))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap()))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txttot, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtfac, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(83, 83, 83)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtcodcli, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(108, 108, 108)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnimprimir)
+                        .addGap(23, 23, 23))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(txttot, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtfac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel3)
-                    .addComponent(txtcod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtcodcli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnimprimir))
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txttot)
-                    .addComponent(jLabel2))
-                .addGap(37, 37, 37))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(txttot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -129,16 +153,45 @@ private void txtfacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 // TODO add your handling code here:
 }//GEN-LAST:event_txtfacActionPerformed
 
+    private void btnimprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnimprimirActionPerformed
+        // TODO add your handling code here:
+        SS.Clic();
+        /*int fila=tbdetalle.getSelectedRow();
+        //String factura=txtfac.getText();
+        if(fila>=0){*/
+            try {
+                Conexion cc= new Conexion();
+                String factura=txtfac.getText();
+                String cliente=txtcodcli.getText();
+
+                Map parameter = new HashMap();
+                InputStream dir;
+                dir = getClass().getResourceAsStream("/Reportes/ReportTicket.jrxml");
+                parameter.put("BOLETA", factura);
+                parameter.put("CLIENTE", cliente);
+                JasperReport reportes=JasperCompileManager.compileReport(dir);
+                JasperPrint print=JasperFillManager.fillReport(reportes, parameter,cc.conexion());
+                JasperViewer view = new JasperViewer (print, false);
+                view.setVisible(true);
+            } catch (JRException e) {
+                System.out.printf(e.getMessage());
+            }/*}else{
+                JOptionPane.showMessageDialog(null, "Seleccione algun elemento de la lista");
+            }*/
+    }//GEN-LAST:event_btnimprimirActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnimprimir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tbdetalle;
-    public static javax.swing.JTextField txtcod;
+    public static javax.swing.JTextField txtcodcli;
     public static javax.swing.JTextField txtfac;
     public static javax.swing.JTextField txtfecha;
     public static javax.swing.JTextField txttot;
     // End of variables declaration//GEN-END:variables
+Sonidos SS = new Sonidos();
 }

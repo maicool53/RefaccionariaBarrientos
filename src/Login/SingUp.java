@@ -5,11 +5,9 @@
  */
 package Login;
 
-import Alertas.UsuarioCreado;
 import Clases.Conexion;
 import Clases.Sonidos;
 import Clases.validar;
-import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -102,35 +100,15 @@ public class SingUp extends javax.swing.JFrame {
         pass.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         pass.setCaretColor(new java.awt.Color(255, 102, 0));
         pass.setSelectionColor(new java.awt.Color(204, 204, 204));
-        pass.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                passMouseClicked(evt);
-            }
-        });
 
         ContraseñaConfirmada.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         ContraseñaConfirmada.setCaretColor(new java.awt.Color(255, 102, 0));
-        ContraseñaConfirmada.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ContraseñaConfirmadaMouseClicked(evt);
-            }
-        });
 
         Seleccioneunnombre.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Seleccioneunnombre.setText("Seleccione un nombre de usuario");
 
         Usuario.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         Usuario.setCaretColor(new java.awt.Color(255, 102, 0));
-        Usuario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                UsuarioMouseClicked(evt);
-            }
-        });
-        Usuario.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                UsuarioKeyReleased(evt);
-            }
-        });
 
         RepitaContra.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         RepitaContra.setText("Repita la contraseña");
@@ -197,11 +175,6 @@ public class SingUp extends javax.swing.JFrame {
         Nombre.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         Nombre.setToolTipText("");
         Nombre.setCaretColor(new java.awt.Color(255, 102, 0));
-        Nombre.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                NombreMouseClicked(evt);
-            }
-        });
 
         jLabel9.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel9.setText("Segundo nombre:");
@@ -209,11 +182,6 @@ public class SingUp extends javax.swing.JFrame {
         SegundoNombre.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         SegundoNombre.setToolTipText("");
         SegundoNombre.setCaretColor(new java.awt.Color(255, 102, 0));
-        SegundoNombre.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SegundoNombreMouseClicked(evt);
-            }
-        });
 
         jLabel10.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel10.setText("Apellido paterno:");
@@ -221,20 +189,10 @@ public class SingUp extends javax.swing.JFrame {
         ApePaterno.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         ApePaterno.setToolTipText("");
         ApePaterno.setCaretColor(new java.awt.Color(255, 102, 0));
-        ApePaterno.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ApePaternoMouseClicked(evt);
-            }
-        });
 
         ApeMaterno.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         ApeMaterno.setToolTipText("");
         ApeMaterno.setCaretColor(new java.awt.Color(255, 102, 0));
-        ApeMaterno.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ApeMaternoMouseClicked(evt);
-            }
-        });
 
         jLabel12.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel12.setText("Apellido materno:");
@@ -248,11 +206,6 @@ public class SingUp extends javax.swing.JFrame {
         Edad.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         Edad.setToolTipText("");
         Edad.setCaretColor(new java.awt.Color(255, 102, 0));
-        Edad.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                EdadMouseClicked(evt);
-            }
-        });
 
         jLabel15.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel15.setText("Numero telefonico");
@@ -260,11 +213,6 @@ public class SingUp extends javax.swing.JFrame {
         Telefono.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         Telefono.setToolTipText("");
         Telefono.setCaretColor(new java.awt.Color(255, 102, 0));
-        Telefono.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TelefonoMouseClicked(evt);
-            }
-        });
 
         jLabel16.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel16.setText("Email");
@@ -272,17 +220,6 @@ public class SingUp extends javax.swing.JFrame {
         Email.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         Email.setToolTipText("");
         Email.setCaretColor(new java.awt.Color(255, 102, 0));
-        Email.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                EmailMouseClicked(evt);
-            }
-        });
-
-        Sexo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SexoMouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -352,16 +289,9 @@ public class SingUp extends javax.swing.JFrame {
         );
 
         jButton3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Checkmark_32px.png"))); // NOI18N
         jButton3.setText("Registrarse");
         jButton3.setFocusPainted(false);
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton3MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton3MouseExited(evt);
-            }
-        });
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -374,13 +304,11 @@ public class SingUp extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(255, 255, 255)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -420,7 +348,7 @@ public class SingUp extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void Validaciones(){
+    private void Validaciones(){
         
         v.letras(Nombre);
         v.letras(SegundoNombre);
@@ -443,19 +371,19 @@ public class SingUp extends javax.swing.JFrame {
         v.especiales(pass);
         v.especiales(ContraseñaConfirmada);}
     
-    public void combo(){
+    private void combo(){
         Sexo.addItem("");
         Sexo.addItem("Masculino");
         Sexo.addItem("Femenino");}
     
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        SS.Click();
+        SS.Clic();
         Boolean o = false;
     if ((Usuario.getText().equals("")) || (pass.getText().equals("")) || (ContraseñaConfirmada.getText().equals("")
         || (Nombre.getText().equals("")) || (ApePaterno.getText().equals("")) || (ApeMaterno.getText().equals("")) 
         || (Edad.getText().equals("")) || (Sexo.getSelectedItem().equals("")) || (Telefono.getText().equals("")) 
         || (Email.getText().equals("")))){
-        
+        SS.notificacion();        
         JOptionPane.showMessageDialog(null, "Asegurate de introducir todos los datos correctamente :)", "¡Campos vacios!", JOptionPane.WARNING_MESSAGE);
         
     }else{
@@ -468,6 +396,7 @@ public class SingUp extends javax.swing.JFrame {
             rs = pps.executeQuery();
          
             if (rs.next()) {
+                SS.error();
                 JOptionPane.showMessageDialog(null, "Tal parece que ya existe un suario con ese nombre", "¡Usuario Existente!", JOptionPane.WARNING_MESSAGE);
                 }else{
                 o = true;
@@ -506,136 +435,32 @@ public class SingUp extends javax.swing.JFrame {
                 cvv.setString(11, Email.getText());
                 
                 cvv.executeUpdate();
-                
-                UsuarioCreado nf = new UsuarioCreado();
-                nf.setLocationRelativeTo(null);
-                nf.setVisible(true);
+                SS.notificacion();
+                JOptionPane.showMessageDialog(null,"Usuario creado satisfactoriamente","Exito",JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             }catch(SQLException ex){
                 Logger.getLogger(SingUp.class.getName()).log(Level.SEVERE,null,ex);
             }
         }else{
+            SS.error();
             JOptionPane.showMessageDialog(null, "Error al intentar registrar usuario, por favor intente de nuevo", "¡ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         }else{
+            SS.error();
             JOptionPane.showMessageDialog(null, "Las conreseñas no son iguales, por favor intente de nuevo", "¡ERROR!", JOptionPane.WARNING_MESSAGE);
         
     }
     }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseEntered
-        jButton3.setBackground(new Color(0,153,255));
-        jButton3.setForeground(Color.WHITE);
-    }//GEN-LAST:event_jButton3MouseEntered
-
-    private void jButton3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseExited
-        jButton3.setBackground(new Color(204,204,204));
-        jButton3.setForeground(Color.BLACK);
-    }//GEN-LAST:event_jButton3MouseExited
-
-    private void NombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreMouseClicked
-        //Nombre.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
-    }//GEN-LAST:event_NombreMouseClicked
-
-    private void SegundoNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SegundoNombreMouseClicked
-        //SegundoNombre.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
-    }//GEN-LAST:event_SegundoNombreMouseClicked
-
-    private void ApePaternoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ApePaternoMouseClicked
-        //ApePaterno.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
-    }//GEN-LAST:event_ApePaternoMouseClicked
-
-    private void ApeMaternoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ApeMaternoMouseClicked
-        //ApeMaterno.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
-    }//GEN-LAST:event_ApeMaternoMouseClicked
-
-    private void TelefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TelefonoMouseClicked
-        //Telefono.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
-    }//GEN-LAST:event_TelefonoMouseClicked
-
-    private void EmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmailMouseClicked
-        //Email.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
-    }//GEN-LAST:event_EmailMouseClicked
-
-    private void EdadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EdadMouseClicked
-        //Edad.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
-    }//GEN-LAST:event_EdadMouseClicked
-
-    private void SexoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SexoMouseClicked
-        //Sexo.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
-    }//GEN-LAST:event_SexoMouseClicked
-
-    private void UsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsuarioMouseClicked
-        //Usuario.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
-    }//GEN-LAST:event_UsuarioMouseClicked
-
-    private void ContraseñaConfirmadaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ContraseñaConfirmadaMouseClicked
-        //ContraseñaConfirmada.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
-    }//GEN-LAST:event_ContraseñaConfirmadaMouseClicked
-
-    private void passMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passMouseClicked
-        //pass.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
-    }//GEN-LAST:event_passMouseClicked
-
-    private void UsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_UsuarioKeyReleased
-        // TODO add your handling code here:
-        if (Usuario.getText().equals("")){
-
-        }else{
-            try{
-                ResultSet rs = null;
-                PreparedStatement rrt = cn.prepareStatement("SELECT * FROM Usuarios where User_nam = ?");
-                rrt.setString(1, Usuario.getText());
-                rs = rrt.executeQuery();
-                if (rs.next()){
-                    UsuarioDisponibilidad.setText("Nombre de usuario no disponible");
-                    UsuarioDisponibilidad.setForeground(new Color(213,7,7));
-                }else{
-                    UsuarioDisponibilidad.setText("Nombre de usuario disponible");
-                    UsuarioDisponibilidad.setForeground(new Color(49,165,155));
-                }
-            }catch(SQLException ex){
-                Logger.getLogger(SingUp.class.getName()).log(Level.SEVERE,null,ex);
-            }
-        }
-    }//GEN-LAST:event_UsuarioKeyReleased
-
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SingUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SingUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SingUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SingUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SingUp().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new SingUp().setVisible(true);
         });
     }
 

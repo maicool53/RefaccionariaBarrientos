@@ -209,9 +209,6 @@
                   <Color blue="cc" green="cc" red="cc" type="rgb"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="passMouseClicked"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JPasswordField" name="Contrase&#xf1;aConfirmada">
               <Properties>
@@ -222,9 +219,6 @@
                   <Color blue="0" green="66" red="ff" type="rgb"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Contrase&#xf1;aConfirmadaMouseClicked"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="Seleccioneunnombre">
               <Properties>
@@ -243,10 +237,6 @@
                   <Color blue="0" green="66" red="ff" type="rgb"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="UsuarioMouseClicked"/>
-                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="UsuarioKeyReleased"/>
-              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
@@ -392,9 +382,6 @@
                   <Color blue="0" green="66" red="ff" type="rgb"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="NombreMouseClicked"/>
-              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
@@ -417,9 +404,6 @@
                   <Color blue="0" green="66" red="ff" type="rgb"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="SegundoNombreMouseClicked"/>
-              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
@@ -442,9 +426,6 @@
                   <Color blue="0" green="66" red="ff" type="rgb"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ApePaternoMouseClicked"/>
-              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
@@ -459,9 +440,6 @@
                   <Color blue="0" green="66" red="ff" type="rgb"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ApeMaternoMouseClicked"/>
-              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
@@ -500,9 +478,6 @@
                   <Color blue="0" green="66" red="ff" type="rgb"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EdadMouseClicked"/>
-              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
@@ -525,9 +500,6 @@
                   <Color blue="0" green="66" red="ff" type="rgb"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TelefonoMouseClicked"/>
-              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
@@ -550,9 +522,6 @@
                   <Color blue="0" green="66" red="ff" type="rgb"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EmailMouseClicked"/>
-              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
@@ -563,9 +532,6 @@
                   <StringArray count="0"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="SexoMouseClicked"/>
-              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
@@ -578,12 +544,13 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Verdana" size="14" style="1"/>
             </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Imagenes/Checkmark_32px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Registrarse"/>
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton3MouseEntered"/>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton3MouseExited"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
           </Events>
           <AuxValues>

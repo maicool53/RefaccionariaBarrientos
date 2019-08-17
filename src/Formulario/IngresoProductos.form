@@ -29,20 +29,26 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
       <SubComponents>
-        <MenuItem class="javax.swing.JMenuItem" name="mnactualizar">
+        <MenuItem class="javax.swing.JMenuItem" name="Actualizar">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Imagenes/Refresh_16px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Modificar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnactualizarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ActualizarActionPerformed"/>
           </Events>
         </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="mneliminar">
+        <MenuItem class="javax.swing.JMenuItem" name="Eliminar">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Imagenes/Trash_16px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Eliminar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mneliminarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EliminarActionPerformed"/>
           </Events>
         </MenuItem>
       </SubComponents>
@@ -327,7 +333,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtcodActionPerformed"/>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtcodKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
@@ -347,7 +352,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtprecom">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtprecomActionPerformed"/>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtprecomKeyReleased"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtprecomKeyTyped"/>
           </Events>
@@ -359,7 +363,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtstock">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtstockActionPerformed"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtstockKeyTyped"/>
           </Events>
         </Component>
@@ -369,9 +372,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtprevent">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtpreventActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
@@ -379,9 +379,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtdmarca">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtdmarcaActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="ComboEstante">
           <Properties>
@@ -442,9 +439,6 @@
               <StringArray count="0"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ComboFamiliaActionPerformed"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -476,9 +470,6 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="11"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtprovActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel12">
           <Properties>
@@ -525,13 +516,13 @@
                   <Component id="btnnuevo" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="botonguardar" min="-2" pref="37" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnactualizar" min="-2" pref="37" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="btncancelar" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btngenerarcodbar" min="-2" pref="37" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnsalir" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -541,6 +532,9 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btnnuevo">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Imagenes/Add List_32px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Nuevo"/>
           </Properties>
           <Events>
@@ -549,7 +543,10 @@
         </Component>
         <Component class="javax.swing.JButton" name="botonguardar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Grabar"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Imagenes/Save_32px.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Guardar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonguardarActionPerformed"/>
@@ -557,6 +554,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnactualizar">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Imagenes/Refresh_32px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Actualizar"/>
           </Properties>
           <Events>
@@ -565,6 +565,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btncancelar">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Imagenes/Delete_32px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
           <Events>
@@ -573,6 +576,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnsalir">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Imagenes/Exit_32px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Salir"/>
           </Properties>
           <Events>
@@ -581,7 +587,10 @@
         </Component>
         <Component class="javax.swing.JButton" name="btngenerarcodbar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Crear Codigo De Barras"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Imagenes/Barcode_32px.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Codigo De Barras"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btngenerarcodbarActionPerformed"/>
@@ -621,12 +630,14 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtbuscar">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtbuscarActionPerformed"/>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtbuscarKeyReleased"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Imagenes/Search_32px.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Mostrar Todo"/>
       </Properties>
       <Events>

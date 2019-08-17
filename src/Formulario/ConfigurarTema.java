@@ -26,6 +26,7 @@ public class ConfigurarTema extends javax.swing.JInternalFrame {
         initComponents();
         Rellenarcombo();
         cargar();
+        mensaje();
     }
 
     /**
@@ -42,8 +43,11 @@ public class ConfigurarTema extends javax.swing.JInternalFrame {
         Aceptar = new javax.swing.JButton();
         Cerrar = new javax.swing.JButton();
 
+        setTitle("PERSONALIZACION");
+
         jLabel1.setText("Selecciona Un tema:");
 
+        Aceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Checkmark_32px.png"))); // NOI18N
         Aceptar.setText("Aceptar");
         Aceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -51,6 +55,7 @@ public class ConfigurarTema extends javax.swing.JInternalFrame {
             }
         });
 
+        Cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Delete_32px.png"))); // NOI18N
         Cerrar.setText("Cerrar");
         Cerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,9 +75,9 @@ public class ConfigurarTema extends javax.swing.JInternalFrame {
                         .addGap(33, 33, 33)
                         .addComponent(Temas, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
+                        .addGap(76, 76, 76)
                         .addComponent(Aceptar)
-                        .addGap(41, 41, 41)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Cerrar)))
                 .addContainerGap(57, Short.MAX_VALUE))
         );
@@ -83,16 +88,20 @@ public class ConfigurarTema extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Temas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Aceptar)
                     .addComponent(Cerrar))
-                .addGap(30, 30, 30))
+                .addGap(29, 29, 29))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void mensaje(){
+        I.notificacion();
+        JOptionPane.showMessageDialog(null,"Atencion si desea cambiar el tema el sistema necesita un reinicio es recomendable que cierre todas las ventanas en uso","Mensaje de Advertencia",JOptionPane.WARNING_MESSAGE);
 
+    }
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
         // TODO add your handling code here:
         String seleccion =Temas.getSelectedItem().toString();
@@ -102,7 +111,7 @@ public class ConfigurarTema extends javax.swing.JInternalFrame {
         pst.executeUpdate();
         cargar();
         Reiniciar();
-    } catch (Exception e) {
+    } catch (SQLException e) {
         System.err.print(e);
         }    
     }//GEN-LAST:event_AceptarActionPerformed
@@ -111,21 +120,22 @@ public class ConfigurarTema extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_CerrarActionPerformed
-    void Reiniciar() throws SQLException{
+    private void Reiniciar() throws SQLException{
+        I.notificacion();
         Object [] opciones ={"Reiniciar","Cancelar"};
         int eleccion = JOptionPane.showOptionDialog(rootPane,"Para aplicar los cambios correctamente es necesario reiniciar el sistema","Mensaje de Confirmacion",
         JOptionPane.YES_NO_OPTION,
     JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
         if (eleccion == JOptionPane.YES_OPTION)
             {
-                I.Click();
+                I.Clic();
                 System.exit(0);
             }else{
-            I.Click();}
+            I.Clic();}
     }
     
     
-    void cargar(){
+    private void cargar(){
         try {
             Statement st=cn.createStatement();
             ResultSet rs=st.executeQuery("Select Tema from Temas where ID = '1' ");

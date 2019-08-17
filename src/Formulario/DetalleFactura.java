@@ -5,6 +5,18 @@
  */
 package Formulario;
 
+import Clases.Conexion;
+import Clases.Sonidos;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
+
 /**
  *
  * @author Miguel
@@ -29,7 +41,7 @@ public class DetalleFactura extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txtfac = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtcod = new javax.swing.JTextField();
+        txtcodcli = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtfecha = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -40,6 +52,7 @@ public class DetalleFactura extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         txttot = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        btnimprimir = new javax.swing.JButton();
 
         jLabel2.setText("jLabel2");
 
@@ -61,7 +74,7 @@ public class DetalleFactura extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Cod. Cliente");
 
-        txtcod.setEditable(false);
+        txtcodcli.setEditable(false);
 
         jLabel5.setText("Fecha:");
 
@@ -97,6 +110,14 @@ public class DetalleFactura extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Total a Pagar:");
 
+        btnimprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Print_32px.png"))); // NOI18N
+        btnimprimir.setText("Imprimir");
+        btnimprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnimprimirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -104,18 +125,20 @@ public class DetalleFactura extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtfac, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtcod, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtcodcli, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(64, 64, 64)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnimprimir))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -134,17 +157,18 @@ public class DetalleFactura extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtfac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(txtcod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtcodcli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(txtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                    .addComponent(txtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnimprimir))
+                .addGap(35, 35, 35)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txttot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -162,7 +186,35 @@ private void txtfacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 // TODO add your handling code here:
 }//GEN-LAST:event_txtfacActionPerformed
 
+    private void btnimprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnimprimirActionPerformed
+        // TODO add your handling code here:
+        SS.Clic();
+        /*int fila=tbfacturas.getSelectedRow();
+        //String factura=txtfac.getText();
+        if(fila>=0){*/
+        try {
+            Conexion cc= new Conexion();
+            String factura=txtfac.getText();
+            String cliente=txtcodcli.getText();
+            
+            Map parameter = new HashMap();
+            InputStream dir;
+            dir = getClass().getResourceAsStream("/Reportes/ReportFactura.jrxml");
+            parameter.put("FACTURA", factura);
+            parameter.put("cliente", cliente);
+            JasperReport reportes=JasperCompileManager.compileReport(dir);
+            JasperPrint print=JasperFillManager.fillReport(reportes, parameter,cc.conexion());
+            JasperViewer view = new JasperViewer (print, false);
+            view.setVisible(true);
+            } catch (JRException e) {
+                System.out.printf(e.getMessage());
+                }/*}else{
+            JOptionPane.showMessageDialog(null, "Seleccione algun elemento de la lista");
+        }*/
+    }//GEN-LAST:event_btnimprimirActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnimprimir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -172,11 +224,12 @@ private void txtfacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tbdetalle;
-    public static javax.swing.JTextField txtcod;
+    public static javax.swing.JTextField txtcodcli;
     public static javax.swing.JTextField txtfac;
     public static javax.swing.JTextField txtfecha;
     public static javax.swing.JTextField txtigv;
     public static javax.swing.JTextField txtsub;
     public static javax.swing.JTextField txttot;
     // End of variables declaration//GEN-END:variables
+Sonidos SS = new Sonidos();
 }

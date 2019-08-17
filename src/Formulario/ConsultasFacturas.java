@@ -7,12 +7,22 @@
 package Formulario;
 
 import Clases.Conexion;
+import Clases.Sonidos;
+import java.io.InputStream;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.logging.*;
 import javax.swing.JOptionPane;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -28,12 +38,12 @@ public class ConsultasFacturas extends javax.swing.JInternalFrame {
         jDateChooser1.setEnabled(false);
        
     }
-    void cargartodasfacturas()
+    private void cargartodasfacturas()
     {
         DefaultTableModel tabla= new DefaultTableModel();
         String []titulos={"NUMERO","COD. CLIENTE","SUBTOTAL","IVA","TOTAL","FECHA"};
         tabla.setColumnIdentifiers(titulos);
-        this.tbfacturas.setModel(tabla);
+        tbfacturas.setModel(tabla);
         String consulta= "SELECT * FROM factura";
         String []Datos= new String [7];
         try {
@@ -75,6 +85,8 @@ public class ConsultasFacturas extends javax.swing.JInternalFrame {
         txtnumero = new javax.swing.JTextField();
         btnbuscador = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        btnimprimir = new javax.swing.JButton();
+        btnimprimir1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbfacturas = new javax.swing.JTable();
 
@@ -132,10 +144,27 @@ public class ConsultasFacturas extends javax.swing.JInternalFrame {
             }
         });
 
+        btnbuscador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Search_32px.png"))); // NOI18N
         btnbuscador.setText("BUSCAR");
         btnbuscador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnbuscadorActionPerformed(evt);
+            }
+        });
+
+        btnimprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Details_32px.png"))); // NOI18N
+        btnimprimir.setText("VER DETALLES");
+        btnimprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnimprimirActionPerformed(evt);
+            }
+        });
+
+        btnimprimir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Print_32px.png"))); // NOI18N
+        btnimprimir1.setText("IMPRIMIR");
+        btnimprimir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnimprimir1ActionPerformed(evt);
             }
         });
 
@@ -144,8 +173,9 @@ public class ConsultasFacturas extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rdbntodos)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -155,43 +185,51 @@ public class ConsultasFacturas extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(rdbbnfecha)
                                 .addGap(18, 18, 18)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(26, 26, 26)
-                        .addComponent(btnbuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(rdbntodos))
-                .addContainerGap(176, Short.MAX_VALUE))
+                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnbuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnimprimir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnimprimir1)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtnumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rdbnnumero))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(rdbbnfecha)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rdbntodos))
-                    .addComponent(btnbuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtnumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdbnnumero)
+                    .addComponent(btnbuscador)
+                    .addComponent(btnimprimir)
+                    .addComponent(btnimprimir1))
+                .addGap(8, 8, 8)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(rdbbnfecha)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(rdbntodos)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tbfacturas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tbfacturas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "NUMERO", "COD. CLIENTE", "SUBTOTAL", "IVA", "TOTAL", "FECHA"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tbfacturas.setComponentPopupMenu(jPopupMenu1);
         jScrollPane1.setViewportView(tbfacturas);
 
@@ -203,7 +241,7 @@ public class ConsultasFacturas extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 837, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -211,17 +249,17 @@ public class ConsultasFacturas extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        setBounds(0, 0, 674, 308);
+        setBounds(0, 0, 861, 465);
     }// </editor-fold>//GEN-END:initComponents
 
 private void btnbuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscadorActionPerformed
 // TODO add your handling code here:
-    
+    SS.Clic();
       
     
     String num=txtnumero.getText();
@@ -245,7 +283,7 @@ private void btnbuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         DefaultTableModel tabla= new DefaultTableModel();
         String []titulos={"NUMERO","COD. CLIENTE","SUBTOTAL","IVA","TOTAL","FECHA"};
         tabla.setColumnIdentifiers(titulos);
-        this.tbfacturas.setModel(tabla);
+        ConsultasFacturas.tbfacturas.setModel(tabla);
         
         String []Datos= new String [7];
         try {
@@ -308,16 +346,13 @@ private void rdbntodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     
     
 }//GEN-LAST:event_rdbntodosActionPerformed
-
-private void mnverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnverActionPerformed
-// TODO add your handling code here:
-    int filasele= tbfacturas.getSelectedRow();
+private void detalles(){
+        int filasele= tbfacturas.getSelectedRow();
     if(filasele==-1)
     {
         JOptionPane.showMessageDialog(null, "No Seleciono ninguna fila");
     }
-    else
-    {
+    else{
            DetalleFactura detalle = new DetalleFactura();
     Principal.jdpescritorio.add(detalle);
     detalle.toFront();
@@ -332,7 +367,7 @@ private void mnverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
         
         
         DetalleFactura.txtfac.setText(numfac);
-        DetalleFactura.txtcod.setText(cod);
+        DetalleFactura.txtcodcli.setText(cod);
         DetalleFactura.txtsub.setText(subtotal);
         DetalleFactura.txtigv.setText(igv);
         DetalleFactura.txttot.setText(total);
@@ -358,34 +393,36 @@ private void mnverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
             } catch (SQLException ex) {
                 Logger.getLogger(ConsultasFacturas.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
-        
-        
-        
-        
-  
-    }
+     }
+}
+private void mnverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnverActionPerformed
+// TODO add your handling code here:
+    detalles();
+
 }//GEN-LAST:event_mnverActionPerformed
 
 private void mneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mneliminarActionPerformed
 // TODO add your handling code here:
-        int fila=tbfacturas.getSelectedRow();
+SS.notificacion();
+    int opt=JOptionPane.showConfirmDialog(null, "¿Realmente desea eliminar?", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+   if (opt==0){
+    try {
+    int fila=tbfacturas.getSelectedRow();
     if(fila>=0)
     {
-        String cod=tbfacturas.getValueAt(fila, 0).toString();
+        String cod=tbfacturas.getValueAt(fila, 0).toString(); // Declaramos las variables que seran nuestros prarametros de busqueda
             try {
-                PreparedStatement pst = cn.prepareStatement("DELETE FROM factura WHERE num_fac='"+cod+"'");
+                PreparedStatement pst = cn.prepareStatement("DELETE FROM factura WHERE num_fac='"+cod+"'"); 
                 pst.executeUpdate();
             } catch (SQLException ex) {
                 Logger.getLogger(ConsultasTickets.class.getName()).log(Level.SEVERE, null, ex);
             }
             cargartodasfacturas();
-        
-    }
-    else
-    {
+    }else{
         JOptionPane.showMessageDialog(this, "Seleccione alguna fila");
-    }
+    }}catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e);}
+   }
 }//GEN-LAST:event_mneliminarActionPerformed
 
     private void txtnumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnumeroKeyReleased
@@ -410,7 +447,7 @@ private void mneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         DefaultTableModel tabla= new DefaultTableModel();
         String []titulos={"NUMERO","COD. CLIENTE","SUBTOTAL","IVA","TOTAL","FECHA"};
         tabla.setColumnIdentifiers(titulos);
-        this.tbfacturas.setModel(tabla);
+        tbfacturas.setModel(tabla);
         
         String []Datos= new String [7];
         try {
@@ -436,8 +473,43 @@ private void mneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
            // TODO add your handling code here:
     }//GEN-LAST:event_txtnumeroKeyReleased
 
+    private void btnimprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnimprimirActionPerformed
+        // TODO add your handling code here:
+        SS.Clic();
+        detalles();
+    }//GEN-LAST:event_btnimprimirActionPerformed
+
+    private void btnimprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnimprimir1ActionPerformed
+        // TODO add your handling code here:
+        SS.Clic();
+        int fila=tbfacturas.getSelectedRow();
+        if(fila>=0){
+            try {
+            String factura=tbfacturas.getValueAt(fila,0).toString();
+            String cliente=tbfacturas.getValueAt(fila,1).toString();
+            
+            Map parameter = new HashMap();
+            InputStream dir;
+            dir = getClass().getResourceAsStream("/Reportes/ReportFactura.jrxml");
+            parameter.put("FACTURA", factura);
+            parameter.put("cliente", cliente);
+            JasperReport reportes=JasperCompileManager.compileReport(dir);
+            JasperPrint print=JasperFillManager.fillReport(reportes, parameter,cc.conexion());
+            JasperViewer view = new JasperViewer (print, false);
+            view.setVisible(true);
+            } catch (JRException e) {
+                System.out.printf(e.getMessage());
+                JOptionPane.showMessageDialog(null, "Error: "+e);
+                }
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleccione algun elemento de la lista");
+            }
+    }//GEN-LAST:event_btnimprimir1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnbuscador;
+    private javax.swing.JButton btnimprimir;
+    private javax.swing.JButton btnimprimir1;
     private javax.swing.ButtonGroup buttonGroup1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JPanel jPanel1;
@@ -451,6 +523,7 @@ private void mneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     public static javax.swing.JTable tbfacturas;
     private javax.swing.JTextField txtnumero;
     // End of variables declaration//GEN-END:variables
+Sonidos SS = new Sonidos();
 Conexion cc= new Conexion();
 Connection cn= cc.conexion();
 
