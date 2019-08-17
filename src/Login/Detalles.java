@@ -46,7 +46,7 @@ public class Detalles extends javax.swing.JFrame {
         Email = new javax.swing.JTextField();
         Sexo = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel7.setText("Detalles:");
 
@@ -57,11 +57,6 @@ public class Detalles extends javax.swing.JFrame {
         Nombre.setForeground(new java.awt.Color(206, 192, 192));
         Nombre.setToolTipText("");
         Nombre.setCaretColor(new java.awt.Color(255, 102, 0));
-        Nombre.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                NombreMouseClicked(evt);
-            }
-        });
 
         jLabel9.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel9.setText("Segundo nombre:");
@@ -70,11 +65,6 @@ public class Detalles extends javax.swing.JFrame {
         SegundoNombre.setForeground(new java.awt.Color(206, 192, 192));
         SegundoNombre.setToolTipText("");
         SegundoNombre.setCaretColor(new java.awt.Color(255, 102, 0));
-        SegundoNombre.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SegundoNombreMouseClicked(evt);
-            }
-        });
 
         jLabel10.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel10.setText("Apellido paterno:");
@@ -83,21 +73,11 @@ public class Detalles extends javax.swing.JFrame {
         ApePaterno.setForeground(new java.awt.Color(206, 192, 192));
         ApePaterno.setToolTipText("");
         ApePaterno.setCaretColor(new java.awt.Color(255, 102, 0));
-        ApePaterno.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ApePaternoMouseClicked(evt);
-            }
-        });
 
         ApeMaterno.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
         ApeMaterno.setForeground(new java.awt.Color(206, 192, 192));
         ApeMaterno.setToolTipText("");
         ApeMaterno.setCaretColor(new java.awt.Color(255, 102, 0));
-        ApeMaterno.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ApeMaternoMouseClicked(evt);
-            }
-        });
 
         jLabel12.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel12.setText("Apellido materno:");
@@ -112,11 +92,6 @@ public class Detalles extends javax.swing.JFrame {
         Edad.setForeground(new java.awt.Color(206, 192, 192));
         Edad.setToolTipText("");
         Edad.setCaretColor(new java.awt.Color(255, 102, 0));
-        Edad.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                EdadMouseClicked(evt);
-            }
-        });
 
         jLabel15.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel15.setText("Numero telefonico");
@@ -125,11 +100,6 @@ public class Detalles extends javax.swing.JFrame {
         Telefono.setForeground(new java.awt.Color(206, 192, 192));
         Telefono.setToolTipText("");
         Telefono.setCaretColor(new java.awt.Color(255, 102, 0));
-        Telefono.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TelefonoMouseClicked(evt);
-            }
-        });
 
         jLabel16.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel16.setText("Email");
@@ -138,17 +108,8 @@ public class Detalles extends javax.swing.JFrame {
         Email.setForeground(new java.awt.Color(206, 192, 192));
         Email.setToolTipText("");
         Email.setCaretColor(new java.awt.Color(255, 102, 0));
-        Email.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                EmailMouseClicked(evt);
-            }
-        });
 
-        Sexo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SexoMouseClicked(evt);
-            }
-        });
+        Sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "MASCULINO", "FEMENINO" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -159,7 +120,7 @@ public class Detalles extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(Telefono)
@@ -182,11 +143,11 @@ public class Detalles extends javax.swing.JFrame {
                                     .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(Edad)
-                                    .addComponent(Sexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(Sexo, 0, 183, Short.MAX_VALUE)))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 76, Short.MAX_VALUE)))
-                        .addGap(38, 38, 38))))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,57 +188,21 @@ public class Detalles extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 537, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(23, 23, 23)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(45, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void NombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreMouseClicked
-        //Nombre.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
-    }//GEN-LAST:event_NombreMouseClicked
-
-    private void SegundoNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SegundoNombreMouseClicked
-        //SegundoNombre.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
-    }//GEN-LAST:event_SegundoNombreMouseClicked
-
-    private void ApePaternoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ApePaternoMouseClicked
-        //ApePaterno.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
-    }//GEN-LAST:event_ApePaternoMouseClicked
-
-    private void ApeMaternoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ApeMaternoMouseClicked
-        //ApeMaterno.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
-    }//GEN-LAST:event_ApeMaternoMouseClicked
-
-    private void EdadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EdadMouseClicked
-        //Edad.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
-    }//GEN-LAST:event_EdadMouseClicked
-
-    private void TelefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TelefonoMouseClicked
-        //Telefono.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
-    }//GEN-LAST:event_TelefonoMouseClicked
-
-    private void EmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmailMouseClicked
-        //Email.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
-    }//GEN-LAST:event_EmailMouseClicked
-
-    private void SexoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SexoMouseClicked
-        //Sexo.setBorder(BorderFactory.createMatteBorder(0,2,2,2, new Color(0,153,255)));
-    }//GEN-LAST:event_SexoMouseClicked
 
     /**
      * @param args the command line arguments

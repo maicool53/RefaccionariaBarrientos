@@ -8,12 +8,15 @@ package Login;
 import Alertas.OpcionesAcceso;
 import Alertas.TranferirSU;
 import Clases.Conexion;
+import Clases.Sonidos;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -94,7 +97,65 @@ public class AdministrarCuentas extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(AdministrarCuentas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    private void verdetalles(){
+        SS.Clic();
+        try {
+            int fila = TablaPendientes.getSelectedRow();
+            String usuario = TablaPendientes.getValueAt(fila, 0).toString();
+            if (fila== -1) {
+                SS.notificacion();
+                JOptionPane.showMessageDialog(this, "Selecciona una fila", "Error", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                Detalles i = new Detalles();
+                i.setVisible(true);
+                i.setLocationRelativeTo(null);
+                i.setAlwaysOnTop(true);
+                //i.setBounds(500, 250, 500, 300); 
+                
+                Detalles.Nombre.setEditable(false);
+                Detalles.SegundoNombre.setEditable(false);
+                Detalles.ApePaterno.setEditable(false);
+                Detalles.ApeMaterno.setEditable(false);
+                Detalles.Edad.setEditable(false);
+                Detalles.Sexo.setEditable(false);
+                Detalles.Email.setEditable(false);
+                Detalles.Telefono.setEditable(false);
+                               
+                try {
+                    ResultSet rs = null;
+                    PreparedStatement pps = cn.prepareStatement("select Primer_nombre,Segundo_nombre,Ape_Paterno,Ape_Materno,Edad,Sexo,Email,Tel from Usuarios where User_nam = ?");
+                    pps.setString(1, usuario);
+                    rs = pps.executeQuery();
 
+                    if (rs.next()) {
+                        Detalles.Nombre.setText(rs.getString(1));
+                        Detalles.SegundoNombre.setText(rs.getString(2));
+                        Detalles.ApePaterno.setText(rs.getString(3));
+                        Detalles.ApeMaterno.setText(rs.getString(4));
+                        Detalles.Edad.setText(rs.getString(5));
+                        
+                        if (rs.getString(6).equals("M")) {
+                            Detalles.Sexo.setSelectedItem("MASCULINO");
+                        }else {
+                            Detalles.Sexo.setSelectedItem("FEMENINO");
+                        }
+                        
+                        Detalles.Email.setText(rs.getString(7));
+                        Detalles.Telefono.setText(rs.getString(8));
+
+                    }
+                } catch (SQLException ex) {
+                    
+                    java.util.logging.Logger.getLogger(SingUp.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //System.out.println("Selecciona una fila");
+                
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Selecciona Una Fila", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -283,61 +344,18 @@ public class AdministrarCuentas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void masInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masInfo1ActionPerformed
-        try {
-            int fila = TablaPendientes.getSelectedRow();
-            String usuario = TablaPendientes.getValueAt(fila, 0).toString();
-            if (fila == -1) {
-                System.out.println("Selecciona una fila");
-            } else {
-                
-                Detalles i = new Detalles();
-                i.setLocationRelativeTo(null);
-                i.Nombre.setEditable(false);
-                i.SegundoNombre.setEditable(false);
-                i.ApePaterno.setEditable(false);
-                i.ApeMaterno.setEditable(false);
-                i.Edad.setEditable(false);
-                i.Sexo.setEditable(false);
-                i.Email.setEditable(false);
-                i.Telefono.setEditable(false);
-                i.setBounds(500, 250, 500, 300);                
-                try {
-                    ResultSet rs = null;
-                    PreparedStatement pps = cn.prepareStatement("select Primer_nombre,Segundo_nombre,Ape_Paterno,Ape_Materno,Edad,Sexo,Email,Tel from Usuarios where User_nam = ?");
-                    pps.setString(1, usuario);
-                    rs = pps.executeQuery();
-
-                    if (rs.next()) {
-                        i.Nombre.setText(rs.getString(1));
-                        i.SegundoNombre.setText(rs.getString(2));
-                        i.ApePaterno.setText(rs.getString(3));
-                        i.ApeMaterno.setText(rs.getString(4));
-                        i.Edad.setText(rs.getString(5));
-                        if (rs.getString(6).equals("M")) {
-                            i.Sexo.setSelectedItem("Masculino");
-                        } else {
-                            i.Sexo.setSelectedItem("Femenino");
-                        }
-                        i.Email.setText(rs.getString(7));
-                        i.Telefono.setText(rs.getString(8));
-
-                    }
-                } catch (SQLException ex) {
-                    java.util.logging.Logger.getLogger(SingUp.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
+    verdetalles();
     }//GEN-LAST:event_masInfo1ActionPerformed
 
     private void establecerAccesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_establecerAccesoActionPerformed
-       try {
+       SS.Clic();
+        try {
             int fila = TablaPendientes.getSelectedRow();
             String usuario = TablaPendientes.getValueAt(fila, 0).toString();
             oculto.setText(usuario);
             if (fila == -1) {
-                System.out.println("Selecciona elemento");
+                SS.notificacion();
+                JOptionPane.showMessageDialog(this, "Selecciona una fila", "Error", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 OpcionesAcceso N = new OpcionesAcceso();
                 N.setLocationRelativeTo(null);
@@ -350,22 +368,30 @@ public class AdministrarCuentas extends javax.swing.JFrame {
     }//GEN-LAST:event_establecerAccesoActionPerformed
 
     private void masInfo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masInfo2ActionPerformed
+
+        SS.Clic();
         try {
             int fila = tabla_asignados.getSelectedRow();
             String usuario = tabla_asignados.getValueAt(fila, 0).toString();
-            if (fila>=0) {
-                 Detalles i = new Detalles();
+            if (fila== -1) {
+                SS.notificacion();
+                JOptionPane.showMessageDialog(this, "Selecciona una fila", "Error", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                Detalles i = new Detalles();
+                i.setVisible(true);
                 i.setLocationRelativeTo(null);
-                i.Nombre.setEditable(false);
-                i.SegundoNombre.setEditable(false);
-                i.ApePaterno.setEditable(false);
-                i.ApeMaterno.setEditable(false);
-                i.Edad.setEditable(false);
-                i.Sexo.setEditable(false);
-                i.Email.setEditable(false);
-                i.Telefono.setEditable(false);
-                i.setBounds(500, 250, 500, 300);
-
+                i.setAlwaysOnTop(true);
+                //i.setBounds(500, 250, 500, 300); 
+                
+                Detalles.Nombre.setEditable(false);
+                Detalles.SegundoNombre.setEditable(false);
+                Detalles.ApePaterno.setEditable(false);
+                Detalles.ApeMaterno.setEditable(false);
+                Detalles.Edad.setEditable(false);
+                Detalles.Sexo.setEditable(false);
+                Detalles.Email.setEditable(false);
+                Detalles.Telefono.setEditable(false);
+                               
                 try {
                     ResultSet rs = null;
                     PreparedStatement pps = cn.prepareStatement("select Primer_nombre,Segundo_nombre,Ape_Paterno,Ape_Materno,Edad,Sexo,Email,Tel from Usuarios where User_nam = ?");
@@ -373,39 +399,45 @@ public class AdministrarCuentas extends javax.swing.JFrame {
                     rs = pps.executeQuery();
 
                     if (rs.next()) {
-                        i.Nombre.setText(rs.getString(1));
-                        i.SegundoNombre.setText(rs.getString(2));
-                        i.ApePaterno.setText(rs.getString(3));
-                        i.ApeMaterno.setText(rs.getString(4));
-                        i.Edad.setText(rs.getString(5));
+                        Detalles.Nombre.setText(rs.getString(1));
+                        Detalles.SegundoNombre.setText(rs.getString(2));
+                        Detalles.ApePaterno.setText(rs.getString(3));
+                        Detalles.ApeMaterno.setText(rs.getString(4));
+                        Detalles.Edad.setText(rs.getString(5));
+                        
                         if (rs.getString(6).equals("M")) {
-                            i.Sexo.setSelectedItem("Masculino");
-                        } else {
-                            i.Sexo.setSelectedItem("Femenino");
+                            Detalles.Sexo.setSelectedItem("MASCULINO");
+                        }else {
+                            Detalles.Sexo.setSelectedItem("FEMENINO");
                         }
-                        i.Email.setText(rs.getString(7));
-                        i.Telefono.setText(rs.getString(8));
+                        
+                        Detalles.Email.setText(rs.getString(7));
+                        Detalles.Telefono.setText(rs.getString(8));
 
                     }
                 } catch (SQLException ex) {
-                    java.util.logging.Logger.getLogger(AdministrarCuentas.class.getName()).log(Level.SEVERE, null, ex);
-                }   
-            } else {
-                System.out.println("Selecciona una fila");
+                    
+                    java.util.logging.Logger.getLogger(SingUp.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //System.out.println("Selecciona una fila");
+                
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Selecciona Una Fila", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_masInfo2ActionPerformed
 
     private void modificarAccesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarAccesoActionPerformed
-try {
+        SS.Clic();
+        try {
             int fila = tabla_asignados.getSelectedRow();
             String usuario = tabla_asignados.getValueAt(fila, 0).toString();
             oculto.setText(usuario);
             oculto1.setText(usuario);
             if (fila == -1) {
-                System.out.println("Selecciona una fila");
+                SS.notificacion();
+                JOptionPane.showMessageDialog(this, "Selecciona una fila", "Error", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 try {
                     ResultSet rs = null;
@@ -490,4 +522,5 @@ try {
     public static javax.swing.JTextField oculto1;
     public static javax.swing.JTable tabla_asignados;
     // End of variables declaration//GEN-END:variables
+Sonidos SS= new Sonidos();
 }
